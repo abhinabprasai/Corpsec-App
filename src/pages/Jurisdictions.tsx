@@ -4,6 +4,7 @@ import { JX_DATA, JX_BY_SLUG, type Jurisdiction } from "@/data/jurisdictions"
 import { JURISDICTIONS_ALL } from "@/data/allJurisdictions"
 import { useGabriella } from "@/components/gabriella/GabriellaProvider"
 import { Input } from "@/components/ui/input"
+import { usePageMeta } from "@/lib/usePageMeta"
 
 const flag = (iso: string) => `https://flagcdn.com/w40/${iso.toLowerCase()}.png`
 
@@ -84,6 +85,11 @@ export default function Jurisdictions() {
   const { open } = useGabriella()
   const [query, setQuery] = useState("")
   const [region, setRegion] = useState(ALL_TAB)
+
+  usePageMeta(
+    "Jurisdictions — incorporate anywhere it matters | CorpSec",
+    "Browse 79 jurisdictions. Compare tax, setup time and all-in cost, then incorporate with licensed local partners — incorporation plus every back-office service, per country."
+  )
 
   useEffect(() => {
     document.body.className = "jx-page"

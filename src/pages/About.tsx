@@ -2,10 +2,16 @@ import { useEffect } from "react"
 import { Link } from "react-router-dom"
 import { useGabriella } from "@/components/gabriella/GabriellaProvider"
 import { useIncorporation } from "@/components/incorporation/IncorporationProvider"
+import { usePageMeta } from "@/lib/usePageMeta"
 
 export default function About() {
   const { open: openGabriella } = useGabriella()
   const { open: openIncorporation } = useIncorporation()
+
+  usePageMeta(
+    "About — the team behind CorpSec | CorpSec",
+    "We turned 79 jurisdictions and 30+ licensed local partners into one back office — so founders stop guessing where to incorporate. Meet the people (and the AI) who run it."
+  )
 
   useEffect(() => {
     document.body.className = "jx-page about-page"

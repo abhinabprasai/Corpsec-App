@@ -3,6 +3,7 @@ import { useForm, Controller } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { useGabriella } from "@/components/gabriella/GabriellaProvider"
+import { usePageMeta } from "@/lib/usePageMeta"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import {
@@ -109,6 +110,11 @@ const SCOPED_CSS = `
 export default function Contact() {
   const { open } = useGabriella()
   const [submittedName, setSubmittedName] = useState<string | null>(null)
+
+  usePageMeta(
+    "Contact — talk to the CorpSec team | CorpSec",
+    "Tell us where you're headed and we'll reply within one business day. Or skip the form and ask Gabriella for a ranked jurisdiction shortlist in two minutes."
+  )
 
   useEffect(() => {
     document.body.className = "jx-page contact-page"

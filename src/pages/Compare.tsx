@@ -12,6 +12,7 @@ import { Popover, PopoverAnchor, PopoverContent } from "@/components/ui/popover"
 import { useGabriella } from "@/components/gabriella/GabriellaProvider"
 import { JX_BY_SLUG } from "@/data/jurisdictions"
 import { JURISDICTIONS_ALL } from "@/data/allJurisdictions"
+import { usePageMeta } from "@/lib/usePageMeta"
 
 /* ── Comparison data for the 6 flagship jurisdictions (the exact fields the
    vanilla compare.js used). Name / iso / region come from JX_DATA (the single
@@ -227,6 +228,11 @@ export default function Compare() {
   const [popoverOpen, setPopoverOpen] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const cmdkInputRef = useRef<HTMLInputElement>(null)
+
+  usePageMeta(
+    "Compare Jurisdictions | CorpSec",
+    "Compare up to 5 incorporation jurisdictions side by side — tax rates, setup costs, residency requirements, banking and more across 79 countries."
+  )
 
   useEffect(() => {
     document.body.className = "jx-page compare-page"

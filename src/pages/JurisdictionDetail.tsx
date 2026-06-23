@@ -250,15 +250,14 @@ export default function JurisdictionDetail() {
             through tax, banking and timeline today.
           </p>
           <div className="hero-cta center-cta" style={{ justifyContent: "center" }}>
-            <button
-              type="button"
+            <Link
               className="btn btn-primary"
+              to="/contact"
               data-slot="button"
               data-variant="default"
-              onClick={() => open(`I'd like to talk to a specialist about incorporating in ${known.name}.`)}
             >
               Talk to a {known.name} specialist
-            </button>
+            </Link>
             <Link className="btn btn-ghost" to="/jurisdictions" data-slot="button" data-variant="outline">
               Browse all 79
             </Link>
@@ -394,15 +393,14 @@ export default function JurisdictionDetail() {
                     <a className="btn btn-primary" href="#pricing" data-slot="button" data-variant="default">
                       Build your package
                     </a>
-                    <button
-                      type="button"
+                    <Link
                       className="btn btn-ghost"
+                      to="/contact"
                       data-slot="button"
                       data-variant="outline"
-                      onClick={() => open(`I'd like to talk to a specialist about incorporating in ${d.name}.`)}
                     >
                       Talk to a specialist
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -799,13 +797,9 @@ export default function JurisdictionDetail() {
             </h2>
             <p className="jx-cta2__sub">
               A licensed local team handles every step.{" "}
-              <button
-                type="button"
-                className="jx-cta2__link"
-                onClick={() => open(`I'd like to talk to a specialist about incorporating in ${d.name}.`)}
-              >
+              <Link className="jx-cta2__link" to="/contact">
                 Talk to a specialist →
-              </button>
+              </Link>
             </p>
             <div className="jx-cta2__stats">
               <div>
