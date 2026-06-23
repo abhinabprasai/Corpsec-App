@@ -1,0 +1,97 @@
+{
+  "backToAll": "Toutes les juridictions",
+  "flagAlt": "Drapeau {{name}}",
+  "soon": {
+    "metaTitle": "Créer une société : {{name}} — CorpSec",
+    "metaDescription": "Créer une société : {{name}}. Un partenaire local agréé coordonne la création de société, l'adresse de domiciliation et la comptabilité. Échangez dès aujourd'hui avec un spécialiste sur la fiscalité, les services bancaires et les délais.",
+    "eyebrowFallback": "Juridiction",
+    "heading": "Créer une société : {{name}}.",
+    "body": "Nous coordonnons la création de société, l'adresse de domiciliation et la comptabilité dans cette juridiction via un partenaire local agréé. Le guide approfondi complet est en cours de rédaction — un spécialiste peut dès aujourd'hui vous accompagner sur la fiscalité, les services bancaires et les délais.",
+    "ctaSpecialist": "Parler à un spécialiste {{name}}",
+    "ctaBrowse": "Parcourir les 79"
+  },
+  "unknown": {
+    "eyebrow": "Juridiction",
+    "heading": "Nous préparons celle-ci.",
+    "body": "Parcourez les juridictions que nous couvrons en profondeur, ou demandez conseil à un spécialiste.",
+    "ctaBrowse": "Parcourir les juridictions",
+    "ctaAsk": "Poser une question",
+    "askPrompt": "Je recherche une juridiction qui ne figure pas encore dans votre liste — pouvez-vous m'aider ?"
+  },
+  "hero": {
+    "overviewAria": "Aperçu de {{name}}",
+    "bundleFrom": "Pack à partir de",
+    "buildPackage": "Composer votre pack",
+    "talkSpecialist": "Parler à un spécialiste",
+    "corporateTax": "Impôt sur les sociétés",
+    "taxSubContact": "Contactez un spécialiste pour les taux en vigueur",
+    "taxSubRate": "Taux nominal · à revérifier chaque année",
+    "setupTime": "Délai de création",
+    "setupSub": "Dépôt officiel via un partenaire agréé"
+  },
+  "fits": {
+    "eyebrow": "Est-ce la bonne juridiction pour vous ?",
+    "heading": "{{name}} vous convient si…",
+    "sub": "Le signal le plus clair que vous êtes dans la bonne juridiction — ou qu'une autre mérite d'être étudiée."
+  },
+  "compare": {
+    "eyebrow": "Comparer",
+    "heading": "Comment {{name}} se positionne.",
+    "sub": "Les juridictions que les fondateurs mettent en balance avec {{name}}, côte à côte — fiscalité, rapidité et coût tout compris en un coup d'œil.",
+    "viewing": "Vous consultez",
+    "corporateTax": "Impôt sur les sociétés",
+    "setupTime": "Délai de création",
+    "from": "À partir de",
+    "current": "Juridiction actuelle",
+    "view": "Voir {{name}}",
+    "allSideBySide": "Tout comparer côte à côte"
+  },
+  "detail": {
+    "eyebrow": "La réalité opérationnelle",
+    "heading": "Fiscalité, structure et conformité — les éléments sur lesquels on vous interrogera.",
+    "tabsAria": "Détail",
+    "tabFiscal": "Fiscalité",
+    "tabLegal": "Juridique et structure"
+  },
+  "pricing": {
+    "eyebrow": "Composer votre pack",
+    "heading": "Prenez le pack complet — ou uniquement ce dont vous avez besoin.",
+    "sub": "Sélectionnez le pack de création complet, ou combinez librement des services individuels {{name}}. Un seul paiement, une seule facture.",
+    "completeBundle": "Pack complet",
+    "mostPopular": "Le plus populaire",
+    "save": "Économisez ~{{cur}} {{amount}} par rapport à une facturation à l'unité",
+    "oneInvoice": "Une facture · un partenaire",
+    "addBundle": "Ajouter le pack complet",
+    "whatsIncluded": "Ce qui est inclus",
+    "divider": "Ou ajoutez des services individuels à la carte"
+  },
+  "cart": {
+    "selected_one": "{{count}} service sélectionné",
+    "selected_other": "{{count}} services sélectionnés",
+    "total": "à partir de {{cur}} {{amount}}",
+    "checkout": "Passer à la commande",
+    "checkoutPrompt": "Je souhaite composer un pack {{name}} avec : {{services}}."
+  },
+  "timeline": {
+    "eyebrow": "Comment ça marche",
+    "heading": "De la signature de la mission à la société opérationnelle.",
+    "sub": "Un partenaire local agréé prend en charge chaque étape. Vous signez une fois et suivez l'avancement."
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "heading": "Ce que les fondateurs demandent avant de créer une société {{name}}.",
+    "sources": "Sources"
+  },
+  "cta": {
+    "lead": "Faisons en sorte que votre société {{name}} soit",
+    "pill": "Composer votre pack",
+    "tail": "créée, bancarisée et pleinement conforme.",
+    "sub": "Une équipe locale agréée gère chaque étape.",
+    "specialist": "Parler à un spécialiste",
+    "stats": {
+      "filing": "dépôt en moyenne",
+      "jurisdictions": "juridictions",
+      "companies": "sociétés"
+    }
+  }
+}

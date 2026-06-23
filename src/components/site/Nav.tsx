@@ -1,23 +1,26 @@
-import { useEffect, useRef } from "react"
+import { useRef } from "react"
 import { Link, NavLink } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle } from "@/components/ui/sheet"
 import { useIncorporation } from "@/components/incorporation/IncorporationProvider"
+import { useNavBehavior } from "@/lib/useNavBehavior"
+import LanguageSwitcher from "@/components/site/LanguageSwitcher"
 
 const LINKS = [
-  { to: "/jurisdictions", label: "Jurisdictions" },
-  { to: "/compare", label: "Compare" },
-  { to: "/about", label: "About" },
-  { to: "/contact", label: "Contact" },
-]
+  { to: "/jurisdictions", key: "jurisdictions" },
+  { to: "/compare", key: "compare" },
+  { to: "/about", key: "about" },
+  { to: "/contact", key: "contact" },
+] as const
 
 // Mobile drawer link set — mirrors the original `.nav-drawer` (index.html): the
 // primary links plus the homepage in-page sections, mapped to React routes.
 const DRAWER_LINKS = [
-  { to: "/jurisdictions", label: "Jurisdictions" },
-  { to: "/compare", label: "Compare" },
-  { to: "/about", label: "About" },
-  { to: "/contact", label: "Contact" },
-]
+  { to: "/jurisdictions", key: "jurisdictions" },
+  { to: "/compare", key: "compare" },
+  { to: "/about", key: "about" },
+  { to: "/contact", key: "contact" },
+] as const
 
 /**
  * Shared nav for the inner (non-home) routes. The homepage keeps its own
@@ -29,33 +32,12 @@ const DRAWER_LINKS = [
  */
 export default function Nav() {
   const { open } = useIncorporation()
+  const { t } = useTranslation("common")
   const headerRef = useRef<HTMLElement>(null)
 
-  // glass-on-scroll (y>24) + collapse-on-scroll-down / expand-on-scroll-up,
-  // ported verbatim from assets/nav.js so the legacy `.scrolled` / `.collapsed`
-  // rules drive the visual transition.
-  useEffect(() => {
-    const nav = headerRef.current
-    if (!nav) return
-    let lastY = window.scrollY || 0
-    let ticking = false
-    const onScroll = () => {
-      const y = window.scrollY || window.pageYOffset || 0
-      nav.classList.toggle("scrolled", y > 24)
-      if (y < 120) nav.classList.remove("collapsed")
-      else if (y > lastY + 3) nav.classList.add("collapsed")
-      else if (y < lastY - 3) nav.classList.remove("collapsed")
-      lastY = y
-    }
-    const handler = () => {
-      if (ticking) return
-      ticking = true
-      requestAnimationFrame(() => { onScroll(); ticking = false })
-    }
-    window.addEventListener("scroll", handler, { passive: true })
-    onScroll() // sync initial state (e.g. landing already scrolled)
-    return () => window.removeEventListener("scroll", handler)
-  }, [])
+  // glass-on-scroll + hide-on-down / show-on-up collapse + section-aware color,
+  // shared with the homepage nav so both behave identically.
+  useNavBehavior(headerRef)
 
   return (
     <header className="nav" id="nav" ref={headerRef}>
@@ -63,24 +45,22 @@ export default function Nav() {
         {/* full-load nav to home: the homepage runs the vanilla module bridge,
             which only wires the DOM on a fresh document load — a client-side
             <Link> would remount Home without re-initializing globe/dashboard/etc. */}
-        <a className="wordmark" href="/" aria-label="CorpSec home">
+        <a className="wordmark" href="/" aria-label={t("nav.home")}>
           Corp<span>/</span>Sec
         </a>
-        <nav className="nav-links" aria-label="Primary">
+        <nav className="nav-links" aria-label={t("nav.primary")}>
           {LINKS.map((l) => (
-            <NavLink key={l.to} to={l.to}>{l.label}</NavLink>
+            <NavLink key={l.to} to={l.to}>{t(`nav.${l.key}`)}</NavLink>
           ))}
         </nav>
         <div className="nav-actions">
-          <span className="locale" aria-hidden="true">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18" /></svg> EN
-          </span>
-          <Link to="/contact" className="btn btn-ghost btn-sm" data-slot="button" data-variant="outline" data-size="sm">Log in</Link>
-          <button type="button" onClick={() => open()} className="btn btn-primary btn-sm" data-slot="button" data-variant="default" data-size="sm" data-cta="incorp">Start my company</button>
+          <LanguageSwitcher />
+          <Link to="/contact" className="btn btn-ghost btn-sm" data-slot="button" data-variant="outline" data-size="sm">{t("nav.login")}</Link>
+          <button type="button" onClick={() => open()} className="btn btn-primary btn-sm" data-slot="button" data-variant="default" data-size="sm" data-cta="incorp">{t("nav.startCompany")}</button>
         </div>
 
         <Sheet>
-          <SheetTrigger className="nav-burger" aria-label="Open menu" data-slot="button" data-variant="ghost" data-size="icon">
+          <SheetTrigger className="nav-burger" aria-label={t("nav.openMenu")} data-slot="button" data-variant="ghost" data-size="icon">
             <span></span><span></span><span></span>
           </SheetTrigger>
           {/* Reuse the legacy `.nav-drawer` look: dark glass sheet, links list with
@@ -91,11 +71,11 @@ export default function Nav() {
             side="right"
             className="nav-drawer-sheet w-[min(86vw,440px)] border-0 bg-transparent p-0 shadow-none"
           >
-            <SheetTitle className="sr-only">Menu</SheetTitle>
+            <SheetTitle className="sr-only">{t("nav.menu")}</SheetTitle>
             <div className="nav-drawer nav-drawer--sheet">
               {DRAWER_LINKS.map((l) => (
                 <SheetClose asChild key={l.to}>
-                  <NavLink to={l.to}>{l.label}</NavLink>
+                  <NavLink to={l.to}>{t(`nav.${l.key}`)}</NavLink>
                 </SheetClose>
               ))}
               <SheetClose asChild>
@@ -107,7 +87,7 @@ export default function Nav() {
                   data-variant="default"
                   data-cta="incorp"
                 >
-                  Start my company
+                  {t("nav.startCompany")}
                 </button>
               </SheetClose>
             </div>

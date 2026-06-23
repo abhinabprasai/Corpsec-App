@@ -1,0 +1,85 @@
+{
+  "nav": {
+    "jurisdictions": "Juridictions",
+    "compare": "Comparer",
+    "about": "À propos",
+    "contact": "Contact",
+    "pricing": "Tarifs",
+    "howItWorks": "Comment ça marche",
+    "login": "Connexion",
+    "startCompany": "Créer ma société",
+    "home": "Accueil CorpSec",
+    "primary": "Principal",
+    "openMenu": "Ouvrir le menu",
+    "menu": "Menu",
+    "skip": "Aller au contenu"
+  },
+  "language": {
+    "label": "Langue",
+    "select": "Choisir la langue",
+    "en": "English",
+    "fr": "Français"
+  },
+  "contactPill": {
+    "whatsapp": "WhatsApp",
+    "whatsappAria": "Discuter sur WhatsApp",
+    "email": "Écrivez-nous",
+    "emailAria": "Envoyer un e-mail à hello@corpsec.io"
+  },
+  "footer": {
+    "tagline": "Votre société, partout où ça compte.",
+    "trust": "Plus de 500 sociétés créées dans 79 juridictions.",
+    "gabriella": "Demandez à Gabriella",
+    "gabriellaSub": "Trouvez votre juridiction en 2 minutes — gratuit",
+    "briefingTitle": "Briefing transfrontalier",
+    "briefingDesc": "Évolutions des juridictions, mises à jour des conventions fiscales et échéances de dépôt — une fois par mois, sans bruit.",
+    "emailPlaceholder": "vous@societe.com",
+    "emailLabel": "Adresse e-mail",
+    "subscribe": "S'abonner",
+    "subNote": "Pas de spam. Désabonnement à tout moment.",
+    "subSuccess": "Merci — vous êtes inscrit. Vérifiez votre boîte de réception pour confirmer.",
+    "cols": {
+      "product": "Produit",
+      "solutions": "Solutions",
+      "resources": "Ressources",
+      "company": "Entreprise",
+      "legal": "Mentions légales"
+    },
+    "links": {
+      "gabriellaAdvisor": "Conseillère Gabriella",
+      "allJurisdictions": "Les 79 juridictions",
+      "compareJurisdictions": "Comparer les juridictions",
+      "companyFormation": "Création de société",
+      "pricing": "Tarifs",
+      "saas": "SaaS & startups",
+      "holding": "Sociétés holding",
+      "ecommerce": "E-commerce & DTC",
+      "crypto": "Crypto & Web3",
+      "solo": "Fondateurs solos",
+      "guides": "Guides par juridiction",
+      "howItWorks": "Comment ça marche",
+      "helpCenter": "Centre d'aide",
+      "about": "À propos de CorpSec",
+      "team": "Rencontrer l'équipe",
+      "contact": "Nous contacter",
+      "sales": "Parler aux ventes",
+      "terms": "Conditions d'utilisation",
+      "privacy": "Politique de confidentialité",
+      "cookies": "Politique relative aux cookies"
+    },
+    "badges": {
+      "encryption": "Chiffrement 256 bits",
+      "vault": "Coffre-fort documentaire chiffré",
+      "gdpr": "Conforme au RGPD",
+      "csp": "Réseau de prestataires agréés",
+      "insured": "Couvert par une assurance responsabilité professionnelle"
+    },
+    "disclaimer": "CorpSec est une plateforme de coordination. La création de société, les services d'agent enregistré et de comptabilité sont assurés par des prestataires de services aux entreprises agréés et des professionnels réglementés dans chaque juridiction (avec Koulier, Bookiper et plus de 30 partenaires). CorpSec ne fournit aucun conseil juridique ou fiscal.",
+    "copyright": "© 2026 CorpSec — Votre société, partout où ça compte.",
+    "social": {
+      "linkedin": "CorpSec sur LinkedIn",
+      "x": "CorpSec sur X",
+      "github": "CorpSec sur GitHub"
+    }
+  }
+}

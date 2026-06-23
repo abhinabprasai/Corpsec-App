@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "title": "Juridictions — créez votre société là où cela compte | CorpSec",
+    "description": "Parcourez 79 juridictions. Comparez la fiscalité, les délais de création et le coût tout compris, puis créez votre société avec des partenaires locaux agréés — la création de société et l'ensemble des services de back-office, pays par pays."
+  },
+  "hero": {
+    "eyebrow": "79 juridictions · un seul back-office",
+    "headlineLead": "Trouvez où",
+    "headlineWord": "créer votre société",
+    "headlineEnd": ".",
+    "sub": "Recherchez n'importe quel pays, comparez la fiscalité, la rapidité et le coût tout compris, puis lancez-vous avec un partenaire local agréé — la création de société et l'ensemble des services de back-office réunis en un seul endroit.",
+    "searchAria": "Rechercher des juridictions",
+    "searchPlaceholder": "Rechercher — Singapour, Delaware, Dubaï…",
+    "popularAria": "Juridictions populaires"
+  },
+  "popular": {
+    "eyebrow": "Les plus choisies",
+    "headlineLead": "Là où les fondateurs vont vraiment.",
+    "headlineRest": "Les juridictions que nous couvrons en profondeur — fiscalité, délais de création et coût tout compris affichés d'emblée."
+  },
+  "card": {
+    "corpTax": "Impôt sur les sociétés",
+    "setup": "Création",
+    "from": "À partir de",
+    "explore": "Découvrir {{name}}"
+  },
+  "all": {
+    "eyebrow": "Couverture complète",
+    "headline": "Les 79 juridictions.",
+    "sub": "Filtrez par région ou recherchez pour affiner instantanément.",
+    "filterAria": "Filtrer par région",
+    "inDepthGuide": "Guide approfondi",
+    "emptyLead": "Aucune juridiction ne correspond à cette recherche.",
+    "emptyCta": "Demandez plutôt à Gabriella"
+  },
+  "regions": {
+    "All": "Toutes",
+    "North America": "Amérique du Nord",
+    "Europe": "Europe",
+    "Asia": "Asie",
+    "Middle East": "Moyen-Orient",
+    "Offshore": "Offshore",
+    "Latin America": "Amérique latine",
+    "South America": "Amérique du Sud",
+    "Africa": "Afrique",
+    "Oceania": "Océanie",
+    "Other": "Autres"
+  },
+  "services": {
+    "eyebrow": "Ce que nous prenons en charge — dans chaque juridiction",
+    "headline": "La création de société n'est que la première étape. Nous gérons le reste.",
+    "sub": "Chaque service ci-dessous est assuré localement, dans la juridiction que vous choisissez — sous forme de pack complet ou à la carte sur la page de n'importe quel pays.",
+    "form": {
+      "title": "Constituer",
+      "body": "Création de société, agent enregistré, émission d'actions, nomination des dirigeants — déposés auprès du registre local."
+    },
+    "operate": {
+      "title": "Exploiter",
+      "body": "Adresse de domiciliation, secrétariat juridique, déclarations annuelles, KYC et certificat de conformité — tenus à jour, chaque année."
+    },
+    "run": {
+      "title": "Piloter",
+      "body": "Tenue de comptabilité, dépôts fiscaux, paie, TVA/TPS et mises en relation bancaires — des experts-comptables agréés dans votre juridiction."
+    }
+  },
+  "cta": {
+    "lead": "Vous ne savez pas par où commencer ?",
+    "pill": "Demandez à Gabriella — gratuit",
+    "tail": "pour qu'elle classe les 79 juridictions à votre place.",
+    "sub": "Huit questions, deux minutes — un classement établi selon vos besoins en fiscalité, en services bancaires et en investisseurs.",
+    "specialist": "Parler à un spécialiste",
+    "stats": {
+      "jurisdictions": "juridictions",
+      "incorporate": "en moyenne pour créer une société",
+      "companies": "sociétés"
+    }
+  }
+}

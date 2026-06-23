@@ -1,10 +1,13 @@
+import { useTranslation } from "react-i18next";
+
 export default function Pillars() {
+  const { t } = useTranslation("pillars");
   return (
     <section className="section band-tint pillars">
       <div className="container">
         <div className="section-head reveal">
-          <span className="eyebrow">Why CorpSec</span>
-          <h2>Honest pricing. Licensed experts. One dashboard.</h2>
+          <span className="eyebrow">{t("eyebrow")}</span>
+          <h2>{t("heading")}</h2>
         </div>
         <div className="grid-4 pillars-grid reveal">
           <div className="pillar">
@@ -18,8 +21,8 @@ export default function Pillars() {
                 <path d="M8 21h8" />
               </svg>
             </div>
-            <h3>We don't sell you a jurisdiction</h3>
-            <p>Gabriella recommends the best option for your situation, not the one we make the most margin on.</p>
+            <h3>{t("cards.unbiased.title")}</h3>
+            <p>{t("cards.unbiased.body")}</p>
           </div>
           <div className="pillar">
             <div className="ic">
@@ -28,8 +31,8 @@ export default function Pillars() {
                 <path d="m9 12 2 2 4-4" />
               </svg>
             </div>
-            <h3>Licensed professionals, not freelancers</h3>
-            <p>Every jurisdiction uses a regulated CSP with professional indemnity. Powered by Koulier, Bookiper and 30+ partners.</p>
+            <h3>{t("cards.licensed.title")}</h3>
+            <p>{t("cards.licensed.body")}</p>
           </div>
           <div className="pillar">
             <div className="ic">
@@ -40,8 +43,8 @@ export default function Pillars() {
                 <path d="M8.5 16h4" />
               </svg>
             </div>
-            <h3>Real prices, not generic tiers</h3>
-            <p>400+ entries across 79 jurisdictions. Government fees itemised. Annual costs shown before you decide.</p>
+            <h3>{t("cards.pricing.title")}</h3>
+            <p>{t("cards.pricing.body")}</p>
           </div>
           <div className="pillar">
             <div className="ic">
@@ -52,8 +55,8 @@ export default function Pillars() {
                 <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5" />
               </svg>
             </div>
-            <h3>One view for every entity</h3>
-            <p>Filings, renewals, documents, bookkeeping — one place, one company or twenty.</p>
+            <h3>{t("cards.dashboard.title")}</h3>
+            <p>{t("cards.dashboard.body")}</p>
           </div>
         </div>
       </div>

@@ -1,0 +1,105 @@
+{
+  "header": {
+    "title": "Start your company",
+    "subtitle": "Formation in 48h on average",
+    "done": "Done",
+    "count": "{{current}} / {{total}}"
+  },
+  "jurisdictions": {
+    "singapore": "Singapore",
+    "uk": "United Kingdom",
+    "delaware": "Delaware, USA",
+    "estonia": "Estonia",
+    "ireland": "Ireland",
+    "dubai": "Dubai, UAE",
+    "hongKong": "Hong Kong",
+    "netherlands": "Netherlands",
+    "texas": "Texas, USA",
+    "cyprus": "Cyprus",
+    "other": "Other / not sure yet"
+  },
+  "activities": {
+    "saas": "SaaS / software",
+    "ecommerce": "E-commerce",
+    "consulting": "Consulting / services",
+    "holding": "Holding company",
+    "trading": "Trading",
+    "crypto": "Crypto / Web3",
+    "fintech": "Fintech",
+    "agency": "Agency / creative",
+    "other": "Other"
+  },
+  "packages": {
+    "launch": {
+      "label": "Launch",
+      "price": "from £120/mo",
+      "desc": "First entity, fully banked."
+    },
+    "growth": {
+      "label": "Growth",
+      "price": "from £240/mo",
+      "desc": "Entity + accounting + tax filing."
+    },
+    "scale": {
+      "label": "Scale",
+      "price": "Custom",
+      "desc": "A portfolio across jurisdictions."
+    }
+  },
+  "pkgLabel": "{{label}} ({{price}})",
+  "empty": "—",
+  "steps": {
+    "jurisdiction": {
+      "q": "Where are you incorporating?",
+      "help": "You can change this anytime — or let Gabriella choose for you.",
+      "placeholder": "Select a jurisdiction"
+    },
+    "pkg": {
+      "q": "Choose your plan",
+      "help": "Every plan includes formation, a registered agent and the dashboard."
+    },
+    "company": {
+      "q": "Your company",
+      "help": "A couple of basics to prepare your filing.",
+      "nameLabel": "Proposed company name",
+      "namePlaceholder": "e.g. Northwind Labs",
+      "activityLabel": "Business activity",
+      "activityPlaceholder": "Select an activity"
+    },
+    "you": {
+      "q": "Where should we send your filing pack?",
+      "help": "We never share your details. One specialist, one thread.",
+      "nameLabel": "Full name",
+      "namePlaceholder": "Your name",
+      "emailLabel": "Work email",
+      "emailPlaceholder": "you@company.com",
+      "emailError": "Please enter a valid email."
+    },
+    "review": {
+      "q": "Review & submit",
+      "jurisdiction": "Jurisdiction",
+      "plan": "Plan",
+      "company": "Company",
+      "activity": "Activity",
+      "contact": "Contact",
+      "submit": "Submit application"
+    }
+  },
+  "nav": {
+    "back": "← Back",
+    "continue": "Continue"
+  },
+  "success": {
+    "heading": "Application received.",
+    "bodyBefore": "A CorpSec specialist will confirm your {{jurisdiction}} setup and email ",
+    "bodyAfter": " within one business day with your filing pack and a fixed, all-in quote.",
+    "next1": "Name & structure check",
+    "next2": "Filing prepared by a licensed local partner",
+    "next3": "Banking introductions lined up",
+    "backToSite": "Back to site"
+  },
+  "dialog": {
+    "title": "Start your company",
+    "close": "Close"
+  }
+}

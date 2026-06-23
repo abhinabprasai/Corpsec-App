@@ -1,0 +1,11 @@
+{
+  "eyebrow": "L'environnement d'un vrai client",
+  "heading": "Voyez une société prendre vie.",
+  "sub": "Chaque client CorpSec dispose du même tableau de bord. Statut, renouvellements, dépôts, documents — présentés avec discrétion, jamais envahissants.",
+  "note": {
+    "title": "Deux entités ? Vingt ? Un seul tableau de bord.",
+    "body": "Environ 40 % des clients CorpSec exploitent de 2 à 5 entités réparties dans plusieurs pays. Le back-office regroupe les dépôts, les renouvellements et la comptabilité dans une vue unique — un gestionnaire de compte dédié, une seule facture."
+  },
+  "switchLabel": "Voir pour",
+  "pillsAria": "Choisir une juridiction"
+}

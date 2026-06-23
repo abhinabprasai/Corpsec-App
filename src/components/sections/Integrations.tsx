@@ -1,11 +1,14 @@
+import { useTranslation } from "react-i18next";
+
 export default function Integrations() {
+  const { t } = useTranslation("integrations");
   return (
     <section className="section integrations">
       <div className="container">
         <div className="section-head reveal">
-          <span className="eyebrow">Your stack, connected</span>
-          <h2>Works with the tools you already use.</h2>
-          <p className="sub">Bank with Mercury, Wise or your local partner. Pay with Stripe. Manage cap tables in Carta or Pulley. We hand off cleanly.</p>
+          <span className="eyebrow">{t("eyebrow")}</span>
+          <h2>{t("heading")}</h2>
+          <p className="sub">{t("sub")}</p>
         </div>
         <div className="marquee reveal">
           <div className="logos integ-logos">

@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useForm, Controller } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
+import { useTranslation } from "react-i18next"
 import { useGabriella } from "@/components/gabriella/GabriellaProvider"
 import { usePageMeta } from "@/lib/usePageMeta"
 import { Input } from "@/components/ui/input"
@@ -20,52 +21,32 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 
-const JURISDICTION_OPTIONS = [
-  { value: "singapore", label: "Singapore" },
-  { value: "delaware", label: "Delaware (USA)" },
-  { value: "uk", label: "United Kingdom" },
-  { value: "uae", label: "Dubai (UAE)" },
-  { value: "estonia", label: "Estonia" },
-  { value: "hong-kong", label: "Hong Kong" },
-  { value: "other", label: "Somewhere else" },
+const JURISDICTION_VALUES = [
+  "singapore",
+  "delaware",
+  "uk",
+  "uae",
+  "estonia",
+  "hong-kong",
+  "other",
 ] as const
 
 const UNSURE = "__unsure__"
 
-const FAQS = [
-  {
-    q: "How fast will I actually hear back?",
-    a: "One business day, usually less. If you wrote on a Friday night, Monday morning — we like weekends too.",
-  },
-  {
-    q: "Do I need an account to talk to you?",
-    a: "No. No login, no card, no “create a free account to continue.” A message or two minutes with Gabriella is plenty.",
-  },
-  {
-    q: "Can I just speak to a person?",
-    a: "Always. Call the number or ask for a specialist in your message — a human replies, not a bot pretending to be one.",
-  },
-  {
-    q: "I don’t know which jurisdiction yet. Is that a problem?",
-    a: "That’s most people, and exactly what we’re for. Leave it as “not sure” — we (or Gabriella) will narrow it down with you.",
-  },
-] as const
+const FAQ_KEYS = ["speed", "account", "person", "jurisdiction"] as const
 
 const schema = z.object({
-  firstName: z.string().trim().min(1, "Please tell us your first name."),
+  firstName: z.string().trim().min(1, "errors.firstName"),
   lastName: z.string().trim().optional(),
   email: z
     .string()
     .trim()
-    .min(1, "Please enter a valid work email.")
-    .email("Please enter a valid work email."),
+    .min(1, "errors.email")
+    .email("errors.email"),
   phone: z.string().trim().optional(),
   company: z.string().trim().optional(),
   jurisdiction: z.string().optional(),
-  message: z
-    .string()
-    .trim()
-    .min(1, "A sentence on what you need helps us route you."),
+  message: z.string().trim().min(1, "errors.message"),
 })
 
 type ContactValues = z.infer<typeof schema>
@@ -108,13 +89,11 @@ const SCOPED_CSS = `
 `
 
 export default function Contact() {
+  const { t } = useTranslation("contact")
   const { open } = useGabriella()
   const [submittedName, setSubmittedName] = useState<string | null>(null)
 
-  usePageMeta(
-    "Contact — talk to the CorpSec team | CorpSec",
-    "Tell us where you're headed and we'll reply within one business day. Or skip the form and ask Gabriella for a ranked jurisdiction shortlist in two minutes."
-  )
+  usePageMeta(t("meta.title"), t("meta.description"))
 
   useEffect(() => {
     document.body.className = "jx-page contact-page"
@@ -147,6 +126,15 @@ export default function Contact() {
 
   const errorCount = Object.keys(errors).length
 
+  const faqs = useMemo(
+    () =>
+      FAQ_KEYS.map((key) => ({
+        q: t(`faq.items.${key}.q`),
+        a: t(`faq.items.${key}.a`),
+      })),
+    [t]
+  )
+
   return (
     <div id="contact" className="contact-main">
       <style>{SCOPED_CSS}</style>
@@ -155,13 +143,9 @@ export default function Contact() {
       <section className="page-hero page-hero--tight">
         <div className="page-hero__glow" aria-hidden="true"></div>
         <div className="container page-hero__inner reveal">
-          <span className="eyebrow">Contact us</span>
-          <h1 className="page-hero__title">Get in touch with our team.</h1>
-          <p className="page-hero__sub">
-            Tell us where you’re headed and we’ll come back with a clear next
-            step — usually within one business day. We’re a little competitive
-            about reply times.
-          </p>
+          <span className="eyebrow">{t("hero.eyebrow")}</span>
+          <h1 className="page-hero__title">{t("hero.title")}</h1>
+          <p className="page-hero__sub">{t("hero.sub")}</p>
         </div>
       </section>
 
@@ -172,7 +156,7 @@ export default function Contact() {
             {/* LEFT: contact methods */}
             <aside
               className="contact-info reveal"
-              aria-label="Other ways to reach us"
+              aria-label={t("info.ariaLabel")}
             >
               <article className="bento-card contact-card" data-slot="card">
                 <div className="bento-card__border"></div>
@@ -192,12 +176,9 @@ export default function Contact() {
                       <circle cx="12" cy="10" r="2.5" />
                     </svg>
                   </span>
-                  <p className="contact-card__label">Head office</p>
-                  <p className="contact-card__val">71 Robinson Road, Singapore</p>
-                  <p className="contact-card__note">
-                    Satellite desks in London &amp; Dubai. The filing cabinets
-                    are mostly digital now.
-                  </p>
+                  <p className="contact-card__label">{t("info.office.label")}</p>
+                  <p className="contact-card__val">{t("info.office.value")}</p>
+                  <p className="contact-card__note">{t("info.office.note")}</p>
                 </div>
               </article>
 
@@ -218,14 +199,11 @@ export default function Contact() {
                       <path d="M4 5c0 8.3 6.7 15 15 15a2 2 0 0 0 2-2v-2.5a1 1 0 0 0-.8-1l-3.4-.7a1 1 0 0 0-1 .3l-1 1.2a12 12 0 0 1-5.3-5.3l1.2-1a1 1 0 0 0 .3-1L9.5 4.8a1 1 0 0 0-1-.8H6a2 2 0 0 0-2 2Z" />
                     </svg>
                   </span>
-                  <p className="contact-card__label">Talk to a human</p>
+                  <p className="contact-card__label">{t("info.phone.label")}</p>
                   <p className="contact-card__val">
                     <a href="tel:+6531591180">+65 3159 1180</a>
                   </p>
-                  <p className="contact-card__note">
-                    A real person picks up. No phone-tree maze, no “press 4 for
-                    incorporation.”
-                  </p>
+                  <p className="contact-card__note">{t("info.phone.note")}</p>
                 </div>
               </article>
 
@@ -247,13 +225,11 @@ export default function Contact() {
                       <path d="m3 7 9 6 9-6" />
                     </svg>
                   </span>
-                  <p className="contact-card__label">Email</p>
+                  <p className="contact-card__label">{t("info.email.label")}</p>
                   <p className="contact-card__val">
                     <a href="mailto:hello@corpsec.io">hello@corpsec.io</a>
                   </p>
-                  <p className="contact-card__note">
-                    We read every one and reply within one business day.
-                  </p>
+                  <p className="contact-card__note">{t("info.email.note")}</p>
                 </div>
               </article>
 
@@ -275,14 +251,9 @@ export default function Contact() {
                       <path d="M12 7v5l3.5 2" />
                     </svg>
                   </span>
-                  <p className="contact-card__label">Working hours</p>
-                  <p className="contact-card__val">
-                    Mon–Fri, 9–6 (your time, mostly)
-                  </p>
-                  <p className="contact-card__note">
-                    Gabriella covers nights, weekends and public holidays she
-                    doesn’t observe.
-                  </p>
+                  <p className="contact-card__label">{t("info.hours.label")}</p>
+                  <p className="contact-card__val">{t("info.hours.value")}</p>
+                  <p className="contact-card__note">{t("info.hours.note")}</p>
                 </div>
               </article>
             </aside>
@@ -292,14 +263,14 @@ export default function Contact() {
               {submittedName === null ? (
                 <>
                   <div className="contact-form-card__head">
-                    <h2>Send us a message</h2>
+                    <h2>{t("form.head.title")}</h2>
                     <p>
-                      Fill in the essentials.{" "}
+                      {t("form.head.lead")}{" "}
                       <span className="contact-req-key">
                         <span className="req" aria-hidden="true">
                           *
                         </span>{" "}
-                        = required.
+                        {t("form.head.reqKey")}
                       </span>
                     </p>
                   </div>
@@ -312,7 +283,7 @@ export default function Contact() {
                     <div className="cf-row">
                       <div className="cf-field">
                         <label htmlFor="cfFirst">
-                          First name{" "}
+                          {t("form.firstName.label")}{" "}
                           <span className="req" aria-hidden="true">
                             *
                           </span>
@@ -332,11 +303,13 @@ export default function Contact() {
                           {...register("firstName")}
                         />
                         <span className="cf-error" id="cfFirstErr" role="alert">
-                          {errors.firstName?.message}
+                          {errors.firstName?.message
+                            ? t(errors.firstName.message)
+                            : ""}
                         </span>
                       </div>
                       <div className="cf-field">
-                        <label htmlFor="cfLast">Last name</label>
+                        <label htmlFor="cfLast">{t("form.lastName.label")}</label>
                         <Input
                           id="cfLast"
                           type="text"
@@ -350,7 +323,7 @@ export default function Contact() {
                     <div className="cf-row">
                       <div className="cf-field">
                         <label htmlFor="cfEmail">
-                          Work email{" "}
+                          {t("form.email.label")}{" "}
                           <span className="req" aria-hidden="true">
                             *
                           </span>
@@ -369,17 +342,17 @@ export default function Contact() {
                           {...register("email")}
                         />
                         <span className="cf-error" id="cfEmailErr" role="alert">
-                          {errors.email?.message}
+                          {errors.email?.message ? t(errors.email.message) : ""}
                         </span>
                       </div>
                       <div className="cf-field">
-                        <label htmlFor="cfPhone">Phone</label>
+                        <label htmlFor="cfPhone">{t("form.phone.label")}</label>
                         <Input
                           id="cfPhone"
                           type="tel"
                           inputMode="tel"
                           autoComplete="tel"
-                          placeholder="Optional"
+                          placeholder={t("form.phone.placeholder")}
                           className="shadow-none"
                           {...register("phone")}
                         />
@@ -388,18 +361,18 @@ export default function Contact() {
 
                     <div className="cf-row">
                       <div className="cf-field">
-                        <label htmlFor="cfCompany">Company</label>
+                        <label htmlFor="cfCompany">{t("form.company.label")}</label>
                         <Input
                           id="cfCompany"
                           type="text"
                           autoComplete="organization"
-                          placeholder="Optional"
+                          placeholder={t("form.company.placeholder")}
                           className="shadow-none"
                           {...register("company")}
                         />
                       </div>
                       <div className="cf-field">
-                        <label htmlFor="cfJur">Jurisdiction of interest</label>
+                        <label htmlFor="cfJur">{t("form.jurisdiction.label")}</label>
                         <Controller
                           control={control}
                           name="jurisdiction"
@@ -417,11 +390,11 @@ export default function Contact() {
                               </SelectTrigger>
                               <SelectContent>
                                 <SelectItem value={UNSURE}>
-                                  Not sure yet — help me choose
+                                  {t("form.jurisdiction.unsure")}
                                 </SelectItem>
-                                {JURISDICTION_OPTIONS.map((opt) => (
-                                  <SelectItem key={opt.value} value={opt.value}>
-                                    {opt.label}
+                                {JURISDICTION_VALUES.map((value) => (
+                                  <SelectItem key={value} value={value}>
+                                    {t(`jurisdictions.${value}`)}
                                   </SelectItem>
                                 ))}
                               </SelectContent>
@@ -433,7 +406,7 @@ export default function Contact() {
 
                     <div className="cf-field">
                       <label htmlFor="cfMsg">
-                        How can we help?{" "}
+                        {t("form.message.label")}{" "}
                         <span className="req" aria-hidden="true">
                           *
                         </span>
@@ -444,14 +417,14 @@ export default function Contact() {
                         aria-required="true"
                         aria-invalid={errors.message ? true : undefined}
                         aria-describedby="cfMsgErr"
-                        placeholder="A sentence or two on what you’re building and where."
+                        placeholder={t("form.message.placeholder")}
                         className={
                           errors.message ? "is-invalid shadow-none" : "shadow-none"
                         }
                         {...register("message")}
                       />
                       <span className="cf-error" id="cfMsgErr" role="alert">
-                        {errors.message?.message}
+                        {errors.message?.message ? t(errors.message.message) : ""}
                       </span>
                     </div>
 
@@ -463,20 +436,14 @@ export default function Contact() {
                         data-variant="default"
                         data-size="lg"
                       >
-                        Send message <span aria-hidden="true">→</span>
+                        {t("form.submit")} <span aria-hidden="true">→</span>
                       </button>
-                      <p className="cf-privacy">
-                        We’ll only use this to reply to you. No newsletters
-                        unless you asked, no data sold, no follow-up calls.
-                        Request deletion anytime — done within 24 hours.
-                      </p>
+                      <p className="cf-privacy">{t("form.privacy")}</p>
                     </div>
 
                     <p className="cf-status" role="status" aria-live="polite">
                       {isSubmitted && errorCount > 0
-                        ? `${errorCount} ${
-                            errorCount === 1 ? "field needs" : "fields need"
-                          } a fix above.`
+                        ? t("form.status", { count: errorCount })
                         : ""}
                     </p>
                   </form>
@@ -495,11 +462,8 @@ export default function Contact() {
                       <path d="m5 13 4 4L19 7" />
                     </svg>
                   </span>
-                  <h2>Message sent.</h2>
-                  <p>
-                    Thanks, {submittedName} — we’ll be in touch within one
-                    business day. Usually sooner.
-                  </p>
+                  <h2>{t("success.title")}</h2>
+                  <p>{t("success.body", { name: submittedName })}</p>
                   <div className="cf-success__cta">
                     <a
                       className="btn btn-ghost"
@@ -507,7 +471,7 @@ export default function Contact() {
                       data-slot="button"
                       data-variant="outline"
                     >
-                      Back to home
+                      {t("success.home")}
                     </a>
                     <button
                       type="button"
@@ -516,7 +480,7 @@ export default function Contact() {
                       data-variant="default"
                       onClick={() => open()}
                     >
-                      Ask Gabriella meanwhile
+                      {t("success.gabriella")}
                     </button>
                   </div>
                 </div>
@@ -528,12 +492,8 @@ export default function Contact() {
           <div className="contact-alt reveal">
             <div className="contact-alt__inner">
               <div>
-                <h2 className="contact-alt__title">Allergic to forms? Same.</h2>
-                <p className="contact-alt__sub">
-                  Answer eight questions and Gabriella ranks all 79
-                  jurisdictions for your situation — tax, banking and investor
-                  fit, reasoning included. Two minutes, no login, no sales call.
-                </p>
+                <h2 className="contact-alt__title">{t("alt.title")}</h2>
+                <p className="contact-alt__sub">{t("alt.sub")}</p>
               </div>
               <button
                 type="button"
@@ -543,7 +503,7 @@ export default function Contact() {
                 data-size="lg"
                 onClick={() => open()}
               >
-                Ask Gabriella — free <span aria-hidden="true">→</span>
+                {t("alt.cta")} <span aria-hidden="true">→</span>
               </button>
             </div>
           </div>
@@ -554,12 +514,12 @@ export default function Contact() {
       <section className="section band-tint contact-faq">
         <div className="container">
           <div className="section-head reveal">
-            <span className="eyebrow">Before you ask</span>
-            <h2>The questions we get before the call.</h2>
+            <span className="eyebrow">{t("faq.eyebrow")}</span>
+            <h2>{t("faq.title")}</h2>
           </div>
           <div className="contact-faq__list reveal">
             <Accordion type="single" collapsible>
-              {FAQS.map((item, i) => (
+              {faqs.map((item, i) => (
                 <AccordionItem key={i} value={`cfaq-${i}`} className="cfaq">
                   <AccordionTrigger>
                     {item.q}

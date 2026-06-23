@@ -10,7 +10,10 @@
   var nav = document.getElementById("nav");
   var lastY = window.scrollY || 0, ticking = false;
   function onScroll() {
-    if (!nav) return;
+    // The React homepage nav drives scroll/collapse/section-color via
+    // useNavBehavior; skip the vanilla wiring so the two don't fight (and so
+    // Lenis smooth-scroll can't desync them). The drawer logic below stays.
+    if (!nav || nav.hasAttribute("data-react-nav")) return;
     var y = window.scrollY || window.pageYOffset || 0;
     nav.classList.toggle("scrolled", y > 24);
     if (y < 120) {

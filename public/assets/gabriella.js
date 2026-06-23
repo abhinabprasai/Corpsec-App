@@ -8,6 +8,9 @@
 (function () {
   "use strict";
 
+  /* i18n bridge: read a translated "vanilla" string with an English fallback. */
+  function L(key, fallback) { var I = window.__I18N; var v = I && I.t ? I.t(key) : ""; return v || fallback; }
+
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches;
 
   /* ============================================================
@@ -23,7 +26,7 @@
     root.innerHTML =
       '<div class="csm__scrim" data-csm-close data-slot="dialog-overlay"></div>' +
       '<div class="csm__panel" role="dialog" aria-modal="true" tabindex="-1" data-slot="dialog-content">' +
-        '<button class="csm__close" type="button" data-csm-close aria-label="Close" data-slot="dialog-close">' +
+        '<button class="csm__close" type="button" data-csm-close aria-label="' + L('gabriella.nav.close', 'Close') + '" data-slot="dialog-close">' +
           '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>' +
         '</button>' +
         '<div class="csm__content"></div>' +
@@ -123,60 +126,67 @@
     "Saudi Arabia", "India", "Singapore", "Hong Kong", "Australia", "Nigeria",
     "South Africa", "Brazil", "Mexico", "Japan", "Estonia", "Poland", "Other"];
 
-  var STEPS = [
-    { id: "building", q: "What are you building?", help: "This shapes tax treatment and what investors expect to see.", type: "cards",
+  /* built fresh per questionnaire so the active language is read at open time */
+  function buildSteps() { return [
+    { id: "building", q: L('gabriella.steps.building.q', "What are you building?"), help: L('gabriella.steps.building.help', "This shapes tax treatment and what investors expect to see."), type: "cards",
       options: [
-        { v: "saas", label: "SaaS / software", ic: "saas" },
-        { v: "ecom", label: "E-commerce", ic: "ecom" },
-        { v: "holding", label: "Holding company", ic: "holding" },
-        { v: "consult", label: "Consulting / services", ic: "consult" },
-        { v: "web3", label: "Crypto / Web3", ic: "web3" },
-        { v: "other", label: "Something else", ic: "other" }
+        { v: "saas", label: L('gabriella.steps.building.options.saas', "SaaS / software"), ic: "saas" },
+        { v: "ecom", label: L('gabriella.steps.building.options.ecom', "E-commerce"), ic: "ecom" },
+        { v: "holding", label: L('gabriella.steps.building.options.holding', "Holding company"), ic: "holding" },
+        { v: "consult", label: L('gabriella.steps.building.options.consult', "Consulting / services"), ic: "consult" },
+        { v: "web3", label: L('gabriella.steps.building.options.web3', "Crypto / Web3"), ic: "web3" },
+        { v: "other", label: L('gabriella.steps.building.options.other', "Something else"), ic: "other" }
       ] },
-    { id: "base", q: "Where are you based?", help: "Your residency drives tax exposure and banking access.", type: "select",
-      placeholder: "Select your country of residence", options: COUNTRIES },
-    { id: "market", q: "Where are most of your customers?", help: "Revenue location affects the smartest place to register.", type: "cards",
+    { id: "base", q: L('gabriella.steps.base.q', "Where are you based?"), help: L('gabriella.steps.base.help', "Your residency drives tax exposure and banking access."), type: "select",
+      placeholder: L('gabriella.steps.base.placeholder', "Select your country of residence"), options: COUNTRIES },
+    { id: "market", q: L('gabriella.steps.market.q', "Where are most of your customers?"), help: L('gabriella.steps.market.help', "Revenue location affects the smartest place to register."), type: "cards",
       options: [
-        { v: "us", label: "United States", ic: "flag" },
-        { v: "eu", label: "Europe", ic: "flag" },
-        { v: "uk", label: "United Kingdom", ic: "flag" },
-        { v: "me", label: "Middle East", ic: "flag" },
-        { v: "asia", label: "Asia-Pacific", ic: "flag" },
-        { v: "global", label: "Truly global", ic: "globe" }
+        { v: "us", label: L('gabriella.steps.market.options.us', "United States"), ic: "flag" },
+        { v: "eu", label: L('gabriella.steps.market.options.eu', "Europe"), ic: "flag" },
+        { v: "uk", label: L('gabriella.steps.market.options.uk', "United Kingdom"), ic: "flag" },
+        { v: "me", label: L('gabriella.steps.market.options.me', "Middle East"), ic: "flag" },
+        { v: "asia", label: L('gabriella.steps.market.options.asia', "Asia-Pacific"), ic: "flag" },
+        { v: "global", label: L('gabriella.steps.market.options.global', "Truly global"), ic: "globe" }
       ] },
-    { id: "raising", q: "Are you raising outside capital?", help: "Investor familiarity can outweigh a slightly lower tax rate.", type: "cards",
+    { id: "raising", q: L('gabriella.steps.raising.q', "Are you raising outside capital?"), help: L('gabriella.steps.raising.help', "Investor familiarity can outweigh a slightly lower tax rate."), type: "cards",
       options: [
-        { v: "us_vc", label: "Yes — US investors", ic: "bank" },
-        { v: "eu_vc", label: "Yes — EU / UK investors", ic: "bank" },
-        { v: "soon", label: "Planning to soon", ic: "clock" },
-        { v: "boot", label: "Bootstrapped", ic: "shield" }
+        { v: "us_vc", label: L('gabriella.steps.raising.options.us_vc', "Yes — US investors"), ic: "bank" },
+        { v: "eu_vc", label: L('gabriella.steps.raising.options.eu_vc', "Yes — EU / UK investors"), ic: "bank" },
+        { v: "soon", label: L('gabriella.steps.raising.options.soon', "Planning to soon"), ic: "clock" },
+        { v: "boot", label: L('gabriella.steps.raising.options.boot', "Bootstrapped"), ic: "shield" }
       ] },
-    { id: "banking", q: "How soon do you need a bank account?", help: "Some jurisdictions open remote banking in days, others take weeks.", type: "cards",
+    { id: "banking", q: L('gabriella.steps.banking.q', "How soon do you need a bank account?"), help: L('gabriella.steps.banking.help', "Some jurisdictions open remote banking in days, others take weeks."), type: "cards",
       options: [
-        { v: "now", label: "Immediately", ic: "bolt" },
-        { v: "month", label: "Within a month", ic: "clock" },
-        { v: "flex", label: "I'm flexible", ic: "shield" }
+        { v: "now", label: L('gabriella.steps.banking.options.now', "Immediately"), ic: "bolt" },
+        { v: "month", label: L('gabriella.steps.banking.options.month', "Within a month"), ic: "clock" },
+        { v: "flex", label: L('gabriella.steps.banking.options.flex', "I'm flexible"), ic: "shield" }
       ] },
-    { id: "priority", q: "What matters most to you?", help: "Pick up to two — Gabriella weighs these highest.", type: "multi", max: 2,
+    { id: "priority", q: L('gabriella.steps.priority.q', "What matters most to you?"), help: L('gabriella.steps.priority.help', "Pick up to two — Gabriella weighs these highest."), type: "multi", max: 2,
       options: [
-        { v: "tax", label: "Low tax", ic: "tax" },
-        { v: "investor", label: "Investor familiarity", ic: "bank" },
-        { v: "speed", label: "Speed & simplicity", ic: "bolt" },
-        { v: "privacy", label: "Privacy", ic: "shield" },
-        { v: "banking", label: "Strong banking", ic: "globe" }
+        { v: "tax", label: L('gabriella.steps.priority.options.tax', "Low tax"), ic: "tax" },
+        { v: "investor", label: L('gabriella.steps.priority.options.investor', "Investor familiarity"), ic: "bank" },
+        { v: "speed", label: L('gabriella.steps.priority.options.speed', "Speed & simplicity"), ic: "bolt" },
+        { v: "privacy", label: L('gabriella.steps.priority.options.privacy', "Privacy"), ic: "shield" },
+        { v: "banking", label: L('gabriella.steps.priority.options.banking', "Strong banking"), ic: "globe" }
       ] },
-    { id: "email", q: "Where should Gabriella send your report?", help: "Your ranked shortlist with full reasoning. No spam, ever.", type: "email" }
-  ];
+    { id: "email", q: L('gabriella.steps.email.q', "Where should Gabriella send your report?"), help: L('gabriella.steps.email.help', "Your ranked shortlist with full reasoning. No spam, ever."), type: "email" }
+  ]; }
 
   /* recommendation engine (transparent heuristic) -------------------- */
-  var JX = {
-    delaware: { name: "Delaware, USA", iso: "us", setup: "2–3 days", tax: "21% federal", why: "The default for startups raising from US VCs — investors know the C-Corp paperwork cold.", banks: ["Mercury", "Brex", "Stripe"] },
-    singapore: { name: "Singapore", iso: "sg", setup: "2 days", tax: "17% (with rebates)", why: "Fast remote setup, world-class banking and a credible Asian HQ with strong treaty access.", banks: ["DBS", "Wise", "Aspire"] },
-    uk: { name: "United Kingdom", iso: "gb", setup: "24–48 hours", tax: "25% / 19% small", why: "The fastest credible incorporation, strong banking and easy access to EU and US customers.", banks: ["Wise", "Revolut", "Mercury"] },
-    estonia: { name: "Estonia", iso: "ee", setup: "1–3 days", tax: "0% on retained", why: "0% tax on reinvested profit and fully digital admin — ideal for lean, remote-first teams.", banks: ["Wise", "Revolut", "LHV"] },
-    ireland: { name: "Ireland", iso: "ie", setup: "3–5 days", tax: "12.5% trading", why: "Low corporate tax inside the EU — the classic base for software selling into Europe.", banks: ["Wise", "AIB", "Revolut"] },
-    dubai: { name: "Dubai, UAE", iso: "ae", setup: "4–6 days", tax: "9% (0% to AED 375k)", why: "Near-zero tax, premium banking and a fast-growing hub for Middle East and global trade.", banks: ["Mashreq", "WIO", "Emirates NBD"] }
-  };
+  /* NOTE: `name` is also a logic value — it is passed to window.openIncorporation()
+     and matched against the English jurisdiction list in forms.js, so it stays in
+     English here. `nameKey` drives the translated DISPLAY name (see jxName below).
+     Built fresh per questionnaire so the active language is read at open time. */
+  function buildJX() { return {
+    delaware: { name: "Delaware, USA", nameKey: "gabriella.jx.delaware.name", iso: "us", setup: L('gabriella.jx.delaware.setup', "2–3 days"), tax: L('gabriella.jx.delaware.tax', "21% federal"), why: L('gabriella.jx.delaware.why', "The default for startups raising from US VCs — investors know the C-Corp paperwork cold."), banks: ["Mercury", "Brex", "Stripe"] },
+    singapore: { name: "Singapore", nameKey: "gabriella.jx.singapore.name", iso: "sg", setup: L('gabriella.jx.singapore.setup', "2 days"), tax: L('gabriella.jx.singapore.tax', "17% (with rebates)"), why: L('gabriella.jx.singapore.why', "Fast remote setup, world-class banking and a credible Asian HQ with strong treaty access."), banks: ["DBS", "Wise", "Aspire"] },
+    uk: { name: "United Kingdom", nameKey: "gabriella.jx.uk.name", iso: "gb", setup: L('gabriella.jx.uk.setup', "24–48 hours"), tax: L('gabriella.jx.uk.tax', "25% / 19% small"), why: L('gabriella.jx.uk.why', "The fastest credible incorporation, strong banking and easy access to EU and US customers."), banks: ["Wise", "Revolut", "Mercury"] },
+    estonia: { name: "Estonia", nameKey: "gabriella.jx.estonia.name", iso: "ee", setup: L('gabriella.jx.estonia.setup', "1–3 days"), tax: L('gabriella.jx.estonia.tax', "0% on retained"), why: L('gabriella.jx.estonia.why', "0% tax on reinvested profit and fully digital admin — ideal for lean, remote-first teams."), banks: ["Wise", "Revolut", "LHV"] },
+    ireland: { name: "Ireland", nameKey: "gabriella.jx.ireland.name", iso: "ie", setup: L('gabriella.jx.ireland.setup', "3–5 days"), tax: L('gabriella.jx.ireland.tax', "12.5% trading"), why: L('gabriella.jx.ireland.why', "Low corporate tax inside the EU — the classic base for software selling into Europe."), banks: ["Wise", "AIB", "Revolut"] },
+    dubai: { name: "Dubai, UAE", nameKey: "gabriella.jx.dubai.name", iso: "ae", setup: L('gabriella.jx.dubai.setup', "4–6 days"), tax: L('gabriella.jx.dubai.tax', "9% (0% to AED 375k)"), why: L('gabriella.jx.dubai.why', "Near-zero tax, premium banking and a fast-growing hub for Middle East and global trade."), banks: ["Mashreq", "WIO", "Emirates NBD"] }
+  }; }
+  /* translated display name for a JX entry (falls back to the English `name`) */
+  function jxName(j) { return L(j.nameKey, j.name); }
 
   function recommend(a) {
     var primary = "singapore", alts = ["uk", "estonia"];
@@ -193,12 +203,14 @@
   function startQuestionnaire(seed) {
     var answers = { seed: seed || "" };
     var idx = 0;
+    var STEPS = buildSteps();   // read translations at open time (supports runtime language swap)
+    var JX = buildJX();
 
     var wrap = h("div", "gq");
     wrap.innerHTML =
       '<div class="gq-head">' +
         '<span class="gq-avatar">' + svg(IC.web3 ? '<path d="M12 3.5l1.6 4.3L18 9.4l-4.4 1.6L12 15.5l-1.6-4.5L6 9.4l4.4-1.6L12 3.5Z"/>' : "") + '</span>' +
-        '<div class="gq-id"><b>Gabriella</b><small>AI incorporation advisor</small></div>' +
+        '<div class="gq-id"><b>Gabriella</b><small>' + L('gabriella.header.role', 'AI incorporation advisor') + '</small></div>' +
         '<div class="gq-count" id="gqCount"></div>' +
       '</div>' +
       '<div class="gq-progress"><i id="gqProg"></i></div>' +
@@ -228,12 +240,12 @@
       } else if (step.type === "select") {
         body = '<div class="gq-field">' +
           '<select class="gq-select" id="gqSelect" data-autofocus><option value="" disabled selected>' + step.placeholder + "</option>" +
-          step.options.map(function (c) { return '<option value="' + c + '">' + c + "</option>"; }).join("") +
+          step.options.map(function (c) { return '<option value="' + c + '">' + L('gabriella.countries.' + c, c) + "</option>"; }).join("") +
           "</select></div>";
       } else if (step.type === "email") {
         body = '<div class="gq-field">' +
-          '<input class="gq-input2" id="gqEmail" type="email" inputmode="email" placeholder="you@company.com" data-autofocus autocomplete="email" />' +
-          '<p class="gq-err" id="gqErr" hidden>Please enter a valid email address.</p>' +
+          '<input class="gq-input2" id="gqEmail" type="email" inputmode="email" placeholder="' + L('gabriella.email.placeholder', 'you@company.com') + '" data-autofocus autocomplete="email" />' +
+          '<p class="gq-err" id="gqErr" hidden>' + L('gabriella.email.error', 'Please enter a valid email address.') + '</p>' +
         "</div>";
       }
       var showContinue = step.type !== "cards";
@@ -242,8 +254,8 @@
         (step.help ? '<p class="gq-help">' + step.help + "</p>" : "") +
         body +
         '<div class="gq-nav">' +
-          (idx > 0 ? '<button class="gq-back" type="button">← Back</button>' : '<span></span>') +
-          (showContinue ? '<button class="btn btn-primary gq-next" type="button" disabled>Continue</button>' : '<span class="gq-hint">Select to continue</span>') +
+          (idx > 0 ? '<button class="gq-back" type="button">' + L('gabriella.nav.back', '← Back') + '</button>' : '<span></span>') +
+          (showContinue ? '<button class="btn btn-primary gq-next" type="button" disabled>' + L('gabriella.nav.continue', 'Continue') + '</button>' : '<span class="gq-hint">' + L('gabriella.nav.selectToContinue', 'Select to continue') + '</span>') +
         "</div>" +
       "</div>";
     }
@@ -327,7 +339,7 @@
         stage.innerHTML =
           '<div class="gq-matching">' +
             '<span class="gq-spinner"></span>' +
-            '<p>Gabriella is cross-checking 79 jurisdictions…</p>' +
+            '<p>' + L('gabriella.matching.text', 'Gabriella is cross-checking 79 jurisdictions…') + '</p>' +
           "</div>";
         stage.style.opacity = "1";
         var rec = recommend(answers);
@@ -340,14 +352,14 @@
       return '<div class="gq-rec' + (rank === 1 ? " gq-rec--primary" : "") + '">' +
         '<div class="gq-rec__top">' +
           '<img class="gq-rec__flag" src="https://flagcdn.com/w40/' + j.iso + '.png" alt="" width="30" height="22">' +
-          '<div class="gq-rec__id"><b>' + j.name + '</b>' +
-            (rank === 1 ? '<span class="gq-rec__badge">Gabriella’s pick</span>' : '<span class="gq-rec__alt">Also strong</span>') + "</div>" +
-          '<div class="gq-rec__tax"><small>Corp tax</small><b>' + j.tax + "</b></div>" +
+          '<div class="gq-rec__id"><b>' + jxName(j) + '</b>' +
+            (rank === 1 ? '<span class="gq-rec__badge">' + L('gabriella.rec.pick', 'Gabriella’s pick') + '</span>' : '<span class="gq-rec__alt">' + L('gabriella.rec.alt', 'Also strong') + '</span>') + "</div>" +
+          '<div class="gq-rec__tax"><small>' + L('gabriella.rec.corpTax', 'Corp tax') + '</small><b>' + j.tax + "</b></div>" +
         "</div>" +
         (rank === 1 ? '<p class="gq-rec__why">' + j.why + "</p>" : "") +
         '<div class="gq-rec__meta">' +
-          '<span class="gq-rec__chip">⚡ Setup ' + j.setup + "</span>" +
-          j.banks.map(function (b) { return '<span class="gq-rec__chip">' + b + " ✓</span>"; }).join("") +
+          '<span class="gq-rec__chip">' + L('gabriella.rec.setup', '⚡ Setup {{setup}}').replace('{{setup}}', j.setup) + "</span>" +
+          j.banks.map(function (b) { return '<span class="gq-rec__chip">' + L('gabriella.rec.bankOk', '{{bank}} ✓').replace('{{bank}}', b) + "</span>"; }).join("") +
         "</div>" +
       "</div>";
     }
@@ -355,18 +367,22 @@
     function showResult(rec) {
       stage.style.transition = "opacity .2s ease"; stage.style.opacity = "0";
       setTimeout(function () {
-        prog.style.width = "100%"; count.textContent = "Done";
+        prog.style.width = "100%"; count.textContent = L('gabriella.count.done', 'Done');
+        var readyMsg = L('gabriella.result.readyBase', 'Your shortlist is ready') +
+          (answers.email ? L('gabriella.result.readyEmail', ' — and on its way to {{email}}').replace('{{email}}', answers.email) : "") +
+          L('gabriella.result.readyEnd', '.');
+        var place = jxName(JX[rec.primary]).split(",")[0];
         stage.innerHTML =
           '<div class="gq-result">' +
             '<div class="gq-result__head"><span class="gq-tick"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></span>' +
-              "<h3>Your shortlist is ready" + (answers.email ? " — and on its way to " + answers.email : "") + ".</h3></div>" +
+              "<h3>" + readyMsg + "</h3></div>" +
             jxCard(rec.primary, 1) +
             '<div class="gq-alts">' + rec.alts.map(function (k) { return jxCard(k, 2); }).join("") + "</div>" +
             '<div class="gq-result__cta">' +
-              '<button class="btn btn-primary btn-lg" id="gqStart">Start incorporation in ' + JX[rec.primary].name.split(",")[0] + " →</button>" +
-              '<button class="btn btn-ghost" id="gqRestart">Start over</button>' +
+              '<button class="btn btn-primary btn-lg" id="gqStart">' + L('gabriella.result.ctaPrimary', 'Start incorporation in {{place}} →').replace('{{place}}', place) + "</button>" +
+              '<button class="btn btn-ghost" id="gqRestart">' + L('gabriella.result.startOver', 'Start over') + '</button>' +
             "</div>" +
-            '<p class="gq-disclaimer">A guided demo recommendation. Your real shortlist is confirmed by a licensed local partner before anything is filed.</p>' +
+            '<p class="gq-disclaimer">' + L('gabriella.result.disclaimer', 'A guided demo recommendation. Your real shortlist is confirmed by a licensed local partner before anything is filed.') + '</p>' +
           "</div>";
         stage.style.opacity = "1";
         var startBtn = stage.querySelector("#gqStart");

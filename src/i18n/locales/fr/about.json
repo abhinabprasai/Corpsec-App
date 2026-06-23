@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "title": "À propos — l’équipe derrière CorpSec | CorpSec",
+    "description": "Nous avons transformé 79 juridictions et plus de 30 partenaires locaux agréés en un seul back-office — pour que les fondateurs cessent de deviner où créer leur société. Découvrez les personnes (et l’IA) qui le font fonctionner."
+  },
+  "hero": {
+    "eyebrow": "À propos de CorpSec",
+    "title": "Nous avons fait de « où devrais-je créer ma société ? » une question de deux minutes.",
+    "sub": "CorpSec transforme 79 juridictions et plus de 30 partenaires locaux agréés en un seul back-office. Vous nous indiquez où — ou vous laissez notre conseiller vous le dire. Nous prenons en charge la création de société, l’adresse, les dépôts et la comptabilité. Un seul tableau de bord. Une seule facture.",
+    "cta": {
+      "primary": "Créer ma société",
+      "secondary": "Rencontrer l’équipe"
+    }
+  },
+  "story": {
+    "eyebrow": "Pourquoi nous l’avons créé",
+    "heading": "Choisir la mauvaise juridiction est une erreur à six chiffres — nous étions fatigués de voir les fondateurs la commettre.",
+    "sub": "La « bonne » réponse dépend de vos investisseurs, de vos clients, de votre banque et de votre exposition fiscale — et la mauvaise peut bloquer une levée de fonds ou coûter des années à défaire. Les conseils étaient dispersés entre quatre conseillers qui vendaient chacun ce qu’ils avaient. Nous avons donc construit l’inverse.",
+    "cards": {
+      "fit": {
+        "title": "L’adéquation, pas la marge",
+        "body": "Notre conseiller classe l’ensemble des 79 juridictions en fonction de votre situation. Nous sommes rémunérés de la même façon où que vous vous établissiez — la recommandation est donc celle qui vous convient réellement."
+      },
+      "dashboard": {
+        "title": "Un seul tableau de bord, une seule facture",
+        "body": "Chaque renouvellement, dépôt et échéance comptable est pris en charge par des partenaires locaux agréés et regroupé en un seul endroit. Fini de courir après les registres dans des langues que vous ne parlez pas."
+      },
+      "licensed": {
+        "title": "Agréés, assurés, responsables",
+        "body": "Les prestations sont assurées par des prestataires de services aux entreprises et des experts-comptables réglementés dans chaque juridiction — couverts par une assurance responsabilité civile professionnelle, et non par un fil de forum et une prière."
+      }
+    }
+  },
+  "stats": {
+    "jurisdictions": "juridictions couvertes",
+    "companies": "sociétés créées",
+    "speed": "en moyenne pour créer une société",
+    "partners": "partenaires locaux agréés"
+  },
+  "team": {
+    "eyebrow": "Les humains (et un qui ne l’est pas)",
+    "heading": "Les personnes qui maintiennent votre société en règle.",
+    "sub": "Les compétences d’abord, la personnalité ensuite — mais nous mentirions en disant que la seconde n’a pas d’importance.",
+    "maya": {
+      "name": "Maya Chen",
+      "role": "Cofondatrice et PDG",
+      "bio": "Huit ans à structurer des sociétés holding transfrontalières dans un cabinet du Big Four avant de décider que les tableurs avaient gagné. Elle a fondé CorpSec pour que les fondateurs cessent d’écrire à quatre conseillers pour répondre à une seule question.",
+      "fun": "Capable de réciter le taux d’impôt sur les sociétés de n’importe quel pays que vous lui lancez. Merci de ne pas tester cela en soirée."
+    },
+    "daniel": {
+      "name": "Daniel Okonkwo",
+      "role": "Cofondateur et responsable juridique",
+      "bio": "Avocat qualifié ayant effectué des dépôts dans 14 juridictions et lu plus de statuts qu’il n’est médicalement raisonnable. Il veille à ce que nos données juridictionnelles restent fiables et à jour.",
+      "fun": "Convaincu qu’une table de capitalisation ennuyeuse est une table de capitalisation magnifique."
+    },
+    "sofia": {
+      "name": "Sofia Marchetti",
+      "role": "Responsable des partenariats",
+      "bio": "Elle évalue et gère les plus de 30 prestataires locaux agréés qui se cachent derrière chaque dépôt — pour que vous n’ayez jamais à contacter un registre à froid dans une langue que vous ne parlez pas.",
+      "fun": "Entretient une vendetta personnelle contre les factures imprécises."
+    },
+    "arjun": {
+      "name": "Arjun Patel",
+      "role": "Responsable produit et ingénierie",
+      "bio": "Il a conçu le tableau de bord qui transforme plus de 30 partenaires et un mur d’échéances en un seul calendrier et une seule facture. Il passe ses journées à supprimer des étapes du parcours.",
+      "fun": "Mesure le succès aux échéances dont vous n’avez jamais eu à vous souvenir."
+    },
+    "lena": {
+      "name": "Lena Brandt",
+      "role": "Responsable des opérations",
+      "bio": "Elle maintient plus de 500 sociétés en règle sur tous les fuseaux horaires. Si un dépôt est dû le mois prochain, Lena le sait déjà — et vous aussi.",
+      "fun": "Carburant : des flat whites et un calendrier en code couleur qu’elle refuse d’expliquer."
+    },
+    "gabriella": {
+      "name": "Gabriella",
+      "role": "Conseillère en création de société",
+      "bio": "Pas une personne — notre conseillère. Huit questions, deux minutes, une liste restreinte et classée avec le raisonnement détaillé. Elle recommande l’adéquation, pas la marge.",
+      "fun": "Ne dort pas, ne fait pas de vente incitative, et a des opinions tranchées et non sollicitées sur le Delaware.",
+      "link": "Demander à Gabriella"
+    }
+  },
+  "cta": {
+    "line": {
+      "before": "Prêts dès que vous l’êtes.",
+      "pill": "Créer ma société",
+      "after": "ou parlez d’abord à un véritable humain."
+    },
+    "sub": "Création de société, adresse, comptabilité — en 48 h en moyenne.",
+    "link": "Contacter l’équipe →",
+    "stats": {
+      "jurisdictions": "juridictions",
+      "speed": "moy. pour créer une société",
+      "companies": "sociétés"
+    }
+  }
+}

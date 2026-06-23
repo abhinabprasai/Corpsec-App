@@ -1,0 +1,32 @@
+{
+  "eyebrow": "Le conseiller",
+  "heading": {
+    "line1": "Huit questions. Deux minutes.",
+    "line2": "La bonne juridiction."
+  },
+  "sub": "Gabriella confronte 79 juridictions a votre exposition fiscale, a vos options bancaires, a votre image aupres des investisseurs et a votre residence — puis vous presente une selection classee, accompagnee d'une explication complete du pourquoi.",
+  "chips": {
+    "free": "✓ Gratuit",
+    "noLogin": "✓ Sans connexion",
+    "noSalesCall": "✓ Sans appel commercial"
+  },
+  "cta": "Lancer l'analyse en 2 minutes",
+  "steps": {
+    "profile": "Profil",
+    "matching": "Analyse",
+    "reportReady": "Rapport pret"
+  },
+  "card": {
+    "country": "Singapour",
+    "rank": "classee n° 1",
+    "meta": "Mise en place 2 jours · Premiere annee 5 234 SGD",
+    "taxLabel": "Impot sur les societes",
+    "banking": "Banque",
+    "bankRemote": "A distance ✓",
+    "bankStripe": "Stripe ✓",
+    "bankWise": "Wise ✓",
+    "bankMercury": "Mercury ✓",
+    "alsoConsidered": "Egalement etudiees : Estonie · Royaume-Uni · Delaware",
+    "start": "Commencer a Singapour →"
+  }
+}

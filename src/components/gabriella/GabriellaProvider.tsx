@@ -7,6 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Dialog,
   DialogClose,
@@ -64,80 +65,75 @@ const COUNTRIES = [
   "South Africa", "Brazil", "Mexico", "Japan", "Estonia", "Poland", "Other",
 ];
 
+// Option labels and step text live in i18n (namespace "gabriella"). These consts
+// carry only structure + stable values used by the recommendation logic; the
+// visible label for each option is resolved at render via
+// t(`steps.<stepId>.options.<v>`).
 interface CardOption {
   v: string;
-  label: string;
   ic: string;
 }
 type Step =
-  | { id: string; q: string; help?: string; type: "cards"; options: CardOption[] }
-  | { id: string; q: string; help?: string; type: "multi"; max: number; options: CardOption[] }
-  | { id: string; q: string; help?: string; type: "select"; placeholder: string; options: string[] }
-  | { id: string; q: string; help?: string; type: "email" };
+  | { id: string; type: "cards"; options: CardOption[] }
+  | { id: string; type: "multi"; max: number; options: CardOption[] }
+  | { id: string; type: "select"; options: string[] }
+  | { id: string; type: "email" };
 
 const STEPS: Step[] = [
   {
-    id: "building", q: "What are you building?",
-    help: "This shapes tax treatment and what investors expect to see.", type: "cards",
+    id: "building", type: "cards",
     options: [
-      { v: "saas", label: "SaaS / software", ic: "saas" },
-      { v: "ecom", label: "E-commerce", ic: "ecom" },
-      { v: "holding", label: "Holding company", ic: "holding" },
-      { v: "consult", label: "Consulting / services", ic: "consult" },
-      { v: "web3", label: "Crypto / Web3", ic: "web3" },
-      { v: "other", label: "Something else", ic: "other" },
+      { v: "saas", ic: "saas" },
+      { v: "ecom", ic: "ecom" },
+      { v: "holding", ic: "holding" },
+      { v: "consult", ic: "consult" },
+      { v: "web3", ic: "web3" },
+      { v: "other", ic: "other" },
     ],
   },
   {
-    id: "base", q: "Where are you based?",
-    help: "Your residency drives tax exposure and banking access.", type: "select",
-    placeholder: "Select your country of residence", options: COUNTRIES,
+    id: "base", type: "select", options: COUNTRIES,
   },
   {
-    id: "market", q: "Where are most of your customers?",
-    help: "Revenue location affects the smartest place to register.", type: "cards",
+    id: "market", type: "cards",
     options: [
-      { v: "us", label: "United States", ic: "flag" },
-      { v: "eu", label: "Europe", ic: "flag" },
-      { v: "uk", label: "United Kingdom", ic: "flag" },
-      { v: "me", label: "Middle East", ic: "flag" },
-      { v: "asia", label: "Asia-Pacific", ic: "flag" },
-      { v: "global", label: "Truly global", ic: "globe" },
+      { v: "us", ic: "flag" },
+      { v: "eu", ic: "flag" },
+      { v: "uk", ic: "flag" },
+      { v: "me", ic: "flag" },
+      { v: "asia", ic: "flag" },
+      { v: "global", ic: "globe" },
     ],
   },
   {
-    id: "raising", q: "Are you raising outside capital?",
-    help: "Investor familiarity can outweigh a slightly lower tax rate.", type: "cards",
+    id: "raising", type: "cards",
     options: [
-      { v: "us_vc", label: "Yes — US investors", ic: "bank" },
-      { v: "eu_vc", label: "Yes — EU / UK investors", ic: "bank" },
-      { v: "soon", label: "Planning to soon", ic: "clock" },
-      { v: "boot", label: "Bootstrapped", ic: "shield" },
+      { v: "us_vc", ic: "bank" },
+      { v: "eu_vc", ic: "bank" },
+      { v: "soon", ic: "clock" },
+      { v: "boot", ic: "shield" },
     ],
   },
   {
-    id: "banking", q: "How soon do you need a bank account?",
-    help: "Some jurisdictions open remote banking in days, others take weeks.", type: "cards",
+    id: "banking", type: "cards",
     options: [
-      { v: "now", label: "Immediately", ic: "bolt" },
-      { v: "month", label: "Within a month", ic: "clock" },
-      { v: "flex", label: "I'm flexible", ic: "shield" },
+      { v: "now", ic: "bolt" },
+      { v: "month", ic: "clock" },
+      { v: "flex", ic: "shield" },
     ],
   },
   {
-    id: "priority", q: "What matters most to you?",
-    help: "Pick up to two — Gabriella weighs these highest.", type: "multi", max: 2,
+    id: "priority", type: "multi", max: 2,
     options: [
-      { v: "tax", label: "Low tax", ic: "tax" },
-      { v: "investor", label: "Investor familiarity", ic: "bank" },
-      { v: "speed", label: "Speed & simplicity", ic: "bolt" },
-      { v: "privacy", label: "Privacy", ic: "shield" },
-      { v: "banking", label: "Strong banking", ic: "globe" },
+      { v: "tax", ic: "tax" },
+      { v: "investor", ic: "bank" },
+      { v: "speed", ic: "bolt" },
+      { v: "privacy", ic: "shield" },
+      { v: "banking", ic: "globe" },
     ],
   },
   {
-    id: "email", q: "Where should Gabriella send your report?",
-    help: "Your ranked shortlist with full reasoning. No spam, ever.", type: "email",
+    id: "email", type: "email",
   },
 ];
 
@@ -206,6 +202,7 @@ export function useGabriella(): GabriellaApi {
 
 /* ---- result card ------------------------------------------- */
 function JxCard({ jxKey, rank }: { jxKey: string; rank: 1 | 2 }) {
+  const { t } = useTranslation("gabriella");
   const j = JX[jxKey];
   return (
     <div className={"gq-rec" + (rank === 1 ? " gq-rec--primary" : "")}>
@@ -218,21 +215,21 @@ function JxCard({ jxKey, rank }: { jxKey: string; rank: 1 | 2 }) {
           height={22}
         />
         <div className="gq-rec__id">
-          <b>{j.name}</b>
+          <b>{t(`jx.${jxKey}.name`)}</b>
           {rank === 1
-            ? <span className="gq-rec__badge">Gabriella&rsquo;s pick</span>
-            : <span className="gq-rec__alt">Also strong</span>}
+            ? <span className="gq-rec__badge">{t("rec.pick")}</span>
+            : <span className="gq-rec__alt">{t("rec.alt")}</span>}
         </div>
         <div className="gq-rec__tax">
-          <small>Corp tax</small>
-          <b>{j.tax}</b>
+          <small>{t("rec.corpTax")}</small>
+          <b>{t(`jx.${jxKey}.tax`)}</b>
         </div>
       </div>
-      {rank === 1 ? <p className="gq-rec__why">{j.why}</p> : null}
+      {rank === 1 ? <p className="gq-rec__why">{t(`jx.${jxKey}.why`)}</p> : null}
       <div className="gq-rec__meta">
-        <span className="gq-rec__chip">⚡ Setup {j.setup}</span>
+        <span className="gq-rec__chip">{t("rec.setup", { setup: t(`jx.${jxKey}.setup`) })}</span>
         {j.banks.map((b) => (
-          <span className="gq-rec__chip" key={b}>{b} ✓</span>
+          <span className="gq-rec__chip" key={b}>{t("rec.bankOk", { bank: b })}</span>
         ))}
       </div>
     </div>
@@ -247,6 +244,7 @@ function JxCard({ jxKey, rank }: { jxKey: string; rank: 1 | 2 }) {
 type Phase = "questions" | "matching" | "result";
 
 function Questionnaire({ seed, onClose }: { seed: string; onClose: () => void }) {
+  const { t } = useTranslation("gabriella");
   const [answers, setAnswers] = useState<Answers>({ seed });
   const [idx, setIdx] = useState(0);
   const [phase, setPhase] = useState<Phase>("questions");
@@ -264,7 +262,9 @@ function Questionnaire({ seed, onClose }: { seed: string; onClose: () => void })
   const total = STEPS.length;
   const pct = phase === "questions" ? Math.round((idx / total) * 100) : 100;
   const countLabel =
-    phase === "result" ? "Done" : `${Math.min(idx + 1, total)} / ${total}`;
+    phase === "result"
+      ? t("count.done")
+      : t("count.progress", { current: Math.min(idx + 1, total), total });
 
   const goNext = useCallback(() => {
     setIdx((cur) => {
@@ -388,7 +388,7 @@ function Questionnaire({ seed, onClose }: { seed: string; onClose: () => void })
                 onClick={() => pickCard(step.id, o.v)}
               >
                 <span className="gq-opt__ic"><Svg paths={IC[o.ic] || IC.other} /></span>
-                <span className="gq-opt__label">{o.label}</span>
+                <span className="gq-opt__label">{t(`steps.${step.id}.options.${o.v}`)}</span>
                 <span className="gq-opt__check">
                   <svg viewBox="0 0 24 24" width={13} height={13} fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round">
                     <path d="m5 12 5 5L20 7" />
@@ -413,7 +413,7 @@ function Questionnaire({ seed, onClose }: { seed: string; onClose: () => void })
                 onClick={() => toggleMulti(o.v, step.max)}
               >
                 <span className="gq-opt__ic"><Svg paths={IC[o.ic] || IC.other} /></span>
-                <span className="gq-opt__label">{o.label}</span>
+                <span className="gq-opt__label">{t(`steps.${step.id}.options.${o.v}`)}</span>
                 <span className="gq-opt__check">
                   <svg viewBox="0 0 24 24" width={13} height={13} fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round">
                     <path d="m5 12 5 5L20 7" />
@@ -433,9 +433,9 @@ function Questionnaire({ seed, onClose }: { seed: string; onClose: () => void })
             autoFocus
             onChange={(e) => setSelectVal(e.target.value)}
           >
-            <option value="" disabled>{step.placeholder}</option>
+            <option value="" disabled>{t(`steps.${step.id}.placeholder`)}</option>
             {step.options.map((c) => (
-              <option value={c} key={c}>{c}</option>
+              <option value={c} key={c}>{t(`countries.${c}`)}</option>
             ))}
           </select>
         </div>
@@ -447,7 +447,7 @@ function Questionnaire({ seed, onClose }: { seed: string; onClose: () => void })
             className="gq-input2"
             type="email"
             inputMode="email"
-            placeholder="you@company.com"
+            placeholder={t("email.placeholder")}
             autoFocus
             autoComplete="email"
             value={emailVal}
@@ -455,7 +455,7 @@ function Questionnaire({ seed, onClose }: { seed: string; onClose: () => void })
             onKeyDown={(e) => { if (e.key === "Enter") submitEmail(); }}
           />
           {emailErr ? (
-            <p className="gq-err">Please enter a valid email address.</p>
+            <p className="gq-err">{t("email.error")}</p>
           ) : null}
         </div>
       );
@@ -475,12 +475,12 @@ function Questionnaire({ seed, onClose }: { seed: string; onClose: () => void })
 
     return (
       <div className="gq-step">
-        <h3 className="gq-q">{step.q}</h3>
-        {step.help ? <p className="gq-help">{step.help}</p> : null}
+        <h3 className="gq-q">{t(`steps.${step.id}.q`)}</h3>
+        <p className="gq-help">{t(`steps.${step.id}.help`)}</p>
         {body}
         <div className="gq-nav">
           {idx > 0
-            ? <button className="gq-back" type="button" onClick={goBack}>← Back</button>
+            ? <button className="gq-back" type="button" onClick={goBack}>{t("nav.back")}</button>
             : <span />}
           {showContinue
             ? (
@@ -490,10 +490,10 @@ function Questionnaire({ seed, onClose }: { seed: string; onClose: () => void })
                 disabled={continueDisabled}
                 onClick={onContinue}
               >
-                Continue
+                {t("nav.continue")}
               </button>
             )
-            : <span className="gq-hint">Select to continue</span>}
+            : <span className="gq-hint">{t("nav.selectToContinue")}</span>}
         </div>
       </div>
     );
@@ -504,7 +504,7 @@ function Questionnaire({ seed, onClose }: { seed: string; onClose: () => void })
       return (
         <div className="gq-matching">
           <span className="gq-spinner" />
-          <p>Gabriella is cross-checking 79 jurisdictions…</p>
+          <p>{t("matching.text")}</p>
         </div>
       );
     }
@@ -519,8 +519,9 @@ function Questionnaire({ seed, onClose }: { seed: string; onClose: () => void })
               </svg>
             </span>
             <h3>
-              Your shortlist is ready
-              {answers.email ? ` — and on its way to ${answers.email}` : ""}.
+              {t("result.readyBase")}
+              {answers.email ? t("result.readyEmail", { email: answers.email }) : ""}
+              {t("result.readyEnd")}
             </h3>
           </div>
           <JxCard jxKey={rec.primary} rank={1} />
@@ -529,15 +530,14 @@ function Questionnaire({ seed, onClose }: { seed: string; onClose: () => void })
           </div>
           <div className="gq-result__cta">
             <button className="btn btn-primary btn-lg" type="button" onClick={onClose}>
-              Start incorporation in {JX[rec.primary].name.split(",")[0]} →
+              {t("result.ctaPrimary", { place: t(`jx.${rec.primary}.name`).split(",")[0] })}
             </button>
             <button className="btn btn-ghost" type="button" onClick={restart}>
-              Start over
+              {t("result.startOver")}
             </button>
           </div>
           <p className="gq-disclaimer">
-            A guided demo recommendation. Your real shortlist is confirmed by a licensed
-            local partner before anything is filed.
+            {t("result.disclaimer")}
           </p>
         </div>
       );
@@ -552,8 +552,8 @@ function Questionnaire({ seed, onClose }: { seed: string; onClose: () => void })
           <Svg paths='<path d="M12 3.5l1.6 4.3L18 9.4l-4.4 1.6L12 15.5l-1.6-4.5L6 9.4l4.4-1.6L12 3.5Z"/>' />
         </span>
         <div className="gq-id">
-          <b>Gabriella</b>
-          <small>AI incorporation advisor</small>
+          <b>{t("header.name")}</b>
+          <small>{t("header.role")}</small>
         </div>
         <div className="gq-count">{countLabel}</div>
       </div>
@@ -569,6 +569,7 @@ function Questionnaire({ seed, onClose }: { seed: string; onClose: () => void })
    Provider — owns the Dialog shell + open/close API.
    ============================================================ */
 export function GabriellaProvider({ children }: { children: ReactNode }) {
+  const { t } = useTranslation("gabriella");
   const [isOpen, setIsOpen] = useState(false);
   const [seed, setSeed] = useState("");
   // bumping the key remounts the Questionnaire so each open starts fresh
@@ -601,12 +602,12 @@ export function GabriellaProvider({ children }: { children: ReactNode }) {
         <DialogContent showCloseButton={false} className="gq-dialog">
           <style>{csmPanelCss}{csmOverlayCss}</style>
           <DialogTitle className="sr-only">
-            Gabriella — AI incorporation advisor
+            {t("header.dialogTitle")}
           </DialogTitle>
           {/* `.csm__close` — round glass X button at top:16/right:16 like the original */}
           <DialogClose
             className="csm__close"
-            aria-label="Close"
+            aria-label={t("nav.close")}
             data-slot="dialog-close"
           >
             <svg

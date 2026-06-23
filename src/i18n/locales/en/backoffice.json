@@ -1,0 +1,56 @@
+{
+  "eyebrow": "The back office",
+  "heading": "We run the back office. In any country.",
+  "sub": "Every filing, every renewal, every compliance deadline — handled by licensed local partners, surfaced through one dashboard.",
+  "from": "From",
+  "tabs": {
+    "form": {
+      "label": "Form",
+      "small": "· Stand it up"
+    },
+    "operate": {
+      "label": "Operate",
+      "small": "· Stay in good standing"
+    },
+    "run": {
+      "label": "Run",
+      "small": "· Run the finances"
+    }
+  },
+  "panels": {
+    "form": {
+      "title": "The legal entity, fully formed.",
+      "items": {
+        "incorporation": "Incorporation",
+        "shareTransfers": "Share transfers",
+        "directorAppointments": "Director appointments",
+        "apostilles": "Apostilles",
+        "shareCertificates": "Share certificates"
+      },
+      "priceSuffix": " · United Kingdom"
+    },
+    "operate": {
+      "title": "Good standing, kept.",
+      "items": {
+        "registeredAddress": "Registered address",
+        "corporateSecretary": "Corporate secretary",
+        "nomineeDirector": "Nominee director",
+        "annualReturn": "Annual return",
+        "kycUpdates": "KYC updates"
+      },
+      "priceSuffix": "/year · United Kingdom"
+    },
+    "run": {
+      "title": "The financial machinery your investors will check.",
+      "items": {
+        "bookkeeping": "Bookkeeping",
+        "taxFiling": "Tax filing",
+        "payroll": "Payroll",
+        "vatGst": "VAT / GST",
+        "auditSupport": "Audit support",
+        "cfoServices": "CFO services"
+      },
+      "priceSuffix": "/month · United Kingdom"
+    }
+  }
+}

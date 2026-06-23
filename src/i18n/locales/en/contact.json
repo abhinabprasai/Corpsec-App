@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "title": "Contact — talk to the CorpSec team | CorpSec",
+    "description": "Tell us where you're headed and we'll reply within one business day. Or skip the form and ask Gabriella for a ranked jurisdiction shortlist in two minutes."
+  },
+  "hero": {
+    "eyebrow": "Contact us",
+    "title": "Get in touch with our team.",
+    "sub": "Tell us where you’re headed and we’ll come back with a clear next step — usually within one business day. We’re a little competitive about reply times."
+  },
+  "info": {
+    "ariaLabel": "Other ways to reach us",
+    "office": {
+      "label": "Head office",
+      "value": "71 Robinson Road, Singapore",
+      "note": "Satellite desks in London & Dubai. The filing cabinets are mostly digital now."
+    },
+    "phone": {
+      "label": "Talk to a human",
+      "note": "A real person picks up. No phone-tree maze, no “press 4 for incorporation.”"
+    },
+    "email": {
+      "label": "Email",
+      "note": "We read every one and reply within one business day."
+    },
+    "hours": {
+      "label": "Working hours",
+      "value": "Mon–Fri, 9–6 (your time, mostly)",
+      "note": "Gabriella covers nights, weekends and public holidays she doesn’t observe."
+    }
+  },
+  "form": {
+    "head": {
+      "title": "Send us a message",
+      "lead": "Fill in the essentials.",
+      "reqKey": "= required."
+    },
+    "firstName": {
+      "label": "First name"
+    },
+    "lastName": {
+      "label": "Last name"
+    },
+    "email": {
+      "label": "Work email"
+    },
+    "phone": {
+      "label": "Phone",
+      "placeholder": "Optional"
+    },
+    "company": {
+      "label": "Company",
+      "placeholder": "Optional"
+    },
+    "jurisdiction": {
+      "label": "Jurisdiction of interest",
+      "unsure": "Not sure yet — help me choose"
+    },
+    "message": {
+      "label": "How can we help?",
+      "placeholder": "A sentence or two on what you’re building and where."
+    },
+    "submit": "Send message",
+    "privacy": "We’ll only use this to reply to you. No newsletters unless you asked, no data sold, no follow-up calls. Request deletion anytime — done within 24 hours.",
+    "status_one": "{{count}} field needs a fix above.",
+    "status_other": "{{count}} fields need a fix above."
+  },
+  "jurisdictions": {
+    "singapore": "Singapore",
+    "delaware": "Delaware (USA)",
+    "uk": "United Kingdom",
+    "uae": "Dubai (UAE)",
+    "estonia": "Estonia",
+    "hong-kong": "Hong Kong",
+    "other": "Somewhere else"
+  },
+  "errors": {
+    "firstName": "Please tell us your first name.",
+    "email": "Please enter a valid work email.",
+    "message": "A sentence on what you need helps us route you."
+  },
+  "success": {
+    "title": "Message sent.",
+    "body": "Thanks, {{name}} — we’ll be in touch within one business day. Usually sooner.",
+    "home": "Back to home",
+    "gabriella": "Ask Gabriella meanwhile"
+  },
+  "alt": {
+    "title": "Allergic to forms? Same.",
+    "sub": "Answer eight questions and Gabriella ranks all 79 jurisdictions for your situation — tax, banking and investor fit, reasoning included. Two minutes, no login, no sales call.",
+    "cta": "Ask Gabriella — free"
+  },
+  "faq": {
+    "eyebrow": "Before you ask",
+    "title": "The questions we get before the call.",
+    "items": {
+      "speed": {
+        "q": "How fast will I actually hear back?",
+        "a": "One business day, usually less. If you wrote on a Friday night, Monday morning — we like weekends too."
+      },
+      "account": {
+        "q": "Do I need an account to talk to you?",
+        "a": "No. No login, no card, no “create a free account to continue.” A message or two minutes with Gabriella is plenty."
+      },
+      "person": {
+        "q": "Can I just speak to a person?",
+        "a": "Always. Call the number or ask for a specialist in your message — a human replies, not a bot pretending to be one."
+      },
+      "jurisdiction": {
+        "q": "I don’t know which jurisdiction yet. Is that a problem?",
+        "a": "That’s most people, and exactly what we’re for. Leave it as “not sure” — we (or Gabriella) will narrow it down with you."
+      }
+    }
+  }
+}

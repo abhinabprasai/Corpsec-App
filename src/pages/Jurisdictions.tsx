@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
 import { JX_DATA, JX_BY_SLUG, type Jurisdiction } from "@/data/jurisdictions"
 import { JURISDICTIONS_ALL } from "@/data/allJurisdictions"
 import { useGabriella } from "@/components/gabriella/GabriellaProvider"
 import { Input } from "@/components/ui/input"
 import { usePageMeta } from "@/lib/usePageMeta"
+import { useJxLocale } from "@/lib/useJxLocale"
 
 const flag = (iso: string) => `https://flagcdn.com/w40/${iso.toLowerCase()}.png`
 
@@ -82,14 +84,22 @@ const REGIONS: string[] = (() => {
 })()
 
 export default function Jurisdictions() {
+  const { t } = useTranslation("jurisdictions")
+  const { name: locName } = useJxLocale()
   const { open } = useGabriella()
   const [query, setQuery] = useState("")
   const [region, setRegion] = useState(ALL_TAB)
 
-  usePageMeta(
-    "Jurisdictions — incorporate anywhere it matters | CorpSec",
-    "Browse 79 jurisdictions. Compare tax, setup time and all-in cost, then incorporate with licensed local partners — incorporation plus every back-office service, per country."
-  )
+  // Translate region/tab labels for display only; the raw value stays the
+  // matching key against imported jurisdiction data. Unknown regions fall back
+  // to their raw label.
+  const regionLabel = (r: string) => {
+    const key = `regions.${r}`
+    const translated = t(key)
+    return translated === key ? r : translated
+  }
+
+  usePageMeta(t("meta.title"), t("meta.description"))
 
   useEffect(() => {
     document.body.className = "jx-page"
@@ -105,7 +115,13 @@ export default function Jurisdictions() {
     const filtered = DIRECTORY.filter((d) => {
       if (region !== ALL_TAB && d.region !== region) return false
       if (!q) return true
-      return d.name.toLowerCase().includes(q) || d.region.toLowerCase().includes(q)
+      // match the English name/region AND the localized display name, so search
+      // works whether the visitor types "Switzerland" or "Suisse".
+      return (
+        d.name.toLowerCase().includes(q) ||
+        d.region.toLowerCase().includes(q) ||
+        locName(d.name).toLowerCase().includes(q)
+      )
     })
     const byRegion = new Map<string, DirEntry[]>()
     for (const d of filtered) {
@@ -118,7 +134,7 @@ export default function Jurisdictions() {
       const ib = REGION_ORDER.indexOf(b[0])
       return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib)
     })
-  }, [q, region])
+  }, [q, region, locName])
 
   const matchCount = grouped.reduce((n, [, list]) => n + list.length, 0)
 
@@ -127,15 +143,12 @@ export default function Jurisdictions() {
       {/* ===== HERO + SEARCH ===== */}
       <section className="hub-hero">
         <div className="container hub-hero__inner reveal">
-          <span className="eyebrow">79 jurisdictions · one back office</span>
+          <span className="eyebrow">{t("hero.eyebrow")}</span>
           <h1 className="hub-h1">
-            Find where to<br />
-            <span className="grad-shine">incorporate</span>.
+            {t("hero.headlineLead")}<br />
+            <span className="grad-shine">{t("hero.headlineWord")}</span>{t("hero.headlineEnd")}
           </h1>
-          <p className="hub-sub">
-            Search any country, compare tax, speed and all-in cost, then set up with a licensed local
-            partner — incorporation and every back-office service in one place.
-          </p>
+          <p className="hub-sub">{t("hero.sub")}</p>
           <form
             className="hub-search"
             role="search"
@@ -159,17 +172,17 @@ export default function Jurisdictions() {
             <Input
               className="hub-search__in"
               type="text"
-              aria-label="Search jurisdictions"
-              placeholder="Search — Singapore, Delaware, Dubai…"
+              aria-label={t("hero.searchAria")}
+              placeholder={t("hero.searchPlaceholder")}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
           </form>
-          <div className="hub-quick" aria-label="Popular jurisdictions">
+          <div className="hub-quick" aria-label={t("hero.popularAria")}>
             {JX_DATA.map((j) => (
               <Link key={j.slug} className="hub-pill" to={`/jurisdiction/${j.slug}`}>
                 <img src={flag(j.iso)} alt="" width={18} height={14} />
-                {j.name}
+                {locName(j.name)}
               </Link>
             ))}
           </div>
@@ -180,12 +193,10 @@ export default function Jurisdictions() {
       <section className="section hub-pop" id="popular">
         <div className="container">
           <div className="section-head bento-head reveal">
-            <span className="eyebrow">Most chosen</span>
+            <span className="eyebrow">{t("popular.eyebrow")}</span>
             <h2 className="bento-headline">
-              <span className="lead">Where founders actually go.</span>{" "}
-              <span className="rest">
-                The jurisdictions we cover in depth — tax, setup and all-in cost up front.
-              </span>
+              <span className="lead">{t("popular.headlineLead")}</span>{" "}
+              <span className="rest">{t("popular.headlineRest")}</span>
             </h2>
           </div>
           <div className="hub-pop__grid" id="jxPopular">
@@ -211,14 +222,14 @@ export default function Jurisdictions() {
                         <img src={flag(j.iso)} alt="" width={34} height={26} />
                       </span>
                       <div className="hub-card__id">
-                        <b>{j.name}</b>
-                        <small>{j.region || ""}</small>
+                        <b>{locName(j.name)}</b>
+                        <small>{j.region ? regionLabel(j.region) : ""}</small>
                       </div>
                     </div>
                     <dl className="hub-card__metrics">
                       {taxBul ? (
                         <div className="hub-card__metric--stack">
-                          <dt>Corp tax</dt>
+                          <dt>{t("card.corpTax")}</dt>
                           <ul className="jx-taxbul">
                             {taxBul.map((p, i) => (
                               <li key={i}>{p}</li>
@@ -227,16 +238,16 @@ export default function Jurisdictions() {
                         </div>
                       ) : (
                         <div>
-                          <dt>Corp tax</dt>
+                          <dt>{t("card.corpTax")}</dt>
                           <dd>{tax}</dd>
                         </div>
                       )}
                       <div className="hub-card__metric--stack">
-                        <dt>Setup</dt>
+                        <dt>{t("card.setup")}</dt>
                         <dd>{setup}</dd>
                       </div>
                       <div className="hub-card__metric--stack">
-                        <dt>From</dt>
+                        <dt>{t("card.from")}</dt>
                         <dd>{price}</dd>
                       </div>
                     </dl>
@@ -248,7 +259,7 @@ export default function Jurisdictions() {
                       ))}
                     </div>
                     <span className="hub-card__go">
-                      Explore {j.name} <span aria-hidden="true">→</span>
+                      {t("card.explore", { name: locName(j.name) })} <span aria-hidden="true">→</span>
                     </span>
                   </div>
                 </Link>
@@ -262,12 +273,12 @@ export default function Jurisdictions() {
       <section className="section band-tint hub-all" id="all">
         <div className="container">
           <div className="section-head reveal">
-            <span className="eyebrow">Full coverage</span>
-            <h2>All 79 jurisdictions.</h2>
-            <p className="sub">Filter by region or search to narrow instantly.</p>
+            <span className="eyebrow">{t("all.eyebrow")}</span>
+            <h2>{t("all.headline")}</h2>
+            <p className="sub">{t("all.sub")}</p>
           </div>
 
-          <div className="filters reveal" role="tablist" aria-label="Filter by region">
+          <div className="filters reveal" role="tablist" aria-label={t("all.filterAria")}>
             {REGIONS.map((r) => (
               <button
                 key={r}
@@ -277,7 +288,7 @@ export default function Jurisdictions() {
                 className={region === r ? "filter active" : "filter"}
                 onClick={() => setRegion(r)}
               >
-                {r}
+                {regionLabel(r)}
               </button>
             ))}
           </div>
@@ -286,7 +297,7 @@ export default function Jurisdictions() {
             {grouped.map(([regionName, list]) => (
               <div className="hub-region" data-region={regionName} key={regionName}>
                 <h3 className="hub-region__h">
-                  {regionName} <span className="hub-region__n">{list.length}</span>
+                  {regionLabel(regionName)} <span className="hub-region__n">{list.length}</span>
                 </h3>
                 <div className="hub-region__grid">
                   {list.map((j) => (
@@ -305,13 +316,13 @@ export default function Jurisdictions() {
                         />
                       </span>
                       <span className="hub-mini__name">
-                        {j.name}
+                        {locName(j.name)}
                         {j.rich && (
                           <>
                             {" "}
                             <span
                               className="hub-mini__dot"
-                              title="In-depth guide"
+                              title={t("all.inDepthGuide")}
                               aria-hidden="true"
                             />
                           </>
@@ -329,13 +340,13 @@ export default function Jurisdictions() {
 
           {matchCount === 0 && (
             <p className="hub-all__empty">
-              No jurisdiction matches that search.{" "}
+              {t("all.emptyLead")}{" "}
               <button
                 className="hw-link"
                 type="button"
                 onClick={() => open(query.trim() || undefined)}
               >
-                Ask Gabriella instead →
+                {t("all.emptyCta")} →
               </button>
             </p>
           )}
@@ -346,12 +357,9 @@ export default function Jurisdictions() {
       <section className="section hub-svc" id="services">
         <div className="container">
           <div className="section-head reveal">
-            <span className="eyebrow">What we handle — in every jurisdiction</span>
-            <h2>Incorporation is step one. We run the rest.</h2>
-            <p className="sub">
-              Every service below is delivered locally, in the jurisdiction you choose — as a full
-              bundle or à la carte on any country page.
-            </p>
+            <span className="eyebrow">{t("services.eyebrow")}</span>
+            <h2>{t("services.headline")}</h2>
+            <p className="sub">{t("services.sub")}</p>
           </div>
           <div className="hub-svc__grid reveal">
             <article className="bento-card hub-svccard" data-slot="card">
@@ -372,11 +380,8 @@ export default function Jurisdictions() {
                     <path d="m8.5 13 2.2 2.2L16 10.4" />
                   </svg>
                 </div>
-                <h3>Form</h3>
-                <p>
-                  Incorporation, registered agent, share issuance, director appointments — filed
-                  with the local registry.
-                </p>
+                <h3>{t("services.form.title")}</h3>
+                <p>{t("services.form.body")}</p>
               </div>
             </article>
             <article className="bento-card hub-svccard" data-slot="card">
@@ -396,11 +401,8 @@ export default function Jurisdictions() {
                     <path d="m9 12 2 2 4-4" />
                   </svg>
                 </div>
-                <h3>Operate</h3>
-                <p>
-                  Registered address, corporate secretary, annual returns, KYC and good-standing —
-                  kept current, every year.
-                </p>
+                <h3>{t("services.operate.title")}</h3>
+                <p>{t("services.operate.body")}</p>
               </div>
             </article>
             <article className="bento-card hub-svccard" data-slot="card">
@@ -420,11 +422,8 @@ export default function Jurisdictions() {
                     <path d="M8.5 8h7M8.5 12h7M8.5 16h4" />
                   </svg>
                 </div>
-                <h3>Run</h3>
-                <p>
-                  Bookkeeping, tax filing, payroll, VAT/GST and banking introductions — certified
-                  accountants in your jurisdiction.
-                </p>
+                <h3>{t("services.run.title")}</h3>
+                <p>{t("services.run.body")}</p>
               </div>
             </article>
           </div>
@@ -436,30 +435,30 @@ export default function Jurisdictions() {
         <div className="container">
           <div className="jx-cta2__wrap reveal">
             <h2 className="jx-cta2__line">
-              Not sure where to start?{" "}
+              {t("cta.lead")}{" "}
               <button className="jx-cta2__pill" type="button" onClick={() => open()}>
-                Ask Gabriella — free <span aria-hidden="true">→</span>
+                {t("cta.pill")} <span aria-hidden="true">→</span>
               </button>{" "}
-              to rank all 79 for you.
+              {t("cta.tail")}
             </h2>
             <p className="jx-cta2__sub">
-              Eight questions, two minutes — matched on tax, banking and investor needs.{" "}
+              {t("cta.sub")}{" "}
               <Link className="jx-cta2__link" to="/contact">
-                Talk to a specialist →
+                {t("cta.specialist")} →
               </Link>
             </p>
             <div className="jx-cta2__stats">
               <div>
                 <b>79</b>
-                <span>jurisdictions</span>
+                <span>{t("cta.stats.jurisdictions")}</span>
               </div>
               <div>
                 <b>48h</b>
-                <span>avg. to incorporate</span>
+                <span>{t("cta.stats.incorporate")}</span>
               </div>
               <div>
                 <b>500+</b>
-                <span>companies</span>
+                <span>{t("cta.stats.companies")}</span>
               </div>
             </div>
           </div>

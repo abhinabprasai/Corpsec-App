@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import { Link } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 import {
   Command,
   CommandEmpty,
@@ -13,6 +14,7 @@ import { useGabriella } from "@/components/gabriella/GabriellaProvider"
 import { JX_BY_SLUG } from "@/data/jurisdictions"
 import { JURISDICTIONS_ALL } from "@/data/allJurisdictions"
 import { usePageMeta } from "@/lib/usePageMeta"
+import { useJxLocale } from "@/lib/useJxLocale"
 
 /* ── Comparison data for the 6 flagship jurisdictions (the exact fields the
    vanilla compare.js used). Name / iso / region come from JX_DATA (the single
@@ -138,31 +140,32 @@ const CMP_DATA: Record<string, CmpData> = {
 const FLAGSHIP = ["singapore", "hong-kong", "united-kingdom", "estonia", "dubai", "delaware"] as const
 const MAX = 5
 
-/* ── Row definitions — exact categories / labels from compare.js ROWS. ─────── */
+/* ── Row definitions — exact categories / labels from compare.js ROWS.
+   `labelKey` holds an i18n key resolved with t() at render. ───────────────── */
 type Row =
-  | { type: "cat"; label: string }
-  | { key: keyof CmpData; label: string; type?: "tags" | "director" | "price" }
+  | { type: "cat"; labelKey: string }
+  | { key: keyof CmpData; labelKey: string; type?: "tags" | "director" | "price" }
 
 const ROWS: Row[] = [
-  { type: "cat", label: "At a glance" },
-  { key: "region", label: "Region" },
-  { key: "entity", label: "Entity type" },
-  { key: "bestFor", label: "Best for", type: "tags" },
-  { type: "cat", label: "Tax" },
-  { key: "corpTax", label: "Corporate tax" },
-  { key: "vatGst", label: "VAT / GST" },
-  { key: "cgt", label: "Capital gains tax" },
-  { key: "personalTax", label: "Personal income tax" },
-  { key: "dividendWH", label: "Dividend withholding" },
-  { key: "lossCarry", label: "Loss carry-forward" },
-  { type: "cat", label: "Incorporation" },
-  { key: "minCapital", label: "Min. share capital" },
-  { key: "residentDir", label: "Resident director", type: "director" },
-  { key: "setupTime", label: "Setup time" },
-  { key: "yearOne", label: "Bundle from (Year 1)", type: "price" },
-  { type: "cat", label: "Ongoing" },
-  { key: "annualFilings", label: "Annual filings" },
-  { key: "banking", label: "Banking" },
+  { type: "cat", labelKey: "rows.cat.glance" },
+  { key: "region", labelKey: "rows.region" },
+  { key: "entity", labelKey: "rows.entity" },
+  { key: "bestFor", labelKey: "rows.bestFor", type: "tags" },
+  { type: "cat", labelKey: "rows.cat.tax" },
+  { key: "corpTax", labelKey: "rows.corpTax" },
+  { key: "vatGst", labelKey: "rows.vatGst" },
+  { key: "cgt", labelKey: "rows.cgt" },
+  { key: "personalTax", labelKey: "rows.personalTax" },
+  { key: "dividendWH", labelKey: "rows.dividendWH" },
+  { key: "lossCarry", labelKey: "rows.lossCarry" },
+  { type: "cat", labelKey: "rows.cat.incorporation" },
+  { key: "minCapital", labelKey: "rows.minCapital" },
+  { key: "residentDir", labelKey: "rows.residentDir", type: "director" },
+  { key: "setupTime", labelKey: "rows.setupTime" },
+  { key: "yearOne", labelKey: "rows.yearOne", type: "price" },
+  { type: "cat", labelKey: "rows.cat.ongoing" },
+  { key: "annualFilings", labelKey: "rows.annualFilings" },
+  { key: "banking", labelKey: "rows.banking" },
 ]
 
 /* ── Search index over all 79 jurisdictions, mapped to a flagship slug when
@@ -222,6 +225,8 @@ function makeCol(entry: SearchEntry): Col {
 }
 
 export default function Compare() {
+  const { t } = useTranslation("compare")
+  const { name: locName, region: locRegion } = useJxLocale()
   const { open } = useGabriella()
   const [cols, setCols] = useState<Col[]>([])
   const [search, setSearch] = useState("")
@@ -229,10 +234,7 @@ export default function Compare() {
   const inputRef = useRef<HTMLInputElement>(null)
   const cmdkInputRef = useRef<HTMLInputElement>(null)
 
-  usePageMeta(
-    "Compare Jurisdictions | CorpSec",
-    "Compare up to 5 incorporation jurisdictions side by side — tax rates, setup costs, residency requirements, banking and more across 79 countries."
-  )
+  usePageMeta(t("meta.title"), t("meta.description"))
 
   useEffect(() => {
     document.body.className = "jx-page compare-page"
@@ -264,7 +266,11 @@ export default function Compare() {
   const matches = useMemo(() => {
     const q = search.trim().toLowerCase()
     return SEARCH_IDX.filter(
-      (e) => !q || e.name.toLowerCase().includes(q) || e.region.toLowerCase().includes(q)
+      (e) =>
+        !q ||
+        e.name.toLowerCase().includes(q) ||
+        e.region.toLowerCase().includes(q) ||
+        locName(e.name).toLowerCase().includes(q)
     ).slice(0, 40)
   }, [search])
 
@@ -286,7 +292,7 @@ export default function Compare() {
         onClick={() => toggleByKey(entry.key)}
       >
         <img src={flag(entry.iso)} alt="" width={18} height={13} loading="lazy" />
-        <span>{jx?.name ?? entry.name}</span>
+        <span>{locName(jx?.name ?? entry.name)}</span>
         {on ? (
           <svg className="cmp-chip__mark" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
             <path d="M20 6 9 17l-5-5" />
@@ -336,12 +342,9 @@ export default function Compare() {
       <section className="page-hero">
         <div className="page-hero__glow" aria-hidden="true"></div>
         <div className="container page-hero__inner reveal">
-          <span className="eyebrow">Jurisdiction comparison</span>
-          <h1 className="page-hero__title">Pick the right jurisdiction — not just the most popular one.</h1>
-          <p className="page-hero__sub">
-            Add up to 5 jurisdictions and compare tax, setup cost, residency and more, side by side. Full data
-            for 6 flagship jurisdictions — or let Gabriella narrow it down for you.
-          </p>
+          <span className="eyebrow">{t("hero.eyebrow")}</span>
+          <h1 className="page-hero__title">{t("hero.title")}</h1>
+          <p className="page-hero__sub">{t("hero.sub")}</p>
           <div className="page-hero__cta">
             <button
               className="btn btn-primary btn-lg"
@@ -350,10 +353,10 @@ export default function Compare() {
               data-size="lg"
               onClick={() => open()}
             >
-              Ask Gabriella
+              {t("hero.cta.gabriella")}
             </button>
             <Link className="btn btn-ghost btn-lg" to="/jurisdictions" data-slot="button" data-variant="outline" data-size="lg">
-              All 79 jurisdictions
+              {t("hero.cta.all")}
             </Link>
           </div>
         </div>
@@ -364,13 +367,11 @@ export default function Compare() {
         <div className="container cmp-container">
           <div className="cmp-header reveal">
             <div>
-              <h2 className="cmp-header__title">Side-by-side comparison</h2>
-              <p className="cmp-header__sub">
-                Search to add up to 5 jurisdictions, then compare tax, setup and ongoing requirements row by row.
-              </p>
+              <h2 className="cmp-header__title">{t("table.title")}</h2>
+              <p className="cmp-header__sub">{t("table.sub")}</p>
             </div>
             <Link to="/jurisdictions" className="btn btn-ghost btn-sm" data-slot="button" data-variant="outline" data-size="sm">
-              Browse directory
+              {t("table.browse")}
             </Link>
           </div>
 
@@ -397,15 +398,11 @@ export default function Compare() {
                     aria-expanded={popoverOpen}
                     aria-controls="cmpList"
                     aria-autocomplete="list"
-                    aria-label="Search jurisdictions to add"
+                    aria-label={t("search.label")}
                     autoComplete="off"
                     disabled={full}
                     value={search}
-                    placeholder={
-                      full
-                        ? "Maximum 5 reached — remove one to add another"
-                        : "Search 79 jurisdictions to add…"
-                    }
+                    placeholder={full ? t("search.placeholderFull") : t("search.placeholder")}
                     onChange={(e) => {
                       setSearch(e.target.value)
                       if (!popoverOpen) setPopoverOpen(true)
@@ -457,7 +454,7 @@ export default function Compare() {
                   />
                   <CommandList id="cmpList" className="cmp-combo__list">
                     <CommandEmpty className="cmp-opt cmp-opt--empty">
-                      No jurisdiction found
+                      {t("search.empty")}
                     </CommandEmpty>
                     <CommandGroup className="cmp-combo__group">
                       {matches.map((e) => {
@@ -466,7 +463,7 @@ export default function Compare() {
                           <CommandItem
                             key={e.key}
                             value={e.key}
-                            keywords={[e.name, e.region]}
+                            keywords={[e.name, e.region, locName(e.name)]}
                             disabled={!on && full}
                             onSelect={() => {
                               toggleByKey(e.key)
@@ -488,10 +485,10 @@ export default function Compare() {
                               height={16}
                               loading="lazy"
                             />
-                            <span className="cmp-opt__name">{e.name}</span>
-                            <span className="cmp-opt__region">{e.region}</span>
-                            {e.slug ? <span className="cmp-opt__badge">Full data</span> : null}
-                            {on ? <span className="cmp-opt__added">Added</span> : null}
+                            <span className="cmp-opt__name">{locName(e.name)}</span>
+                            <span className="cmp-opt__region">{locRegion(e.region)}</span>
+                            {e.slug ? <span className="cmp-opt__badge">{t("search.fullData")}</span> : null}
+                            {on ? <span className="cmp-opt__added">{t("search.added")}</span> : null}
                           </CommandItem>
                         )
                       })}
@@ -502,7 +499,7 @@ export default function Compare() {
             </Popover>
 
             <div className="cmp-chips">
-              <span className="cmp-chips__lab">Popular</span>
+              <span className="cmp-chips__lab">{t("chips.popular")}</span>
               <span className="cmp-chips__row">{flagshipChips}</span>
             </div>
           </div>
@@ -511,7 +508,7 @@ export default function Compare() {
           <div
             className={`cmp-outer${cols.length ? "" : " cmp-outer--empty"}`}
             role="region"
-            aria-label="Jurisdiction comparison table"
+            aria-label={t("regionLabel")}
             aria-live="polite"
           >
             {cols.length === 0 ? (
@@ -522,10 +519,8 @@ export default function Compare() {
                     <path d="M3.6 9h16.8M3.6 15h16.8M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
                   </svg>
                 </span>
-                <h3 className="cmp-empty__title">Build your comparison</h3>
-                <p className="cmp-empty__sub">
-                  Search above or pick a popular jurisdiction below — add up to 5 and compare them side by side.
-                </p>
+                <h3 className="cmp-empty__title">{t("empty.title")}</h3>
+                <p className="cmp-empty__sub">{t("empty.sub")}</p>
                 <div className="cmp-chips__row cmp-chips__row--empty">{flagshipChips}</div>
               </div>
             ) : (
@@ -534,7 +529,7 @@ export default function Compare() {
                   <thead>
                     <tr>
                       <td className="cmp-th cmp-th--label">
-                        <span className="cmp-th__metric">Metric</span>
+                        <span className="cmp-th__metric">{t("th.metric")}</span>
                       </td>
                       {cols.map((col) => (
                         <th className="cmp-th" scope="col" key={col.key}>
@@ -542,7 +537,7 @@ export default function Compare() {
                             <img className="cmp-flag" src={flag(col.iso)} alt="" width={26} height={18} loading="lazy" />
                             <button
                               className="cmp-remove"
-                              aria-label={`Remove ${col.name}`}
+                              aria-label={t("th.remove", { name: locName(col.name) })}
                               onClick={() => removeCol(col.key)}
                             >
                               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round">
@@ -551,14 +546,14 @@ export default function Compare() {
                               </svg>
                             </button>
                           </div>
-                          <span className="cmp-th__name">{col.name}</span>
-                          <span className="cmp-th__region">{col.region}</span>
+                          <span className="cmp-th__name">{locName(col.name)}</span>
+                          <span className="cmp-th__region">{locRegion(col.region)}</span>
                           {col.slug ? (
                             <Link className="cmp-col-detail" to={`/jurisdiction/${col.slug}`}>
-                              View details →
+                              {t("th.viewDetails")}
                             </Link>
                           ) : (
-                            <span className="cmp-th__stub">Details on request</span>
+                            <span className="cmp-th__stub">{t("th.stub")}</span>
                           )}
                         </th>
                       ))}
@@ -570,7 +565,7 @@ export default function Compare() {
                         return (
                           <tr className="cmp-cat-row" key={`cat-${i}`}>
                             <td className="cmp-cat-cell" colSpan={cols.length + 1}>
-                              {row.label}
+                              {t(row.labelKey)}
                             </td>
                           </tr>
                         )
@@ -578,7 +573,7 @@ export default function Compare() {
                       return (
                         <tr className="cmp-row" key={row.key}>
                           <th className="cmp-td cmp-td--label" scope="row">
-                            {row.label}
+                            {t(row.labelKey)}
                           </th>
                           {cols.map((col) => (
                             <td className="cmp-td" key={col.key}>
@@ -594,10 +589,7 @@ export default function Compare() {
             )}
           </div>
 
-          <p className="cmp-disclaimer">
-            Tax rates from official sources (IRAS, HMRC, MoF, etc.) and PwC Worldwide Tax Summaries. General
-            information only — not legal or tax advice. Verify current figures before making decisions.
-          </p>
+          <p className="cmp-disclaimer">{t("disclaimer")}</p>
         </div>
       </section>
 
@@ -606,30 +598,30 @@ export default function Compare() {
         <div className="container">
           <div className="jx-cta2__wrap reveal">
             <h2 className="jx-cta2__line">
-              Still not sure where to land?{" "}
+              {t("cta.linePre")}{" "}
               <button className="jx-cta2__pill" onClick={() => open()}>
-                Ask Gabriella <span aria-hidden="true">→</span>
+                {t("cta.pill")} <span aria-hidden="true">→</span>
               </button>{" "}
-              or talk to a specialist.
+              {t("cta.linePost")}
             </h2>
             <p className="jx-cta2__sub">
-              Eight questions, two minutes — a ranked shortlist for your situation.{" "}
+              {t("cta.subPre")}{" "}
               <Link className="jx-cta2__link" to="/contact">
-                Contact the team →
+                {t("cta.contact")}
               </Link>
             </p>
             <div className="jx-cta2__stats">
               <div>
                 <b>79</b>
-                <span>jurisdictions</span>
+                <span>{t("cta.stats.jurisdictions")}</span>
               </div>
               <div>
                 <b>48h</b>
-                <span>avg. to incorporate</span>
+                <span>{t("cta.stats.incorporate")}</span>
               </div>
               <div>
                 <b>500+</b>
-                <span>companies</span>
+                <span>{t("cta.stats.companies")}</span>
               </div>
             </div>
           </div>
@@ -641,15 +633,18 @@ export default function Compare() {
 
 /* ── Single comparison cell — mirrors compare.js renderCell. ───────────────── */
 function Cell({ row, col }: { row: Extract<Row, { key: keyof CmpData }>; col: Col }) {
+  const { t } = useTranslation("compare")
+  const { region: locRegion } = useJxLocale()
+
   /* Region is always sourced from the column (JX_DATA / search index). */
-  if ((row.key as string) === "region") return <span>{col.region}</span>
+  if ((row.key as string) === "region") return <span>{locRegion(col.region)}</span>
 
   /* Stub column (one of the 73 without full data). */
   if (!col.data) {
     if (row.type === "price")
       return (
         <Link to="/contact" className="cmp-quote">
-          Get a quote →
+          {t("cell.getQuote")}
         </Link>
       )
     return <span className="cmp-dash">—</span>
@@ -663,9 +658,9 @@ function Cell({ row, col }: { row: Extract<Row, { key: keyof CmpData }>; col: Co
     if (!tags.length) return <span className="cmp-dash">—</span>
     return (
       <>
-        {tags.map((t) => (
-          <span className="cmp-tag" key={t}>
-            {t}
+        {tags.map((tag) => (
+          <span className="cmp-tag" key={tag}>
+            {tag}
           </span>
         ))}
       </>
@@ -676,9 +671,9 @@ function Cell({ row, col }: { row: Extract<Row, { key: keyof CmpData }>; col: Co
     const s = (val as string).toLowerCase()
     const req = s.includes("required") && !s.includes("not")
     return req ? (
-      <span className="cmp-badge cmp-badge--warn">Required</span>
+      <span className="cmp-badge cmp-badge--warn">{t("cell.required")}</span>
     ) : (
-      <span className="cmp-badge cmp-badge--ok">Not required</span>
+      <span className="cmp-badge cmp-badge--ok">{t("cell.notRequired")}</span>
     )
   }
 

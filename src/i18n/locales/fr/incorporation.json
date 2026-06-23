@@ -1,0 +1,105 @@
+{
+  "header": {
+    "title": "Créez votre société",
+    "subtitle": "Constitution en 48 h en moyenne",
+    "done": "Terminé",
+    "count": "{{current}} / {{total}}"
+  },
+  "jurisdictions": {
+    "singapore": "Singapour",
+    "uk": "Royaume-Uni",
+    "delaware": "Delaware, États-Unis",
+    "estonia": "Estonie",
+    "ireland": "Irlande",
+    "dubai": "Dubaï, Émirats arabes unis",
+    "hongKong": "Hong Kong",
+    "netherlands": "Pays-Bas",
+    "texas": "Texas, États-Unis",
+    "cyprus": "Chypre",
+    "other": "Autre / je ne sais pas encore"
+  },
+  "activities": {
+    "saas": "SaaS / logiciel",
+    "ecommerce": "E-commerce",
+    "consulting": "Conseil / services",
+    "holding": "Société holding",
+    "trading": "Négoce",
+    "crypto": "Crypto / Web3",
+    "fintech": "Fintech",
+    "agency": "Agence / création",
+    "other": "Autre"
+  },
+  "packages": {
+    "launch": {
+      "label": "Launch",
+      "price": "à partir de 120 £/mois",
+      "desc": "Première entité, entièrement bancarisée."
+    },
+    "growth": {
+      "label": "Growth",
+      "price": "à partir de 240 £/mois",
+      "desc": "Entité + comptabilité + dépôt fiscal."
+    },
+    "scale": {
+      "label": "Scale",
+      "price": "Sur mesure",
+      "desc": "Un portefeuille de sociétés sur plusieurs juridictions."
+    }
+  },
+  "pkgLabel": "{{label}} ({{price}})",
+  "empty": "—",
+  "steps": {
+    "jurisdiction": {
+      "q": "Où souhaitez-vous créer votre société ?",
+      "help": "Vous pouvez modifier ce choix à tout moment — ou laisser Gabriella décider pour vous.",
+      "placeholder": "Sélectionnez une juridiction"
+    },
+    "pkg": {
+      "q": "Choisissez votre formule",
+      "help": "Chaque formule comprend la constitution, un agent enregistré et le tableau de bord."
+    },
+    "company": {
+      "q": "Votre société",
+      "help": "Quelques informations de base pour préparer votre dépôt.",
+      "nameLabel": "Nom de société envisagé",
+      "namePlaceholder": "ex. Northwind Labs",
+      "activityLabel": "Activité de l'entreprise",
+      "activityPlaceholder": "Sélectionnez une activité"
+    },
+    "you": {
+      "q": "Où devons-nous envoyer votre dossier de dépôt ?",
+      "help": "Nous ne partageons jamais vos coordonnées. Un seul spécialiste, un seul échange.",
+      "nameLabel": "Nom complet",
+      "namePlaceholder": "Votre nom",
+      "emailLabel": "E-mail professionnel",
+      "emailPlaceholder": "vous@entreprise.com",
+      "emailError": "Veuillez saisir une adresse e-mail valide."
+    },
+    "review": {
+      "q": "Vérifier et envoyer",
+      "jurisdiction": "Juridiction",
+      "plan": "Formule",
+      "company": "Société",
+      "activity": "Activité",
+      "contact": "Contact",
+      "submit": "Envoyer la demande"
+    }
+  },
+  "nav": {
+    "back": "← Retour",
+    "continue": "Continuer"
+  },
+  "success": {
+    "heading": "Demande reçue.",
+    "bodyBefore": "Un spécialiste CorpSec confirmera la mise en place de votre société en {{jurisdiction}} et écrira à ",
+    "bodyAfter": " sous un jour ouvré, avec votre dossier de dépôt et un devis ferme et tout compris.",
+    "next1": "Vérification du nom et de la structure",
+    "next2": "Dépôt préparé par un partenaire local agréé",
+    "next3": "Mises en relation bancaires organisées",
+    "backToSite": "Retour au site"
+  },
+  "dialog": {
+    "title": "Créez votre société",
+    "close": "Fermer"
+  }
+}

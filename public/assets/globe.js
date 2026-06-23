@@ -23,6 +23,9 @@
 (function () {
   "use strict";
 
+  /* i18n bridge: read a translated "vanilla" string with an English fallback. */
+  function L(key, fallback) { var I = window.__I18N; var v = I && I.t ? I.t(key) : ""; return v || fallback; }
+
   /* ---- single source of truth for jurisdictions (cards + globe) ---- */
   /* Tax figures are concise teasers (effective / tiered, conditions apply);
      the per-jurisdiction pages carry the full headline-vs-effective detail. */
@@ -37,6 +40,14 @@
     { iso: "EE", name: "Estonia", region: "Europe", lat: 59.437, lng: 24.7536, tax: "0–22%*", setup: "Coming soon", from: "—", live: false, popular: true, accent: "#7db6ff" }
   ];
   window.JURIS_DATA = JX;
+
+  /* Translated DISPLAY values for the hover tooltip + marker aria-labels.
+     JX itself stays English: it is the public window.JURIS_DATA source of truth
+     and `iso`/`live`/coords are logic. We localise only at the render points,
+     keyed by iso so the active language is read on every tooltip rebuild. */
+  function gName(d) { return L('globe.country.' + d.iso + '.name', d.name); }
+  function gRegion(d) { return L('globe.country.' + d.iso + '.region', d.region); }
+  function gSetup(d) { return L('globe.country.' + d.iso + '.setup', d.setup); }
 
   var stage = document.getElementById("globeStage");
   if (!stage) return;
@@ -337,7 +348,7 @@
     var b = document.createElement("button");
     b.className = "gmk" + (d.hub ? " hub" : "") + (d.live ? "" : " soon"); b.type = "button";
     b.style.setProperty("--mk", d.accent);
-    b.setAttribute("aria-label", d.name + ", " + d.tax + " corporate tax, " + d.setup);
+    b.setAttribute("aria-label", L('globe.markerAria', '{{name}}, {{tax}} corporate tax, {{setup}}').replace('{{name}}', gName(d)).replace('{{tax}}', d.tax).replace('{{setup}}', gSetup(d)));
     b.onmouseenter = function () { hoverIso = d.iso; dirty = true; }; b.onmouseleave = function () { if (hoverIso === d.iso) hoverIso = null; dirty = true; };
     b.onfocus = function () { hoverIso = d.iso; dirty = true; }; b.onblur = function () { if (hoverIso === d.iso) hoverIso = null; dirty = true; };
     markersEl.appendChild(b); return b;
@@ -414,11 +425,11 @@
         if (front > 0.06 && sp) {
           tip.style.left = sp[0].toFixed(0) + "px"; tip.style.top = sp[1].toFixed(0) + "px";
           if (lastTipIso !== d.iso) {       // only rebuild innerHTML on a change
-            tip.innerHTML = '<div class="gh"><span class="iso" style="background:' + hexA(d.accent, .2) + ';color:' + d.accent + '">' + d.iso + '</span><span class="gcty">' + d.name + '<br><small style="font-weight:400;opacity:.6">' + d.region + '</small></span></div>' +
-              '<div class="grow"><span>Corp tax</span><b>' + d.tax + '</b></div>' +
-              '<div class="grow"><span>Setup</span><b>' + d.setup + '</b></div>' +
-              '<div class="grow"><span>From (year 1)</span><b>' + (d.live ? d.from : "Waitlist") + '</b></div>' +
-              (d.live ? '<div class="gbadge">Live for checkout</div>' : '<div class="gbadge soon">Coming soon</div>');
+            tip.innerHTML = '<div class="gh"><span class="iso" style="background:' + hexA(d.accent, .2) + ';color:' + d.accent + '">' + d.iso + '</span><span class="gcty">' + gName(d) + '<br><small style="font-weight:400;opacity:.6">' + gRegion(d) + '</small></span></div>' +
+              '<div class="grow"><span>' + L('globe.tip.corpTax', 'Corp tax') + '</span><b>' + d.tax + '</b></div>' +
+              '<div class="grow"><span>' + L('globe.tip.setup', 'Setup') + '</span><b>' + gSetup(d) + '</b></div>' +
+              '<div class="grow"><span>' + L('globe.tip.fromYear1', 'From (year 1)') + '</span><b>' + (d.live ? d.from : L('globe.tip.waitlist', 'Waitlist')) + '</b></div>' +
+              (d.live ? '<div class="gbadge">' + L('globe.tip.live', 'Live for checkout') + '</div>' : '<div class="gbadge soon">' + L('globe.tip.comingSoon', 'Coming soon') + '</div>');
             lastTipIso = d.iso; lastTipSearch = "";
           }
           tip.classList.add("on");
@@ -430,7 +441,7 @@
           tip.style.left = ssp2[0].toFixed(0) + "px"; tip.style.top = ssp2[1].toFixed(0) + "px";
           if (lastTipSearch !== searchPoint.iso + searchPoint.name) {
             tip.innerHTML = '<div class="gh"><span class="iso" style="background:rgba(140,190,255,.2);color:#8cb6ff">' + searchPoint.iso + '</span><span class="gcty">' + searchPoint.name + '</span></div>' +
-              '<div class="grow"><span>Region</span><b>' + searchPoint.region + '</b></div>';
+              '<div class="grow"><span>' + L('globe.tip.region', 'Region') + '</span><b>' + searchPoint.region + '</b></div>';
             lastTipSearch = searchPoint.iso + searchPoint.name; lastTipIso = "";
           }
           tip.classList.add("on");

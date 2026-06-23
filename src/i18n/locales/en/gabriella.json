@@ -1,0 +1,168 @@
+{
+  "header": {
+    "name": "Gabriella",
+    "role": "AI incorporation advisor",
+    "dialogTitle": "Gabriella — AI incorporation advisor"
+  },
+  "count": {
+    "done": "Done",
+    "progress": "{{current}} / {{total}}"
+  },
+  "nav": {
+    "back": "← Back",
+    "continue": "Continue",
+    "selectToContinue": "Select to continue",
+    "close": "Close"
+  },
+  "email": {
+    "placeholder": "you@company.com",
+    "error": "Please enter a valid email address."
+  },
+  "matching": {
+    "text": "Gabriella is cross-checking 79 jurisdictions…"
+  },
+  "result": {
+    "readyBase": "Your shortlist is ready",
+    "readyEmail": " — and on its way to {{email}}",
+    "readyEnd": ".",
+    "ctaPrimary": "Start incorporation in {{place}} →",
+    "startOver": "Start over",
+    "disclaimer": "A guided demo recommendation. Your real shortlist is confirmed by a licensed local partner before anything is filed."
+  },
+  "rec": {
+    "pick": "Gabriella’s pick",
+    "alt": "Also strong",
+    "corpTax": "Corp tax",
+    "setup": "⚡ Setup {{setup}}",
+    "bankOk": "{{bank}} ✓"
+  },
+  "countries": {
+    "United States": "United States",
+    "United Kingdom": "United Kingdom",
+    "Canada": "Canada",
+    "Germany": "Germany",
+    "France": "France",
+    "Netherlands": "Netherlands",
+    "Spain": "Spain",
+    "Italy": "Italy",
+    "Ireland": "Ireland",
+    "Switzerland": "Switzerland",
+    "United Arab Emirates": "United Arab Emirates",
+    "Saudi Arabia": "Saudi Arabia",
+    "India": "India",
+    "Singapore": "Singapore",
+    "Hong Kong": "Hong Kong",
+    "Australia": "Australia",
+    "Nigeria": "Nigeria",
+    "South Africa": "South Africa",
+    "Brazil": "Brazil",
+    "Mexico": "Mexico",
+    "Japan": "Japan",
+    "Estonia": "Estonia",
+    "Poland": "Poland",
+    "Other": "Other"
+  },
+  "steps": {
+    "building": {
+      "q": "What are you building?",
+      "help": "This shapes tax treatment and what investors expect to see.",
+      "options": {
+        "saas": "SaaS / software",
+        "ecom": "E-commerce",
+        "holding": "Holding company",
+        "consult": "Consulting / services",
+        "web3": "Crypto / Web3",
+        "other": "Something else"
+      }
+    },
+    "base": {
+      "q": "Where are you based?",
+      "help": "Your residency drives tax exposure and banking access.",
+      "placeholder": "Select your country of residence"
+    },
+    "market": {
+      "q": "Where are most of your customers?",
+      "help": "Revenue location affects the smartest place to register.",
+      "options": {
+        "us": "United States",
+        "eu": "Europe",
+        "uk": "United Kingdom",
+        "me": "Middle East",
+        "asia": "Asia-Pacific",
+        "global": "Truly global"
+      }
+    },
+    "raising": {
+      "q": "Are you raising outside capital?",
+      "help": "Investor familiarity can outweigh a slightly lower tax rate.",
+      "options": {
+        "us_vc": "Yes — US investors",
+        "eu_vc": "Yes — EU / UK investors",
+        "soon": "Planning to soon",
+        "boot": "Bootstrapped"
+      }
+    },
+    "banking": {
+      "q": "How soon do you need a bank account?",
+      "help": "Some jurisdictions open remote banking in days, others take weeks.",
+      "options": {
+        "now": "Immediately",
+        "month": "Within a month",
+        "flex": "I'm flexible"
+      }
+    },
+    "priority": {
+      "q": "What matters most to you?",
+      "help": "Pick up to two — Gabriella weighs these highest.",
+      "options": {
+        "tax": "Low tax",
+        "investor": "Investor familiarity",
+        "speed": "Speed & simplicity",
+        "privacy": "Privacy",
+        "banking": "Strong banking"
+      }
+    },
+    "email": {
+      "q": "Where should Gabriella send your report?",
+      "help": "Your ranked shortlist with full reasoning. No spam, ever."
+    }
+  },
+  "jx": {
+    "delaware": {
+      "name": "Delaware, USA",
+      "setup": "2–3 days",
+      "tax": "21% federal",
+      "why": "The default for startups raising from US VCs — investors know the C-Corp paperwork cold."
+    },
+    "singapore": {
+      "name": "Singapore",
+      "setup": "2 days",
+      "tax": "17% (with rebates)",
+      "why": "Fast remote setup, world-class banking and a credible Asian HQ with strong treaty access."
+    },
+    "uk": {
+      "name": "United Kingdom",
+      "setup": "24–48 hours",
+      "tax": "25% / 19% small",
+      "why": "The fastest credible incorporation, strong banking and easy access to EU and US customers."
+    },
+    "estonia": {
+      "name": "Estonia",
+      "setup": "1–3 days",
+      "tax": "0% on retained",
+      "why": "0% tax on reinvested profit and fully digital admin — ideal for lean, remote-first teams."
+    },
+    "ireland": {
+      "name": "Ireland",
+      "setup": "3–5 days",
+      "tax": "12.5% trading",
+      "why": "Low corporate tax inside the EU — the classic base for software selling into Europe."
+    },
+    "dubai": {
+      "name": "Dubai, UAE",
+      "setup": "4–6 days",
+      "tax": "9% (0% to AED 375k)",
+      "why": "Near-zero tax, premium banking and a fast-growing hub for Middle East and global trade."
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "eyebrow": "How it works",
+  "heading": "Three steps from idea to incorporated.",
+  "sub": "No lawyers to chase, no jurisdiction guesswork, no paperwork you have to read twice.",
+  "steps": {
+    "match": {
+      "title": "Get matched",
+      "body": "Answer eight questions. Gabriella ranks 79 jurisdictions against your tax, banking and investor needs — free, no login.",
+      "cta": "Run the recommender →"
+    },
+    "incorporate": {
+      "title": "Incorporate remotely",
+      "body": "We file with the registry, appoint your registered agent and hand you signed documents — banking introductions included. 48h average.",
+      "cta": "Start incorporation →"
+    },
+    "autopilot": {
+      "title": "Runs on autopilot",
+      "body": "Every renewal, filing and bookkeeping deadline handled by licensed local partners, surfaced in one dashboard — one invoice.",
+      "cta": "See the dashboard →"
+    }
+  }
+}

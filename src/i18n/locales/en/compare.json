@@ -1,0 +1,79 @@
+{
+  "rows": {
+    "cat.glance": "At a glance",
+    "region": "Region",
+    "entity": "Entity type",
+    "bestFor": "Best for",
+    "cat.tax": "Tax",
+    "corpTax": "Corporate tax",
+    "vatGst": "VAT / GST",
+    "cgt": "Capital gains tax",
+    "personalTax": "Personal income tax",
+    "dividendWH": "Dividend withholding",
+    "lossCarry": "Loss carry-forward",
+    "cat.incorporation": "Incorporation",
+    "minCapital": "Min. share capital",
+    "residentDir": "Resident director",
+    "setupTime": "Setup time",
+    "yearOne": "Bundle from (Year 1)",
+    "cat.ongoing": "Ongoing",
+    "annualFilings": "Annual filings",
+    "banking": "Banking"
+  },
+  "hero": {
+    "eyebrow": "Jurisdiction comparison",
+    "title": "Pick the right jurisdiction — not just the most popular one.",
+    "sub": "Add up to 5 jurisdictions and compare tax, setup cost, residency and more, side by side. Full data for 6 flagship jurisdictions — or let Gabriella narrow it down for you.",
+    "cta.gabriella": "Ask Gabriella",
+    "cta.all": "All 79 jurisdictions"
+  },
+  "table": {
+    "title": "Side-by-side comparison",
+    "sub": "Search to add up to 5 jurisdictions, then compare tax, setup and ongoing requirements row by row.",
+    "browse": "Browse directory"
+  },
+  "search": {
+    "label": "Search jurisdictions to add",
+    "placeholderFull": "Maximum 5 reached — remove one to add another",
+    "placeholder": "Search 79 jurisdictions to add…",
+    "empty": "No jurisdiction found",
+    "fullData": "Full data",
+    "added": "Added"
+  },
+  "chips": {
+    "popular": "Popular"
+  },
+  "regionLabel": "Jurisdiction comparison table",
+  "empty": {
+    "title": "Build your comparison",
+    "sub": "Search above or pick a popular jurisdiction below — add up to 5 and compare them side by side."
+  },
+  "th": {
+    "metric": "Metric",
+    "remove": "Remove {{name}}",
+    "viewDetails": "View details →",
+    "stub": "Details on request"
+  },
+  "cell": {
+    "getQuote": "Get a quote →",
+    "required": "Required",
+    "notRequired": "Not required"
+  },
+  "disclaimer": "Tax rates from official sources (IRAS, HMRC, MoF, etc.) and PwC Worldwide Tax Summaries. General information only — not legal or tax advice. Verify current figures before making decisions.",
+  "cta": {
+    "linePre": "Still not sure where to land?",
+    "pill": "Ask Gabriella",
+    "linePost": "or talk to a specialist.",
+    "subPre": "Eight questions, two minutes — a ranked shortlist for your situation.",
+    "contact": "Contact the team →",
+    "stats": {
+      "jurisdictions": "jurisdictions",
+      "incorporate": "avg. to incorporate",
+      "companies": "companies"
+    }
+  },
+  "meta": {
+    "title": "Compare Jurisdictions | CorpSec",
+    "description": "Compare up to 5 incorporation jurisdictions side by side — tax rates, setup costs, residency requirements, banking and more across 79 countries."
+  }
+}

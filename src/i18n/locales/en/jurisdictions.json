@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "title": "Jurisdictions — incorporate anywhere it matters | CorpSec",
+    "description": "Browse 79 jurisdictions. Compare tax, setup time and all-in cost, then incorporate with licensed local partners — incorporation plus every back-office service, per country."
+  },
+  "hero": {
+    "eyebrow": "79 jurisdictions · one back office",
+    "headlineLead": "Find where to",
+    "headlineWord": "incorporate",
+    "headlineEnd": ".",
+    "sub": "Search any country, compare tax, speed and all-in cost, then set up with a licensed local partner — incorporation and every back-office service in one place.",
+    "searchAria": "Search jurisdictions",
+    "searchPlaceholder": "Search — Singapore, Delaware, Dubai…",
+    "popularAria": "Popular jurisdictions"
+  },
+  "popular": {
+    "eyebrow": "Most chosen",
+    "headlineLead": "Where founders actually go.",
+    "headlineRest": "The jurisdictions we cover in depth — tax, setup and all-in cost up front."
+  },
+  "card": {
+    "corpTax": "Corp tax",
+    "setup": "Setup",
+    "from": "From",
+    "explore": "Explore {{name}}"
+  },
+  "all": {
+    "eyebrow": "Full coverage",
+    "headline": "All 79 jurisdictions.",
+    "sub": "Filter by region or search to narrow instantly.",
+    "filterAria": "Filter by region",
+    "inDepthGuide": "In-depth guide",
+    "emptyLead": "No jurisdiction matches that search.",
+    "emptyCta": "Ask Gabriella instead"
+  },
+  "regions": {
+    "All": "All",
+    "North America": "North America",
+    "Europe": "Europe",
+    "Asia": "Asia",
+    "Middle East": "Middle East",
+    "Offshore": "Offshore",
+    "Latin America": "Latin America",
+    "South America": "South America",
+    "Africa": "Africa",
+    "Oceania": "Oceania",
+    "Other": "Other"
+  },
+  "services": {
+    "eyebrow": "What we handle — in every jurisdiction",
+    "headline": "Incorporation is step one. We run the rest.",
+    "sub": "Every service below is delivered locally, in the jurisdiction you choose — as a full bundle or à la carte on any country page.",
+    "form": {
+      "title": "Form",
+      "body": "Incorporation, registered agent, share issuance, director appointments — filed with the local registry."
+    },
+    "operate": {
+      "title": "Operate",
+      "body": "Registered address, corporate secretary, annual returns, KYC and good-standing — kept current, every year."
+    },
+    "run": {
+      "title": "Run",
+      "body": "Bookkeeping, tax filing, payroll, VAT/GST and banking introductions — certified accountants in your jurisdiction."
+    }
+  },
+  "cta": {
+    "lead": "Not sure where to start?",
+    "pill": "Ask Gabriella — free",
+    "tail": "to rank all 79 for you.",
+    "sub": "Eight questions, two minutes — matched on tax, banking and investor needs.",
+    "specialist": "Talk to a specialist",
+    "stats": {
+      "jurisdictions": "jurisdictions",
+      "incorporate": "avg. to incorporate",
+      "companies": "companies"
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "nav": {
+    "jurisdictions": "Jurisdictions",
+    "compare": "Compare",
+    "about": "About",
+    "contact": "Contact",
+    "pricing": "Pricing",
+    "howItWorks": "How it works",
+    "login": "Log in",
+    "startCompany": "Start my company",
+    "home": "CorpSec home",
+    "primary": "Primary",
+    "openMenu": "Open menu",
+    "menu": "Menu",
+    "skip": "Skip to content"
+  },
+  "language": {
+    "label": "Language",
+    "select": "Select language",
+    "en": "English",
+    "fr": "Français"
+  },
+  "contactPill": {
+    "whatsapp": "WhatsApp",
+    "whatsappAria": "Chat on WhatsApp",
+    "email": "Email us",
+    "emailAria": "Email hello@corpsec.io"
+  },
+  "footer": {
+    "tagline": "Your company, anywhere it matters.",
+    "trust": "500+ companies incorporated across 79 jurisdictions.",
+    "gabriella": "Ask Gabriella",
+    "gabriellaSub": "Find your jurisdiction in 2 minutes — free",
+    "briefingTitle": "Cross-border briefing",
+    "briefingDesc": "Jurisdiction changes, tax-treaty updates and filing deadlines — once a month, no noise.",
+    "emailPlaceholder": "you@company.com",
+    "emailLabel": "Email address",
+    "subscribe": "Subscribe",
+    "subNote": "No spam. Unsubscribe anytime.",
+    "subSuccess": "Thanks — you're on the list. Check your inbox to confirm.",
+    "cols": {
+      "product": "Product",
+      "solutions": "Solutions",
+      "resources": "Resources",
+      "company": "Company",
+      "legal": "Legal"
+    },
+    "links": {
+      "gabriellaAdvisor": "Gabriella advisor",
+      "allJurisdictions": "All 79 jurisdictions",
+      "compareJurisdictions": "Compare jurisdictions",
+      "companyFormation": "Company formation",
+      "pricing": "Pricing",
+      "saas": "SaaS & startups",
+      "holding": "Holding companies",
+      "ecommerce": "E-commerce & DTC",
+      "crypto": "Crypto & Web3",
+      "solo": "Solo founders",
+      "guides": "Jurisdiction guides",
+      "howItWorks": "How it works",
+      "helpCenter": "Help center",
+      "about": "About CorpSec",
+      "team": "Meet the team",
+      "contact": "Contact us",
+      "sales": "Talk to sales",
+      "terms": "Terms of service",
+      "privacy": "Privacy policy",
+      "cookies": "Cookie policy"
+    },
+    "badges": {
+      "encryption": "256-bit encryption",
+      "vault": "Encrypted document vault",
+      "gdpr": "GDPR-aligned",
+      "csp": "Licensed CSP network",
+      "insured": "Professional indemnity insured"
+    },
+    "disclaimer": "CorpSec is a coordination platform. Incorporation, registered-agent and accounting services are delivered by licensed corporate service providers and regulated professionals in each jurisdiction (powered by Koulier, Bookiper and 30+ partners). CorpSec does not provide legal or tax advice.",
+    "copyright": "© 2026 CorpSec — Your company, anywhere it matters.",
+    "social": {
+      "linkedin": "CorpSec on LinkedIn",
+      "x": "CorpSec on X",
+      "github": "CorpSec on GitHub"
+    }
+  }
+}

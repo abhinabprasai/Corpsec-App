@@ -1,0 +1,79 @@
+{
+  "rows": {
+    "cat.glance": "En bref",
+    "region": "Région",
+    "entity": "Type d'entité",
+    "bestFor": "Idéal pour",
+    "cat.tax": "Fiscalité",
+    "corpTax": "Impôt sur les sociétés",
+    "vatGst": "TVA / TPS",
+    "cgt": "Impôt sur les plus-values",
+    "personalTax": "Impôt sur le revenu des personnes physiques",
+    "dividendWH": "Retenue à la source sur dividendes",
+    "lossCarry": "Report des pertes",
+    "cat.incorporation": "Création de société",
+    "minCapital": "Capital social minimum",
+    "residentDir": "Administrateur résident",
+    "setupTime": "Délai de création",
+    "yearOne": "Forfait à partir de (année 1)",
+    "cat.ongoing": "Obligations courantes",
+    "annualFilings": "Dépôts annuels",
+    "banking": "Banque"
+  },
+  "hero": {
+    "eyebrow": "Comparatif des juridictions",
+    "title": "Choisissez la bonne juridiction, pas seulement la plus populaire.",
+    "sub": "Ajoutez jusqu'à 5 juridictions et comparez la fiscalité, le coût de création, la résidence et bien plus, côte à côte. Données complètes pour 6 juridictions phares, ou laissez Gabriella affiner le choix pour vous.",
+    "cta.gabriella": "Demander à Gabriella",
+    "cta.all": "Les 79 juridictions"
+  },
+  "table": {
+    "title": "Comparatif côte à côte",
+    "sub": "Recherchez pour ajouter jusqu'à 5 juridictions, puis comparez la fiscalité, la création et les obligations courantes ligne par ligne.",
+    "browse": "Parcourir l'annuaire"
+  },
+  "search": {
+    "label": "Rechercher des juridictions à ajouter",
+    "placeholderFull": "Maximum de 5 atteint — retirez-en une pour en ajouter une autre",
+    "placeholder": "Rechercher parmi 79 juridictions à ajouter…",
+    "empty": "Aucune juridiction trouvée",
+    "fullData": "Données complètes",
+    "added": "Ajoutée"
+  },
+  "chips": {
+    "popular": "Populaires"
+  },
+  "regionLabel": "Tableau comparatif des juridictions",
+  "empty": {
+    "title": "Composez votre comparatif",
+    "sub": "Recherchez ci-dessus ou choisissez une juridiction populaire ci-dessous — ajoutez-en jusqu'à 5 et comparez-les côte à côte."
+  },
+  "th": {
+    "metric": "Critère",
+    "remove": "Retirer {{name}}",
+    "viewDetails": "Voir les détails →",
+    "stub": "Détails sur demande"
+  },
+  "cell": {
+    "getQuote": "Obtenir un devis →",
+    "required": "Requis",
+    "notRequired": "Non requis"
+  },
+  "disclaimer": "Taux d'imposition issus de sources officielles (IRAS, HMRC, MoF, etc.) et des PwC Worldwide Tax Summaries. Informations générales uniquement — ne constituent pas un conseil juridique ou fiscal. Vérifiez les chiffres en vigueur avant toute décision.",
+  "cta": {
+    "linePre": "Vous hésitez encore sur le lieu d'implantation ?",
+    "pill": "Demander à Gabriella",
+    "linePost": "ou parlez à un spécialiste.",
+    "subPre": "Huit questions, deux minutes — une liste restreinte et classée selon votre situation.",
+    "contact": "Contacter l'équipe →",
+    "stats": {
+      "jurisdictions": "juridictions",
+      "incorporate": "en moyenne pour créer une société",
+      "companies": "sociétés"
+    }
+  },
+  "meta": {
+    "title": "Comparer les juridictions | CorpSec",
+    "description": "Comparez côte à côte jusqu'à 5 juridictions de création de société — taux d'imposition, coûts de création, exigences de résidence, banque et plus encore dans 79 pays."
+  }
+}

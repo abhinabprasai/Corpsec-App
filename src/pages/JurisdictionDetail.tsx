@@ -1,8 +1,10 @@
 import { useEffect, useState, type CSSProperties } from "react"
+import { useTranslation } from "react-i18next"
 import { useParams, Link } from "react-router-dom"
 import { useGabriella } from "@/components/gabriella/GabriellaProvider"
 import { JX_BY_SLUG, type Jurisdiction } from "@/data/jurisdictions"
 import { JURISDICTIONS_ALL } from "@/data/allJurisdictions"
+import { useJxLocale } from "@/lib/useJxLocale"
 
 /* ── Shapes for the rich fields that live under Jurisdiction's `[k:string]: unknown`
    index signature. Read off the data object at runtime; typed locally for safety. */
@@ -111,6 +113,9 @@ const STEP_ICONS = [
 
 /* Compare card — anchor (current) or alternative (links to its own page). */
 function CompareCard({ j, isAnchor, reason }: { j: Jurisdiction; isAnchor: boolean; reason?: string }) {
+  const { t } = useTranslation("jurdetail")
+  const { name: locName, region: locRegion } = useJxLocale()
+  const jName = locName(j.name as string)
   const tax = metric(j, /corp/i)
   const setup = metric(j, /setup|active|timing/i)
   const price = (j.bundle as Bundle | undefined)?.priceLabel ?? "—"
@@ -120,43 +125,43 @@ function CompareCard({ j, isAnchor, reason }: { j: Jurisdiction; isAnchor: boole
       <div className="bento-card__border" />
       <div className="bento-card__border-glow" />
       <div className="bento-card__inner">
-        {isAnchor && <span className="jx-cmp__badge">You&rsquo;re viewing</span>}
+        {isAnchor && <span className="jx-cmp__badge">{t("compare.viewing")}</span>}
         <div className="jx-cmp__head">
           <span className="jx-flag-chip jx-flag-chip--sm">
             <img src={flag(j.iso)} alt="" width={28} height={21} />
           </span>
           <div>
-            <b>{j.name}</b>
-            <small>{j.region || ""}</small>
+            <b>{jName}</b>
+            <small>{j.region ? locRegion(j.region as string) : ""}</small>
           </div>
         </div>
         <dl className="jx-cmp__metrics">
           {taxBul ? (
             <div className="jx-cmp__metric--stack">
-              <dt>Corporate tax</dt>
+              <dt>{t("compare.corporateTax")}</dt>
               {taxBul}
             </div>
           ) : (
             <div>
-              <dt>Corporate tax</dt>
+              <dt>{t("compare.corporateTax")}</dt>
               <dd>{tax}</dd>
             </div>
           )}
           <div className="jx-cmp__metric--stack">
-            <dt>Setup time</dt>
+            <dt>{t("compare.setupTime")}</dt>
             <dd>{setup}</dd>
           </div>
           <div className="jx-cmp__metric--stack">
-            <dt>From</dt>
+            <dt>{t("compare.from")}</dt>
             <dd>{price}</dd>
           </div>
         </dl>
         {reason && <p className="jx-cmp__why">{reason}</p>}
         {isAnchor ? (
-          <span className="jx-cmp__cur">Current jurisdiction</span>
+          <span className="jx-cmp__cur">{t("compare.current")}</span>
         ) : (
           <Link className="jx-cmp__link" to={`/jurisdiction/${j.slug}`}>
-            View {j.name} <span aria-hidden="true">→</span>
+            {t("compare.view", { name: jName })} <span aria-hidden="true">→</span>
           </Link>
         )}
       </div>
@@ -165,18 +170,21 @@ function CompareCard({ j, isAnchor, reason }: { j: Jurisdiction; isAnchor: boole
 }
 
 function AltFallback({ a }: { a: Alt }) {
+  const { t } = useTranslation("jurdetail")
+  const { name: locName } = useJxLocale()
+  const aName = locName(a.name)
   return (
     <article className="bento-card jx-cmp reveal" data-slot="card">
       <div className="bento-card__border" />
       <div className="bento-card__inner">
         <div className="jx-cmp__head">
           <div>
-            <b>{a.name}</b>
+            <b>{aName}</b>
           </div>
         </div>
         <p className="jx-cmp__why">{a.reason}</p>
         <Link className="jx-cmp__link" to={`/jurisdiction/${a.slug}`}>
-          View {a.name} <span aria-hidden="true">→</span>
+          {t("compare.view", { name: aName })} <span aria-hidden="true">→</span>
         </Link>
       </div>
     </article>
@@ -184,11 +192,15 @@ function AltFallback({ a }: { a: Alt }) {
 }
 
 export default function JurisdictionDetail() {
+  const { t } = useTranslation("jurdetail")
+  const { name: locName, region: locRegion } = useJxLocale()
   const { slug } = useParams<{ slug: string }>()
   const { open } = useGabriella()
   const d = slug ? JX_BY_SLUG[slug] : undefined
   // Not rich, but a known directory entry → branded "soon" landing.
   const known = !d && slug ? findKnown(slug) : undefined
+  // Localized display name — English data stays the source of truth (keys, logic).
+  const dName = d ? locName(d.name as string) : ""
 
   useEffect(() => {
     document.body.className = "jx-page"
@@ -202,10 +214,8 @@ export default function JurisdictionDetail() {
       if (metaTitle) document.title = metaTitle
       if (metaDescription) prevDesc = setMetaDescription(metaDescription)
     } else if (known) {
-      document.title = `Incorporate in ${known.name} — CorpSec`
-      prevDesc = setMetaDescription(
-        `Incorporate in ${known.name} with CorpSec — a licensed local partner coordinates company formation, registered address and accounting. Talk to a specialist about tax, banking and timeline today.`,
-      )
+      document.title = t("soon.metaTitle", { name: locName(known.name) })
+      prevDesc = setMetaDescription(t("soon.metaDescription", { name: locName(known.name) }))
     }
 
     return () => {
@@ -213,7 +223,7 @@ export default function JurisdictionDetail() {
       document.title = prevTitle
       if (prevDesc !== null) setMetaDescription(prevDesc)
     }
-  }, [d, known])
+  }, [d, known, t, locName])
 
   // Detail tabs (Fiscal / Legal) — real React state, replacing the vanilla wireTabs.
   const [tab, setTab] = useState<"fiscal" | "legal">("fiscal")
@@ -230,24 +240,22 @@ export default function JurisdictionDetail() {
             to="/jurisdictions"
             style={{ justifyContent: "center", marginBottom: "18px" } as CSSProperties}
           >
-            <span aria-hidden="true">←</span> All jurisdictions
+            <span aria-hidden="true">←</span> {t("backToAll")}
           </Link>
           {known.iso && (
             <span
               className="jx-flag-chip jx-flag-chip--xl"
               style={{ margin: "0 auto 18px", display: "inline-flex" } as CSSProperties}
             >
-              <img src={flag(known.iso)} alt={`${known.name} flag`} width={52} height={39} />
+              <img src={flag(known.iso)} alt={t("flagAlt", { name: locName(known.name) })} width={52} height={39} />
             </span>
           )}
-          <span className="eyebrow">{known.region || "Jurisdiction"}</span>
+          <span className="eyebrow">{known.region ? locRegion(known.region) : t("soon.eyebrowFallback")}</span>
           <h1 className="display" style={{ fontSize: "clamp(28px,5vw,44px)" }}>
-            Incorporate in {known.name}.
+            {t("soon.heading", { name: locName(known.name) })}
           </h1>
           <p className="sub" style={{ maxWidth: "54ch", margin: "14px auto 26px" }}>
-            We coordinate incorporation, registered address and accounting in {known.name} through a
-            licensed local partner. The full in-depth guide is in progress — a specialist can walk you
-            through tax, banking and timeline today.
+            {t("soon.body", { name: locName(known.name) })}
           </p>
           <div className="hero-cta center-cta" style={{ justifyContent: "center" }}>
             <Link
@@ -256,10 +264,10 @@ export default function JurisdictionDetail() {
               data-slot="button"
               data-variant="default"
             >
-              Talk to a {known.name} specialist
+              {t("soon.ctaSpecialist", { name: known.name })}
             </Link>
             <Link className="btn btn-ghost" to="/jurisdictions" data-slot="button" data-variant="outline">
-              Browse all 79
+              {t("soon.ctaBrowse")}
             </Link>
           </div>
         </div>
@@ -272,25 +280,25 @@ export default function JurisdictionDetail() {
     return (
       <section className="section jx-empty">
         <div className="container center">
-          <span className="eyebrow">Jurisdiction</span>
+          <span className="eyebrow">{t("unknown.eyebrow")}</span>
           <h1 className="display" style={{ fontSize: "clamp(28px,5vw,44px)" }}>
-            We&rsquo;re preparing this one.
+            {t("unknown.heading")}
           </h1>
           <p className="sub" style={{ maxWidth: "48ch", margin: "14px auto 26px" }}>
-            Browse the jurisdictions we cover in depth, or ask a specialist.
+            {t("unknown.body")}
           </p>
           <div className="hero-cta center-cta" style={{ justifyContent: "center" }}>
             <Link className="btn btn-primary" to="/jurisdictions" data-slot="button" data-variant="default">
-              Browse jurisdictions
+              {t("unknown.ctaBrowse")}
             </Link>
             <button
               type="button"
               className="btn btn-ghost"
               data-slot="button"
               data-variant="outline"
-              onClick={() => open("I'm looking for a jurisdiction you don't list yet — can you help?")}
+              onClick={() => open(t("unknown.askPrompt"))}
             >
-              Ask about it
+              {t("unknown.ctaAsk")}
             </button>
           </div>
         </div>
@@ -321,7 +329,7 @@ export default function JurisdictionDetail() {
   const setupVal = metric(d, /setup|active|timing/i)
   const priceShort = (bundle.priceLabel ?? "—").split("(")[0].trim()
   const taxBul = taxBullets(taxVal)
-  const taxSub = taxVal === "—" ? "Contact a specialist for current rates" : "Headline rate · re-verify annually"
+  const taxSub = taxVal === "—" ? t("hero.taxSubContact") : t("hero.taxSubRate")
 
   // Pricing: bundle vs. à-la-carte savings.
   const bundleAmt = firstNum(bundle.priceLabel ?? "")
@@ -354,21 +362,21 @@ export default function JurisdictionDetail() {
       <section className="jx-hero jx-hero--bento" style={{ "--c1": c1, "--c2": c2 } as CSSProperties}>
         <div className="container">
           <Link className="jx-back" to="/jurisdictions">
-            <span aria-hidden="true">←</span> All jurisdictions
+            <span aria-hidden="true">←</span> {t("backToAll")}
           </Link>
           <div className="jx-hero__bento">
             {/* Main card */}
-            <article className="bento-card jx-bento-main reveal" data-slot="card" aria-label={`${d.name} overview`}>
+            <article className="bento-card jx-bento-main reveal" data-slot="card" aria-label={t("hero.overviewAria", { name: dName })}>
               <div className="bento-card__border" />
               <div className="bento-card__border-glow" />
               <div className="bento-card__inner">
                 <div className="jx-bento-main__head">
                   <span className="jx-flag-chip jx-flag-chip--xl">
-                    <img src={flag(d.iso)} alt={`${d.name} flag`} width={52} height={39} loading="eager" />
+                    <img src={flag(d.iso)} alt={t("flagAlt", { name: dName })} width={52} height={39} loading="eager" />
                   </span>
                   <div>
-                    <span className="eyebrow">{d.region || ""}</span>
-                    <h1 className="jx-h1">{d.name}</h1>
+                    <span className="eyebrow">{d.region ? locRegion(d.region as string) : ""}</span>
+                    <h1 className="jx-h1">{dName}</h1>
                   </div>
                 </div>
                 <p className="jx-sub">{hero.sub}</p>
@@ -385,13 +393,13 @@ export default function JurisdictionDetail() {
                       <IcTag />
                     </span>
                     <div>
-                      <span className="jx-bento-stat__label">Bundle from</span>
+                      <span className="jx-bento-stat__label">{t("hero.bundleFrom")}</span>
                       <span className="jx-bento-main__prval">{priceShort}</span>
                     </div>
                   </div>
                   <div className="jx-bento-main__cta">
                     <a className="btn btn-primary" href="#pricing" data-slot="button" data-variant="default">
-                      Build your package
+                      {t("hero.buildPackage")}
                     </a>
                     <Link
                       className="btn btn-ghost"
@@ -399,7 +407,7 @@ export default function JurisdictionDetail() {
                       data-slot="button"
                       data-variant="outline"
                     >
-                      Talk to a specialist
+                      {t("hero.talkSpecialist")}
                     </Link>
                   </div>
                 </div>
@@ -414,7 +422,7 @@ export default function JurisdictionDetail() {
                 <span className="jx-bento-stat__ic">
                   <IcTax />
                 </span>
-                <span className="jx-bento-stat__label">Corporate tax</span>
+                <span className="jx-bento-stat__label">{t("hero.corporateTax")}</span>
                 {taxBul ?? <span className="jx-bento-stat__val">{taxVal}</span>}
                 <span className="jx-bento-stat__sub">{taxSub}</span>
               </div>
@@ -428,9 +436,9 @@ export default function JurisdictionDetail() {
                 <span className="jx-bento-stat__ic">
                   <IcClock />
                 </span>
-                <span className="jx-bento-stat__label">Setup time</span>
+                <span className="jx-bento-stat__label">{t("hero.setupTime")}</span>
                 <span className="jx-bento-stat__val">{setupVal}</span>
-                <span className="jx-bento-stat__sub">Gov. filing via licensed partner</span>
+                <span className="jx-bento-stat__sub">{t("hero.setupSub")}</span>
               </div>
             </article>
           </div>
@@ -442,11 +450,9 @@ export default function JurisdictionDetail() {
         <section className="section jx-fits">
           <div className="container">
             <div className="section-head reveal">
-              <span className="eyebrow">Is it right for you?</span>
-              <h2>{d.name} fits if…</h2>
-              <p className="sub">
-                The clearest signal you&rsquo;re in the right jurisdiction — or that another one deserves a look.
-              </p>
+              <span className="eyebrow">{t("fits.eyebrow")}</span>
+              <h2>{t("fits.heading", { name: dName })}</h2>
+              <p className="sub">{t("fits.sub")}</p>
             </div>
             <div className="jx-fits__grid">
               {fits.map((f, i) => (
@@ -469,11 +475,9 @@ export default function JurisdictionDetail() {
       <section className="section band-tint jx-compare" id="compare">
         <div className="container">
           <div className="section-head reveal">
-            <span className="eyebrow">Compare</span>
-            <h2>How {d.name} stacks up.</h2>
-            <p className="sub">
-              The jurisdictions founders weigh against {d.name}, side by side — tax, speed and all-in cost at a glance.
-            </p>
+            <span className="eyebrow">{t("compare.eyebrow")}</span>
+            <h2>{t("compare.heading", { name: dName })}</h2>
+            <p className="sub">{t("compare.sub", { name: dName })}</p>
           </div>
           <div className="jx-cmp__grid">
             <CompareCard j={d} isAnchor />
@@ -488,7 +492,7 @@ export default function JurisdictionDetail() {
           </div>
           <div className="jx-cmp__foot reveal">
             <Link className="btn btn-ghost" to="/compare" data-slot="button" data-variant="outline">
-              Compare all side by side <span aria-hidden="true">↗</span>
+              {t("compare.allSideBySide")} <span aria-hidden="true">↗</span>
             </Link>
           </div>
         </div>
@@ -498,8 +502,8 @@ export default function JurisdictionDetail() {
       <section className="section jx-detail">
         <div className="container">
           <div className="section-head reveal">
-            <span className="eyebrow">The operating reality</span>
-            <h2>Tax, structure &amp; compliance — the facts you&rsquo;ll be asked about.</h2>
+            <span className="eyebrow">{t("detail.eyebrow")}</span>
+            <h2>{t("detail.heading")}</h2>
           </div>
           <div className="bento-card jx-detail__card reveal" data-slot="card">
             <div className="bento-card__border" />
@@ -507,7 +511,7 @@ export default function JurisdictionDetail() {
               <div
                 className="jx-tabs"
                 role="tablist"
-                aria-label="Detail"
+                aria-label={t("detail.tabsAria")}
                 onKeyDown={(e) => {
                   if (e.key === "ArrowRight" || e.key === "ArrowDown" || e.key === "ArrowLeft" || e.key === "ArrowUp") {
                     e.preventDefault()
@@ -533,7 +537,7 @@ export default function JurisdictionDetail() {
                   data-state={tab === "fiscal" ? "active" : "inactive"}
                   onClick={() => setTab("fiscal")}
                 >
-                  Fiscal
+                  {t("detail.tabFiscal")}
                 </button>
                 <button
                   type="button"
@@ -547,7 +551,7 @@ export default function JurisdictionDetail() {
                   data-state={tab === "legal" ? "active" : "inactive"}
                   onClick={() => setTab("legal")}
                 >
-                  Legal &amp; structure
+                  {t("detail.tabLegal")}
                 </button>
               </div>
               <div
@@ -599,12 +603,9 @@ export default function JurisdictionDetail() {
       <section className="section band-tint jx-price" id="pricing">
         <div className="container">
           <div className="section-head reveal">
-            <span className="eyebrow">Build your package</span>
-            <h2>Take the full bundle — or just what you need.</h2>
-            <p className="sub">
-              Select the complete formation bundle, or mix and match individual services in {d.name}. One checkout, one
-              invoice.
-            </p>
+            <span className="eyebrow">{t("pricing.eyebrow")}</span>
+            <h2>{t("pricing.heading")}</h2>
+            <p className="sub">{t("pricing.sub", { name: dName })}</p>
           </div>
 
           {/* Bundle card */}
@@ -615,17 +616,17 @@ export default function JurisdictionDetail() {
               <div className="jx-bundle-left">
                 <div className="jx-bundle-badges">
                   <span className="price-badge" data-slot="badge" data-variant="default">
-                    Complete bundle
+                    {t("pricing.completeBundle")}
                   </span>
-                  <span className="jx-bundle-popular">Most popular</span>
+                  <span className="jx-bundle-popular">{t("pricing.mostPopular")}</span>
                 </div>
                 <div className="jx-bundle-amt">{bundleLabel}</div>
                 <div className="jx-bundle-rec">{bundle.recurringLabel ?? ""}</div>
                 <span className="jx-bundle-save-badge">
                   <Check />
                   {saved
-                    ? `Save ~${cur} ${saved.toLocaleString()} vs. individual billing`
-                    : "One invoice · one partner"}
+                    ? t("pricing.save", { cur, amount: saved.toLocaleString() })
+                    : t("pricing.oneInvoice")}
                 </span>
                 <label className="jx-pick jx-bundle-pick">
                   <input
@@ -635,11 +636,11 @@ export default function JurisdictionDetail() {
                     onChange={(e) => toggle(`${d.name} formation bundle`, bundleAmt, e.target.checked)}
                   />
                   <span className="jx-pick__box" aria-hidden="true" />
-                  <span className="jx-bundle-pick-label">Add complete bundle</span>
+                  <span className="jx-bundle-pick-label">{t("pricing.addBundle")}</span>
                 </label>
               </div>
               <div className="jx-bundle-right">
-                <h4 className="jx-bundle-inc-h">What&rsquo;s included</h4>
+                <h4 className="jx-bundle-inc-h">{t("pricing.whatsIncluded")}</h4>
                 <ul className="jx-bundle-inc">
                   {incItems.map((x, i) => (
                     <li key={i}>
@@ -653,7 +654,7 @@ export default function JurisdictionDetail() {
           </article>
 
           <div className="jx-price-divider">
-            <span>Or add individual services à la carte</span>
+            <span>{t("pricing.divider")}</span>
           </div>
 
           <div className="jx-svc__grid" id="services">
@@ -693,22 +694,25 @@ export default function JurisdictionDetail() {
             <div className="container jx-cart__inner">
               <div className="jx-cart__info" role="status" aria-live="polite">
                 <span className="jx-cart__count">
-                  {selCount} {selCount === 1 ? "service selected" : "services selected"}
+                  {t("cart.selected", { count: selCount })}
                 </span>
-                <span className="jx-cart__total">{selTotal ? `from ${cur} ${selTotal.toLocaleString()}` : ""}</span>
+                <span className="jx-cart__total">
+                  {selTotal ? t("cart.total", { cur, amount: selTotal.toLocaleString() }) : ""}
+                </span>
               </div>
               <button
                 className="jx-cart__btn"
                 type="button"
                 onClick={() =>
                   open(
-                    `I'd like to build a ${d.name} package with: ${selKeys
-                      .map((k) => k.split(":").pop())
-                      .join(", ")}.`
+                    t("cart.checkoutPrompt", {
+                      name: dName,
+                      services: selKeys.map((k) => k.split(":").pop()).join(", "),
+                    })
                   )
                 }
               >
-                Continue to checkout <span aria-hidden="true">→</span>
+                {t("cart.checkout")} <span aria-hidden="true">→</span>
               </button>
             </div>
           </div>
@@ -720,9 +724,9 @@ export default function JurisdictionDetail() {
         <section className="section jx-timeline">
           <div className="container">
             <div className="section-head reveal">
-              <span className="eyebrow">How it works</span>
-              <h2>From signed engagement to operating company.</h2>
-              <p className="sub">A licensed local partner runs each step. You sign once and watch it progress.</p>
+              <span className="eyebrow">{t("timeline.eyebrow")}</span>
+              <h2>{t("timeline.heading")}</h2>
+              <p className="sub">{t("timeline.sub")}</p>
             </div>
             <div className="jx-steps">
               {timeline.map((p, i) => (
@@ -754,8 +758,8 @@ export default function JurisdictionDetail() {
         <section className="section jx-faq" id="faq">
           <div className="container">
             <div className="section-head reveal">
-              <span className="eyebrow">FAQ</span>
-              <h2>What founders ask before incorporating in {d.name}.</h2>
+              <span className="eyebrow">{t("faq.eyebrow")}</span>
+              <h2>{t("faq.heading", { name: dName })}</h2>
             </div>
             <div className="faq-list reveal">
               {faqs.map((f, i) => (
@@ -772,7 +776,7 @@ export default function JurisdictionDetail() {
             </div>
             {sources.length > 0 && (
               <div className="jx-sources reveal">
-                <span>Sources</span>
+                <span>{t("faq.sources")}</span>
                 {sources.map((s, i) => (
                   <a className="jx-src" href={s.url} target="_blank" rel="noopener" key={i}>
                     {s.label}
@@ -789,30 +793,30 @@ export default function JurisdictionDetail() {
         <div className="container">
           <div className="jx-cta2__wrap reveal">
             <h2 className="jx-cta2__line">
-              Let&rsquo;s get your {d.name} company{" "}
+              {t("cta.lead", { name: dName })}{" "}
               <a className="jx-cta2__pill" href="#pricing">
-                Build your package <span aria-hidden="true">→</span>
+                {t("cta.pill")} <span aria-hidden="true">→</span>
               </a>{" "}
-              filed, banked and fully compliant.
+              {t("cta.tail")}
             </h2>
             <p className="jx-cta2__sub">
-              A licensed local team handles every step.{" "}
+              {t("cta.sub")}{" "}
               <Link className="jx-cta2__link" to="/contact">
-                Talk to a specialist →
+                {t("cta.specialist")} →
               </Link>
             </p>
             <div className="jx-cta2__stats">
               <div>
                 <b>48h</b>
-                <span>avg. filing</span>
+                <span>{t("cta.stats.filing")}</span>
               </div>
               <div>
                 <b>79</b>
-                <span>jurisdictions</span>
+                <span>{t("cta.stats.jurisdictions")}</span>
               </div>
               <div>
                 <b>500+</b>
-                <span>companies</span>
+                <span>{t("cta.stats.companies")}</span>
               </div>
             </div>
           </div>

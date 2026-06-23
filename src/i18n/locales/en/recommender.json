@@ -1,0 +1,32 @@
+{
+  "eyebrow": "The advisor",
+  "heading": {
+    "line1": "Eight questions. Two minutes.",
+    "line2": "The right jurisdiction."
+  },
+  "sub": "Gabriella cross-checks 79 jurisdictions against your tax exposure, banking options, investor optics and residency — then shows you the ranked shortlist with a full explanation of why.",
+  "chips": {
+    "free": "✓ Free",
+    "noLogin": "✓ No login",
+    "noSalesCall": "✓ No sales call"
+  },
+  "cta": "Start the 2-minute match",
+  "steps": {
+    "profile": "Profile",
+    "matching": "Matching",
+    "reportReady": "Report ready"
+  },
+  "card": {
+    "country": "Singapore",
+    "rank": "ranked #1",
+    "meta": "Setup 2 days · First year SGD 5,234",
+    "taxLabel": "Corp tax",
+    "banking": "Banking",
+    "bankRemote": "Remote ✓",
+    "bankStripe": "Stripe ✓",
+    "bankWise": "Wise ✓",
+    "bankMercury": "Mercury ✓",
+    "alsoConsidered": "Also considered: Estonia · UK · Delaware",
+    "start": "Start in Singapore →"
+  }
+}

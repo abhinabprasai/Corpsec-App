@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "title": "Contact — échangez avec l’équipe CorpSec | CorpSec",
+    "description": "Dites-nous où vous voulez aller et nous vous répondrons sous un jour ouvré. Ou passez le formulaire et demandez à Gabriella une liste restreinte de juridictions classée en deux minutes."
+  },
+  "hero": {
+    "eyebrow": "Nous contacter",
+    "title": "Entrez en contact avec notre équipe.",
+    "sub": "Dites-nous où vous voulez aller et nous reviendrons vers vous avec une étape suivante claire — généralement sous un jour ouvré. Nous sommes un peu compétitifs sur les délais de réponse."
+  },
+  "info": {
+    "ariaLabel": "Autres façons de nous joindre",
+    "office": {
+      "label": "Siège social",
+      "value": "71 Robinson Road, Singapour",
+      "note": "Bureaux satellites à Londres et Dubaï. Les classeurs sont désormais presque tous numériques."
+    },
+    "phone": {
+      "label": "Parler à un être humain",
+      "note": "Une vraie personne décroche. Pas de standard automatique labyrinthique, pas de « tapez 4 pour la création de société »."
+    },
+    "email": {
+      "label": "E-mail",
+      "note": "Nous lisons chaque message et répondons sous un jour ouvré."
+    },
+    "hours": {
+      "label": "Horaires d’ouverture",
+      "value": "Lun.–ven., 9 h–18 h (à votre heure, le plus souvent)",
+      "note": "Gabriella assure les nuits, les week-ends et les jours fériés qu’elle ne respecte pas."
+    }
+  },
+  "form": {
+    "head": {
+      "title": "Envoyez-nous un message",
+      "lead": "Renseignez l’essentiel.",
+      "reqKey": "= obligatoire."
+    },
+    "firstName": {
+      "label": "Prénom"
+    },
+    "lastName": {
+      "label": "Nom"
+    },
+    "email": {
+      "label": "E-mail professionnel"
+    },
+    "phone": {
+      "label": "Téléphone",
+      "placeholder": "Facultatif"
+    },
+    "company": {
+      "label": "Société",
+      "placeholder": "Facultatif"
+    },
+    "jurisdiction": {
+      "label": "Juridiction qui vous intéresse",
+      "unsure": "Pas encore décidé — aidez-moi à choisir"
+    },
+    "message": {
+      "label": "Comment pouvons-nous vous aider ?",
+      "placeholder": "Une phrase ou deux sur ce que vous construisez et où."
+    },
+    "submit": "Envoyer le message",
+    "privacy": "Nous l’utiliserons uniquement pour vous répondre. Pas de newsletters sauf demande de votre part, aucune donnée vendue, aucun appel de relance. Demandez la suppression à tout moment — effectuée sous 24 heures.",
+    "status_one": "{{count}} champ doit être corrigé ci-dessus.",
+    "status_other": "{{count}} champs doivent être corrigés ci-dessus."
+  },
+  "jurisdictions": {
+    "singapore": "Singapour",
+    "delaware": "Delaware (États-Unis)",
+    "uk": "Royaume-Uni",
+    "uae": "Dubaï (Émirats arabes unis)",
+    "estonia": "Estonie",
+    "hong-kong": "Hong Kong",
+    "other": "Ailleurs"
+  },
+  "errors": {
+    "firstName": "Indiquez-nous votre prénom, s’il vous plaît.",
+    "email": "Veuillez saisir une adresse e-mail professionnelle valide.",
+    "message": "Une phrase sur votre besoin nous aide à vous orienter."
+  },
+  "success": {
+    "title": "Message envoyé.",
+    "body": "Merci, {{name}} — nous reviendrons vers vous sous un jour ouvré. Généralement plus tôt.",
+    "home": "Retour à l’accueil",
+    "gabriella": "Demander à Gabriella en attendant"
+  },
+  "alt": {
+    "title": "Allergique aux formulaires ? Nous aussi.",
+    "sub": "Répondez à huit questions et Gabriella classe les 79 juridictions selon votre situation — fiscalité, banque et adéquation avec les investisseurs, raisonnement à l’appui. Deux minutes, sans connexion, sans appel commercial.",
+    "cta": "Demander à Gabriella — gratuit"
+  },
+  "faq": {
+    "eyebrow": "Avant de nous écrire",
+    "title": "Les questions que l’on nous pose avant l’appel.",
+    "items": {
+      "speed": {
+        "q": "Sous combien de temps aurai-je vraiment une réponse ?",
+        "a": "Un jour ouvré, généralement moins. Si vous avez écrit un vendredi soir, ce sera lundi matin — nous aimons aussi les week-ends."
+      },
+      "account": {
+        "q": "Dois-je créer un compte pour vous parler ?",
+        "a": "Non. Pas de connexion, pas de carte, pas de « créez un compte gratuit pour continuer ». Un message ou deux minutes avec Gabriella suffisent amplement."
+      },
+      "person": {
+        "q": "Puis-je simplement parler à une personne ?",
+        "a": "Toujours. Appelez le numéro ou demandez un spécialiste dans votre message — c’est un être humain qui répond, pas un robot qui prétend en être un."
+      },
+      "jurisdiction": {
+        "q": "Je ne sais pas encore quelle juridiction choisir. Est-ce un problème ?",
+        "a": "C’est le cas de la plupart des gens, et c’est précisément notre raison d’être. Laissez « pas encore décidé » — nous (ou Gabriella) affinerons cela avec vous."
+      }
+    }
+  }
+}

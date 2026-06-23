@@ -1,0 +1,97 @@
+{
+  "backToAll": "All jurisdictions",
+  "flagAlt": "{{name}} flag",
+  "soon": {
+    "metaTitle": "Incorporate in {{name}} — CorpSec",
+    "metaDescription": "Incorporate in {{name}} with CorpSec — a licensed local partner coordinates company formation, registered address and accounting. Talk to a specialist about tax, banking and timeline today.",
+    "eyebrowFallback": "Jurisdiction",
+    "heading": "Incorporate in {{name}}.",
+    "body": "We coordinate incorporation, registered address and accounting in {{name}} through a licensed local partner. The full in-depth guide is in progress — a specialist can walk you through tax, banking and timeline today.",
+    "ctaSpecialist": "Talk to a {{name}} specialist",
+    "ctaBrowse": "Browse all 79"
+  },
+  "unknown": {
+    "eyebrow": "Jurisdiction",
+    "heading": "We’re preparing this one.",
+    "body": "Browse the jurisdictions we cover in depth, or ask a specialist.",
+    "ctaBrowse": "Browse jurisdictions",
+    "ctaAsk": "Ask about it",
+    "askPrompt": "I'm looking for a jurisdiction you don't list yet — can you help?"
+  },
+  "hero": {
+    "overviewAria": "{{name}} overview",
+    "bundleFrom": "Bundle from",
+    "buildPackage": "Build your package",
+    "talkSpecialist": "Talk to a specialist",
+    "corporateTax": "Corporate tax",
+    "taxSubContact": "Contact a specialist for current rates",
+    "taxSubRate": "Headline rate · re-verify annually",
+    "setupTime": "Setup time",
+    "setupSub": "Gov. filing via licensed partner"
+  },
+  "fits": {
+    "eyebrow": "Is it right for you?",
+    "heading": "{{name}} fits if…",
+    "sub": "The clearest signal you’re in the right jurisdiction — or that another one deserves a look."
+  },
+  "compare": {
+    "eyebrow": "Compare",
+    "heading": "How {{name}} stacks up.",
+    "sub": "The jurisdictions founders weigh against {{name}}, side by side — tax, speed and all-in cost at a glance.",
+    "viewing": "You’re viewing",
+    "corporateTax": "Corporate tax",
+    "setupTime": "Setup time",
+    "from": "From",
+    "current": "Current jurisdiction",
+    "view": "View {{name}}",
+    "allSideBySide": "Compare all side by side"
+  },
+  "detail": {
+    "eyebrow": "The operating reality",
+    "heading": "Tax, structure & compliance — the facts you’ll be asked about.",
+    "tabsAria": "Detail",
+    "tabFiscal": "Fiscal",
+    "tabLegal": "Legal & structure"
+  },
+  "pricing": {
+    "eyebrow": "Build your package",
+    "heading": "Take the full bundle — or just what you need.",
+    "sub": "Select the complete formation bundle, or mix and match individual services in {{name}}. One checkout, one invoice.",
+    "completeBundle": "Complete bundle",
+    "mostPopular": "Most popular",
+    "save": "Save ~{{cur}} {{amount}} vs. individual billing",
+    "oneInvoice": "One invoice · one partner",
+    "addBundle": "Add complete bundle",
+    "whatsIncluded": "What’s included",
+    "divider": "Or add individual services à la carte"
+  },
+  "cart": {
+    "selected_one": "{{count}} service selected",
+    "selected_other": "{{count}} services selected",
+    "total": "from {{cur}} {{amount}}",
+    "checkout": "Continue to checkout",
+    "checkoutPrompt": "I'd like to build a {{name}} package with: {{services}}."
+  },
+  "timeline": {
+    "eyebrow": "How it works",
+    "heading": "From signed engagement to operating company.",
+    "sub": "A licensed local partner runs each step. You sign once and watch it progress."
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "heading": "What founders ask before incorporating in {{name}}.",
+    "sources": "Sources"
+  },
+  "cta": {
+    "lead": "Let’s get your {{name}} company",
+    "pill": "Build your package",
+    "tail": "filed, banked and fully compliant.",
+    "sub": "A licensed local team handles every step.",
+    "specialist": "Talk to a specialist",
+    "stats": {
+      "filing": "avg. filing",
+      "jurisdictions": "jurisdictions",
+      "companies": "companies"
+    }
+  }
+}

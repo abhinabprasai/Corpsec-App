@@ -1,0 +1,34 @@
+{
+  "eyebrow": "FAQ",
+  "heading": "Les questions que les fondateurs se posent avant de creer leur societe.",
+  "items": {
+    "where": {
+      "q": "Ou dois-je reellement creer ma societe ?",
+      "a": "C'est precisement ce a quoi Gabriella repond. Le recommandeur classe 79 juridictions en fonction de votre exposition fiscale, de vos options bancaires et des attentes des investisseurs — gratuitement, en deux minutes."
+    },
+    "residency": {
+      "q": "Dois-je resider dans le pays ou je cree ma societe ?",
+      "a": "Presque jamais. La plupart de nos juridictions autorisent une creation 100 % a distance, pour les non-residents. Lorsqu'une substance locale ou un administrateur resident est requis, nous le fournissons."
+    },
+    "banking": {
+      "q": "Pouvez-vous vraiment m'obtenir un compte bancaire ?",
+      "a": "Nous vous mettons en relation avec Mercury, Wise, Revolut et des partenaires locaux, selon une juridiction qu'ils accepteront d'integrer. C'est votre pays de creation — et non votre lieu de residence — qui determine qui pourra vous ouvrir un compte."
+    },
+    "cost": {
+      "q": "Combien cela coute-t-il reellement — tout compris ?",
+      "a": "Vous voyez les frais administratifs, nos honoraires et les couts annuels recurrents detailles ligne par ligne avant de vous engager. Pas de formules generiques, pas de renouvellements surprises."
+    },
+    "move": {
+      "q": "Puis-je transferer ma societe plus tard si je me suis trompe ?",
+      "a": "Oui, mais une redomiciliation est un projet transfrontalier a cinq chiffres. Le recommandeur existe justement pour vous l'eviter."
+    },
+    "who": {
+      "q": "Qui realise reellement le travail ?",
+      "a": "Des prestataires de services aux entreprises agrees et des professionnels reglementes dans chaque juridiction, tous couverts par une assurance responsabilite professionnelle. CorpSec coordonne le tout et vous offre un seul tableau de bord."
+    }
+  },
+  "foot": {
+    "prompt": "Vous hesitez encore sur vos options ?",
+    "cta": "Posez votre question a Gabriella — gratuit"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "eyebrow": "Comment ça marche",
+  "heading": "Trois étapes, de l'idée à la société constituée.",
+  "sub": "Aucun avocat à relancer, aucune incertitude sur la juridiction, aucun document à relire deux fois.",
+  "steps": {
+    "match": {
+      "title": "Trouvez votre juridiction",
+      "body": "Répondez à huit questions. Gabriella classe 79 juridictions selon vos besoins en matière de fiscalité, de banque et d'investisseurs — gratuitement, sans inscription.",
+      "cta": "Lancer le recommandeur →"
+    },
+    "incorporate": {
+      "title": "Créez votre société à distance",
+      "body": "Nous effectuons le dépôt auprès du registre, nommons votre agent enregistré et vous remettons vos documents signés — mises en relation bancaires incluses. 48 h en moyenne.",
+      "cta": "Démarrer la création →"
+    },
+    "autopilot": {
+      "title": "Tout en pilote automatique",
+      "body": "Chaque renouvellement, chaque dépôt et chaque échéance comptable sont pris en charge par des partenaires locaux agréés, le tout réuni dans un seul tableau de bord — une seule facture.",
+      "cta": "Voir le tableau de bord →"
+    }
+  }
+}

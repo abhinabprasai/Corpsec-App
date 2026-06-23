@@ -1,0 +1,15 @@
+{
+  "eyebrow": "Marchés en direct",
+  "heading.line1": "Sept juridictions,",
+  "heading.line2": "disponibles dès aujourd'hui.",
+  "sub": "Survolez un marché — le globe pivote pour vous montrer exactement où vous allez créer votre société. Des prix réels, une configuration à distance, des partenaires locaux agréés.",
+  "passport.label": "Mon passeport",
+  "passport.ariaLabel": "Mon passeport — pays de citoyenneté",
+  "passport.placeholder": "Pays de citoyenneté",
+  "passport.listLabel": "Pays du passeport",
+  "dest.label": "Pays de création de la société",
+  "dest.ariaLabel": "Pays où créer la société",
+  "dest.placeholder": "Où vous implanter",
+  "dest.listLabel": "Juridiction de destination",
+  "cta": "Démarrer la création de société"
+}

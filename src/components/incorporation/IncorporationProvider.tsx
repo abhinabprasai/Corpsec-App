@@ -7,6 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Dialog,
   DialogClose,
@@ -56,49 +57,35 @@ function Mark() {
   );
 }
 
-/* ---- funnel data (verbatim from forms.js) ------------------ */
+/* ---- funnel data (ported from forms.js; English text now lives
+   in i18n — these are the stable i18n keys used as option values) -- */
 const JURIS = [
-  "Singapore",
-  "United Kingdom",
-  "Delaware, USA",
-  "Estonia",
-  "Ireland",
-  "Dubai, UAE",
-  "Hong Kong",
-  "Netherlands",
-  "Texas, USA",
-  "Cyprus",
-  "Other / not sure yet",
+  "singapore",
+  "uk",
+  "delaware",
+  "estonia",
+  "ireland",
+  "dubai",
+  "hongKong",
+  "netherlands",
+  "texas",
+  "cyprus",
+  "other",
 ];
 
 const ACTIVITIES = [
-  "SaaS / software",
-  "E-commerce",
-  "Consulting / services",
-  "Holding company",
-  "Trading",
-  "Crypto / Web3",
-  "Fintech",
-  "Agency / creative",
-  "Other",
+  "saas",
+  "ecommerce",
+  "consulting",
+  "holding",
+  "trading",
+  "crypto",
+  "fintech",
+  "agency",
+  "other",
 ];
 
-interface Package {
-  v: string;
-  label: string;
-  price: string;
-  desc: string;
-}
-const PACKAGES: Package[] = [
-  { v: "launch", label: "Launch", price: "from £120/mo", desc: "First entity, fully banked." },
-  { v: "growth", label: "Growth", price: "from £240/mo", desc: "Entity + accounting + tax filing." },
-  { v: "scale", label: "Scale", price: "Custom", desc: "A portfolio across jurisdictions." },
-];
-
-function pkgLabel(v: string): string {
-  const p = PACKAGES.find((x) => x.v === v);
-  return p ? `${p.label} (${p.price})` : "—";
-}
+const PACKAGES = ["launch", "growth", "scale"] as const;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const isValidEmail = (v: string) => EMAIL_RE.test((v || "").trim());
@@ -145,6 +132,7 @@ function Funnel({
   jurisdiction: string;
   onClose: () => void;
 }) {
+  const { t } = useTranslation("incorporation");
   const [state, setState] = useState<FunnelState>({
     jurisdiction: seedJurisdiction || "",
     pkg: "",
@@ -161,7 +149,10 @@ function Funnel({
 
   const total = STEPS.length;
   const pct = phase === "done" ? 100 : Math.round((idx / total) * 100);
-  const countLabel = phase === "done" ? "Done" : `${idx + 1} / ${total}`;
+  const countLabel =
+    phase === "done"
+      ? t("header.done")
+      : t("header.count", { current: idx + 1, total });
 
   const goNext = useCallback(() => {
     setEmailErr(false);
@@ -202,10 +193,8 @@ function Funnel({
     if (id === "jurisdiction") {
       return (
         <div className="gq-step">
-          <h3 className="gq-q">Where are you incorporating?</h3>
-          <p className="gq-help">
-            You can change this anytime — or let Gabriella choose for you.
-          </p>
+          <h3 className="gq-q">{t("steps.jurisdiction.q")}</h3>
+          <p className="gq-help">{t("steps.jurisdiction.help")}</p>
           <div className="gq-field">
             <select
               className="gq-select"
@@ -216,11 +205,11 @@ function Funnel({
               }
             >
               <option value="" disabled>
-                Select a jurisdiction
+                {t("steps.jurisdiction.placeholder")}
               </option>
               {JURIS.map((j) => (
                 <option value={j} key={j}>
-                  {j}
+                  {t(`jurisdictions.${j}`)}
                 </option>
               ))}
             </select>
@@ -237,26 +226,24 @@ function Funnel({
     if (id === "pkg") {
       return (
         <div className="gq-step">
-          <h3 className="gq-q">Choose your plan</h3>
-          <p className="gq-help">
-            Every plan includes formation, a registered agent and the dashboard.
-          </p>
+          <h3 className="gq-q">{t("steps.pkg.q")}</h3>
+          <p className="gq-help">{t("steps.pkg.help")}</p>
           <div className="gq-opts gq-opts--pkg">
             {PACKAGES.map((p) => {
-              const sel = state.pkg === p.v;
+              const sel = state.pkg === p;
               return (
                 <button
-                  key={p.v}
+                  key={p}
                   className={"gq-opt gq-opt--pkg" + (sel ? " is-sel" : "")}
                   type="button"
                   aria-pressed={sel}
-                  onClick={() => pickPkg(p.v)}
+                  onClick={() => pickPkg(p)}
                 >
                   <span className="gq-opt__label">
-                    {p.label}
-                    <small>{p.desc}</small>
+                    {t(`packages.${p}.label`)}
+                    <small>{t(`packages.${p}.desc`)}</small>
                   </span>
-                  <span className="gq-opt__price">{p.price}</span>
+                  <span className="gq-opt__price">{t(`packages.${p}.price`)}</span>
                   <span className="gq-opt__check">
                     <Check />
                   </span>
@@ -272,21 +259,21 @@ function Funnel({
     if (id === "company") {
       return (
         <div className="gq-step">
-          <h3 className="gq-q">Your company</h3>
-          <p className="gq-help">A couple of basics to prepare your filing.</p>
+          <h3 className="gq-q">{t("steps.company.q")}</h3>
+          <p className="gq-help">{t("steps.company.help")}</p>
           <div className="gq-field">
-            <label className="gq-flabel">Proposed company name</label>
+            <label className="gq-flabel">{t("steps.company.nameLabel")}</label>
             <input
               className="gq-input2"
               type="text"
-              placeholder="e.g. Northwind Labs"
+              placeholder={t("steps.company.namePlaceholder")}
               autoFocus
               value={state.name}
               onChange={(e) => setState((s) => ({ ...s, name: e.target.value }))}
             />
           </div>
           <div className="gq-field">
-            <label className="gq-flabel">Business activity</label>
+            <label className="gq-flabel">{t("steps.company.activityLabel")}</label>
             <select
               className="gq-select"
               value={state.activity}
@@ -295,11 +282,11 @@ function Funnel({
               }
             >
               <option value="" disabled>
-                Select an activity
+                {t("steps.company.activityPlaceholder")}
               </option>
               {ACTIVITIES.map((a) => (
                 <option value={a} key={a}>
-                  {a}
+                  {t(`activities.${a}`)}
                 </option>
               ))}
             </select>
@@ -316,16 +303,14 @@ function Funnel({
     if (id === "you") {
       return (
         <div className="gq-step">
-          <h3 className="gq-q">Where should we send your filing pack?</h3>
-          <p className="gq-help">
-            We never share your details. One specialist, one thread.
-          </p>
+          <h3 className="gq-q">{t("steps.you.q")}</h3>
+          <p className="gq-help">{t("steps.you.help")}</p>
           <div className="gq-field">
-            <label className="gq-flabel">Full name</label>
+            <label className="gq-flabel">{t("steps.you.nameLabel")}</label>
             <input
               className="gq-input2"
               type="text"
-              placeholder="Your name"
+              placeholder={t("steps.you.namePlaceholder")}
               autoFocus
               value={state.fullname}
               onChange={(e) =>
@@ -334,12 +319,12 @@ function Funnel({
             />
           </div>
           <div className="gq-field">
-            <label className="gq-flabel">Work email</label>
+            <label className="gq-flabel">{t("steps.you.emailLabel")}</label>
             <input
               className="gq-input2"
               type="email"
               inputMode="email"
-              placeholder="you@company.com"
+              placeholder={t("steps.you.emailPlaceholder")}
               value={state.email}
               onChange={(e) => {
                 setState((s) => ({ ...s, email: e.target.value }));
@@ -350,7 +335,7 @@ function Funnel({
               }}
             />
             {emailErr ? (
-              <p className="gq-err">Please enter a valid email.</p>
+              <p className="gq-err">{t("steps.you.emailError")}</p>
             ) : null}
           </div>
           <Nav
@@ -365,22 +350,38 @@ function Funnel({
     }
 
     // review
+    const emptyLabel = t("empty");
+    const pkgDisplay = state.pkg
+      ? t("pkgLabel", {
+          label: t(`packages.${state.pkg}.label`),
+          price: t(`packages.${state.pkg}.price`),
+        })
+      : emptyLabel;
     return (
       <div className="gq-step">
-        <h3 className="gq-q">Review &amp; submit</h3>
+        <h3 className="gq-q">{t("steps.review.q")}</h3>
         <ul className="fm-review">
-          <ReviewRow k="Jurisdiction" v={state.jurisdiction} />
-          <ReviewRow k="Plan" v={pkgLabel(state.pkg)} />
-          <ReviewRow k="Company" v={state.name} />
-          <ReviewRow k="Activity" v={state.activity} />
-          <ReviewRow k="Contact" v={`${state.fullname} · ${state.email}`} />
+          <ReviewRow
+            k={t("steps.review.jurisdiction")}
+            v={state.jurisdiction ? t(`jurisdictions.${state.jurisdiction}`) : ""}
+          />
+          <ReviewRow k={t("steps.review.plan")} v={pkgDisplay} />
+          <ReviewRow k={t("steps.review.company")} v={state.name} />
+          <ReviewRow
+            k={t("steps.review.activity")}
+            v={state.activity ? t(`activities.${state.activity}`) : ""}
+          />
+          <ReviewRow
+            k={t("steps.review.contact")}
+            v={`${state.fullname} · ${state.email}`}
+          />
         </ul>
         <div className="gq-nav">
           <button className="gq-back" type="button" onClick={goBack}>
-            ← Back
+            {t("nav.back")}
           </button>
           <button className="btn btn-primary gq-next" type="button" onClick={submit}>
-            Submit application
+            {t("steps.review.submit")}
           </button>
         </div>
       </div>
@@ -394,25 +395,29 @@ function Funnel({
           <span className="gq-tick">
             <Check />
           </span>
-          <h3>Application received.</h3>
+          <h3>{t("success.heading")}</h3>
           <p>
-            A CorpSec specialist will confirm your {state.jurisdiction} setup and
-            email <b>{state.email}</b> within one business day with your filing
-            pack and a fixed, all-in quote.
+            {t("success.bodyBefore", {
+              jurisdiction: state.jurisdiction
+                ? t(`jurisdictions.${state.jurisdiction}`)
+                : "",
+            })}
+            <b>{state.email}</b>
+            {t("success.bodyAfter")}
           </p>
           <div className="fm-success__next">
             <span>
-              <Check /> Name &amp; structure check
+              <Check /> {t("success.next1")}
             </span>
             <span>
-              <Check /> Filing prepared by a licensed local partner
+              <Check /> {t("success.next2")}
             </span>
             <span>
-              <Check /> Banking introductions lined up
+              <Check /> {t("success.next3")}
             </span>
           </div>
           <button className="btn btn-primary btn-lg" type="button" onClick={onClose}>
-            Back to site
+            {t("success.backToSite")}
           </button>
         </div>
       );
@@ -427,8 +432,8 @@ function Funnel({
           <Mark />
         </span>
         <div className="gq-id">
-          <b>Start your company</b>
-          <small>Formation in 48h on average</small>
+          <b>{t("header.title")}</b>
+          <small>{t("header.subtitle")}</small>
         </div>
         <div className="gq-count">{countLabel}</div>
       </div>
@@ -460,11 +465,12 @@ function Nav({
   onContinue: () => void;
   continueDisabled?: boolean;
 }) {
+  const { t } = useTranslation("incorporation");
   return (
     <div className="gq-nav">
       {onBack ? (
         <button className="gq-back" type="button" onClick={onBack}>
-          ← Back
+          {t("nav.back")}
         </button>
       ) : (
         <span />
@@ -475,7 +481,7 @@ function Nav({
         disabled={continueDisabled}
         onClick={onContinue}
       >
-        Continue
+        {t("nav.continue")}
       </button>
     </div>
   );
@@ -487,6 +493,7 @@ function Nav({
    exact same glass panel / scrim treatment.
    ============================================================ */
 export function IncorporationProvider({ children }: { children: ReactNode }) {
+  const { t } = useTranslation("incorporation");
   const [isOpen, setIsOpen] = useState(false);
   const [seed, setSeed] = useState("");
   // bumping the key remounts the Funnel so each open starts fresh
@@ -511,10 +518,10 @@ export function IncorporationProvider({ children }: { children: ReactNode }) {
             (scoped CSS below) to match the legacy `.csm__panel` exactly. */}
         <DialogContent showCloseButton={false} className="gq-dialog">
           <style>{csmPanelCss}{csmOverlayCss}</style>
-          <DialogTitle className="sr-only">Start your company</DialogTitle>
+          <DialogTitle className="sr-only">{t("dialog.title")}</DialogTitle>
           <DialogClose
             className="csm__close"
-            aria-label="Close"
+            aria-label={t("dialog.close")}
             data-slot="dialog-close"
           >
             <svg

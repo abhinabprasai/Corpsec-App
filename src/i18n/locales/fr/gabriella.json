@@ -1,0 +1,168 @@
+{
+  "header": {
+    "name": "Gabriella",
+    "role": "Conseillère IA en création de société",
+    "dialogTitle": "Gabriella — Conseillère IA en création de société"
+  },
+  "count": {
+    "done": "Terminé",
+    "progress": "{{current}} / {{total}}"
+  },
+  "nav": {
+    "back": "← Retour",
+    "continue": "Continuer",
+    "selectToContinue": "Sélectionnez pour continuer",
+    "close": "Fermer"
+  },
+  "email": {
+    "placeholder": "vous@entreprise.com",
+    "error": "Veuillez saisir une adresse e-mail valide."
+  },
+  "matching": {
+    "text": "Gabriella analyse 79 juridictions en parallèle…"
+  },
+  "result": {
+    "readyBase": "Votre sélection est prête",
+    "readyEmail": " — et en route vers {{email}}",
+    "readyEnd": ".",
+    "ctaPrimary": "Lancer la création de société à {{place}} →",
+    "startOver": "Recommencer",
+    "disclaimer": "Recommandation issue d’une démonstration guidée. Votre sélection définitive est confirmée par un partenaire local agréé avant tout dépôt."
+  },
+  "rec": {
+    "pick": "Le choix de Gabriella",
+    "alt": "Également solide",
+    "corpTax": "Impôt sur les sociétés",
+    "setup": "⚡ Création {{setup}}",
+    "bankOk": "{{bank}} ✓"
+  },
+  "countries": {
+    "United States": "États-Unis",
+    "United Kingdom": "Royaume-Uni",
+    "Canada": "Canada",
+    "Germany": "Allemagne",
+    "France": "France",
+    "Netherlands": "Pays-Bas",
+    "Spain": "Espagne",
+    "Italy": "Italie",
+    "Ireland": "Irlande",
+    "Switzerland": "Suisse",
+    "United Arab Emirates": "Émirats arabes unis",
+    "Saudi Arabia": "Arabie saoudite",
+    "India": "Inde",
+    "Singapore": "Singapour",
+    "Hong Kong": "Hong Kong",
+    "Australia": "Australie",
+    "Nigeria": "Nigéria",
+    "South Africa": "Afrique du Sud",
+    "Brazil": "Brésil",
+    "Mexico": "Mexique",
+    "Japan": "Japon",
+    "Estonia": "Estonie",
+    "Poland": "Pologne",
+    "Other": "Autre"
+  },
+  "steps": {
+    "building": {
+      "q": "Que développez-vous ?",
+      "help": "Cela détermine le régime fiscal et ce que les investisseurs s’attendent à voir.",
+      "options": {
+        "saas": "SaaS / logiciel",
+        "ecom": "Commerce en ligne",
+        "holding": "Société holding",
+        "consult": "Conseil / services",
+        "web3": "Crypto / Web3",
+        "other": "Autre chose"
+      }
+    },
+    "base": {
+      "q": "Où êtes-vous établi ?",
+      "help": "Votre résidence détermine votre exposition fiscale et votre accès bancaire.",
+      "placeholder": "Sélectionnez votre pays de résidence"
+    },
+    "market": {
+      "q": "Où se trouve la majorité de vos clients ?",
+      "help": "La localisation de vos revenus influence le lieu d’immatriculation le plus pertinent.",
+      "options": {
+        "us": "États-Unis",
+        "eu": "Europe",
+        "uk": "Royaume-Uni",
+        "me": "Moyen-Orient",
+        "asia": "Asie-Pacifique",
+        "global": "Véritablement mondial"
+      }
+    },
+    "raising": {
+      "q": "Levez-vous des capitaux extérieurs ?",
+      "help": "La familiarité des investisseurs peut primer sur un taux d’imposition légèrement plus bas.",
+      "options": {
+        "us_vc": "Oui — investisseurs américains",
+        "eu_vc": "Oui — investisseurs UE / Royaume-Uni",
+        "soon": "Prévu prochainement",
+        "boot": "Autofinancé"
+      }
+    },
+    "banking": {
+      "q": "Sous quel délai avez-vous besoin d’un compte bancaire ?",
+      "help": "Certaines juridictions ouvrent un compte à distance en quelques jours, d’autres en quelques semaines.",
+      "options": {
+        "now": "Immédiatement",
+        "month": "Sous un mois",
+        "flex": "Je suis flexible"
+      }
+    },
+    "priority": {
+      "q": "Qu’est-ce qui compte le plus pour vous ?",
+      "help": "Choisissez-en deux au maximum — Gabriella leur accorde le plus de poids.",
+      "options": {
+        "tax": "Fiscalité faible",
+        "investor": "Familiarité des investisseurs",
+        "speed": "Rapidité et simplicité",
+        "privacy": "Confidentialité",
+        "banking": "Solidité bancaire"
+      }
+    },
+    "email": {
+      "q": "Où Gabriella doit-elle envoyer votre rapport ?",
+      "help": "Votre sélection classée, avec un argumentaire complet. Aucun spam, jamais."
+    }
+  },
+  "jx": {
+    "delaware": {
+      "name": "Delaware, États-Unis",
+      "setup": "2 à 3 jours",
+      "tax": "21 % fédéral",
+      "why": "La référence pour les startups levant des fonds auprès de fonds de capital-risque américains — les investisseurs maîtrisent parfaitement les formalités de la C-Corp."
+    },
+    "singapore": {
+      "name": "Singapour",
+      "setup": "2 jours",
+      "tax": "17 % (avec abattements)",
+      "why": "Création à distance rapide, services bancaires de premier plan et un siège asiatique crédible doté d’un solide réseau conventionnel."
+    },
+    "uk": {
+      "name": "Royaume-Uni",
+      "setup": "24 à 48 heures",
+      "tax": "25 % / 19 % réduit",
+      "why": "La création de société crédible la plus rapide, des services bancaires solides et un accès aisé aux clients de l’UE et des États-Unis."
+    },
+    "estonia": {
+      "name": "Estonie",
+      "setup": "1 à 3 jours",
+      "tax": "0 % sur les bénéfices réinvestis",
+      "why": "0 % d’impôt sur les bénéfices réinvestis et une administration entièrement numérique — idéale pour les équipes agiles et privilégiant le télétravail."
+    },
+    "ireland": {
+      "name": "Irlande",
+      "setup": "3 à 5 jours",
+      "tax": "12,5 % sur l’activité",
+      "why": "Une fiscalité des sociétés faible au sein de l’UE — la base classique pour les éditeurs de logiciels vendant en Europe."
+    },
+    "dubai": {
+      "name": "Dubaï, Émirats arabes unis",
+      "setup": "4 à 6 jours",
+      "tax": "9 % (0 % jusqu’à 375 000 AED)",
+      "why": "Une fiscalité quasi nulle, des services bancaires haut de gamme et un pôle en pleine croissance pour le commerce au Moyen-Orient et à l’international."
+    }
+  }
+}

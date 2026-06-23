@@ -1,0 +1,61 @@
+{
+  "eyebrow": "Resultats prouves",
+  "headline": {
+    "lead": "Des fondateurs qui ont fait le bon choix.",
+    "rest": "Plus de 500 societes creees dans 79 juridictions — voici ce que la bonne structure a reellement change."
+  },
+  "sub": "Les juridictions, les economies et les delais que les fondateurs ont obtenus apres avoir utilise notre recommandeur.",
+  "feature": {
+    "metric": "8×",
+    "caption": "plus vite vers une entite entierement bancarisee",
+    "quote": "« Nous hesitions entre le Delaware, Singapour et l'Estonie depuis six semaines. CorpSec a fait les calculs en deux minutes — nous avons cree la societe et ouvert un compte bancaire la meme semaine. »",
+    "name": "Marcus Chen",
+    "role": "Cofondateur et CTO · Vaultly · Estonie"
+  },
+  "wide": {
+    "metric": "79",
+    "caption": "juridictions, un seul tableau de bord, une seule facture",
+    "quote": "« Du choix de l'entite a la banque et a la comptabilite, chaque detail a ete pris en charge par des partenaires locaux agrees. Nous avons lance dans trois pays sans jamais quitter le tableau de bord. »",
+    "name": "Sarah Lindqvist",
+    "role": "COO · Northwind Labs · Singapour"
+  },
+  "cycle1": {
+    "slide1": {
+      "quote": "« Deux entites, deux pays, un seul tableau de bord. J'ai cesse de courir apres les echeances de depot reparties entre trois prestataires. »",
+      "name": "Tom Becker",
+      "role": "CEO · PulseCore · Royaume-Uni"
+    },
+    "slide2": {
+      "quote": "« Ils ont identifie Singapour pour notre clientele asiatique et nos besoins bancaires. Mise en place en deux jours — compte bancaire ouvert la meme semaine. »",
+      "name": "Aisha Latif",
+      "role": "Fondatrice · Mirego · Singapour"
+    },
+    "slide3": {
+      "quote": "« Le recommandeur nous a fait economiser 12 000 $ par rapport au devis d'un conseil local — et cela a pris deux minutes. »",
+      "name": "Diego Moreno",
+      "role": "Fondateur · Cobalt · Delaware"
+    }
+  },
+  "cycle2": {
+    "slide1": {
+      "quote": "« CorpSec a parfaitement structure notre societe holding, avec une grande rapidite et une reelle attention au detail fiscal. La configuration finale etait digne d'une banque. »",
+      "name": "Hannah Okonkwo",
+      "role": "CFO · Lumen · Emirats arabes unis"
+    },
+    "slide2": {
+      "quote": "« Un seul gestionnaire de compte, une seule facture, trois juridictions. Les renouvellements se font tout seuls desormais — je n'y pense plus jamais. »",
+      "name": "Daniel Roth",
+      "role": "CEO · Ember & Co · Allemagne"
+    },
+    "slide3": {
+      "quote": "« Il nous fallait une structure moderne mise en place a la vitesse d'une startup. CorpSec a tenu ses promesses — societe creee et conforme en moins d'une semaine. »",
+      "name": "Priya Nair",
+      "role": "Fondatrice · Northstar · Irlande"
+    }
+  },
+  "foot": {
+    "clients": "Plus de 1 500 fondateurs confient leurs entites a CorpSec",
+    "ratingBasis": "Sur la base de 1,5 k avis",
+    "viewAll": "Voir tous les avis"
+  }
+}

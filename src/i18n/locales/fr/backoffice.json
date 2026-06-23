@@ -1,0 +1,56 @@
+{
+  "eyebrow": "Le back-office",
+  "heading": "Nous gérons le back-office. Dans n'importe quel pays.",
+  "sub": "Chaque dépôt, chaque renouvellement, chaque échéance de conformité — pris en charge par des partenaires locaux agréés et réunis dans un seul tableau de bord.",
+  "from": "À partir de",
+  "tabs": {
+    "form": {
+      "label": "Constituer",
+      "small": "· Mettre la structure en place"
+    },
+    "operate": {
+      "label": "Exploiter",
+      "small": "· Rester en règle"
+    },
+    "run": {
+      "label": "Piloter",
+      "small": "· Gérer les finances"
+    }
+  },
+  "panels": {
+    "form": {
+      "title": "L'entité juridique, entièrement constituée.",
+      "items": {
+        "incorporation": "Création de société",
+        "shareTransfers": "Cessions d'actions",
+        "directorAppointments": "Nominations de dirigeants",
+        "apostilles": "Apostilles",
+        "shareCertificates": "Certificats d'actions"
+      },
+      "priceSuffix": " · Royaume-Uni"
+    },
+    "operate": {
+      "title": "Conformité maintenue, en toute sérénité.",
+      "items": {
+        "registeredAddress": "Adresse enregistrée",
+        "corporateSecretary": "Secrétaire général",
+        "nomineeDirector": "Administrateur nominee",
+        "annualReturn": "Déclaration annuelle",
+        "kycUpdates": "Mises à jour KYC"
+      },
+      "priceSuffix": "/an · Royaume-Uni"
+    },
+    "run": {
+      "title": "La machinerie financière que vos investisseurs examineront.",
+      "items": {
+        "bookkeeping": "Tenue de comptabilité",
+        "taxFiling": "Déclarations fiscales",
+        "payroll": "Paie",
+        "vatGst": "TVA / TPS",
+        "auditSupport": "Accompagnement à l'audit",
+        "cfoServices": "Services de direction financière"
+      },
+      "priceSuffix": "/mois · Royaume-Uni"
+    }
+  }
+}

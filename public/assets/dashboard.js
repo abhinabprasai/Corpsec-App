@@ -126,6 +126,10 @@
      Appears after 1.2s, expands on hover/focus.
      ============================================================ */
   (function contactPill() {
+    // Replaced by the React <ContactPill> (rendered globally, i18n + section-aware
+    // contrast). Disabled here so there is no duplicate / English-only pill.
+    return;
+    // eslint-disable-next-line no-unreachable
     if (document.getElementById("contactPill")) return;
     var wrap = document.createElement("div");
     wrap.className = "contact-pill";

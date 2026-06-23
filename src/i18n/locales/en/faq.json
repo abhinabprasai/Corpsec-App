@@ -1,0 +1,34 @@
+{
+  "eyebrow": "FAQ",
+  "heading": "Questions founders ask before they incorporate.",
+  "items": {
+    "where": {
+      "q": "Where should I actually incorporate?",
+      "a": "That's exactly what Gabriella answers. The recommender ranks 79 jurisdictions against your tax exposure, banking options and investor expectations — free, in two minutes."
+    },
+    "residency": {
+      "q": "Do I have to live in the country I incorporate in?",
+      "a": "Almost never. Most of our jurisdictions allow 100% remote, non-resident setup. Where local substance or a resident director is required, we provide it."
+    },
+    "banking": {
+      "q": "Can you actually get me a bank account?",
+      "a": "We make introductions to Mercury, Wise, Revolut and local partners, matched to a jurisdiction they'll onboard. Your country of incorporation — not where you live — decides who'll bank you."
+    },
+    "cost": {
+      "q": "What does it really cost — all in?",
+      "a": "You see government fees, our fee and recurring annual costs itemised before you commit. No generic tiers, no surprise renewals."
+    },
+    "move": {
+      "q": "Can I move my company later if I get it wrong?",
+      "a": "Yes, but re-domiciliation is a five-figure cross-border project. The recommender exists so you don't have to."
+    },
+    "who": {
+      "q": "Who actually does the work?",
+      "a": "Licensed corporate service providers and regulated professionals in each jurisdiction, all with professional indemnity. CorpSec coordinates and gives you one dashboard."
+    }
+  },
+  "foot": {
+    "prompt": "Still weighing your options?",
+    "cta": "Ask Gabriella — free"
+  }
+}

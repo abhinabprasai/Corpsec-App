@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "title": "About — the team behind CorpSec | CorpSec",
+    "description": "We turned 79 jurisdictions and 30+ licensed local partners into one back office — so founders stop guessing where to incorporate. Meet the people (and the AI) who run it."
+  },
+  "hero": {
+    "eyebrow": "About CorpSec",
+    "title": "We made “where should I incorporate?” a two-minute question.",
+    "sub": "CorpSec turns 79 jurisdictions and 30+ licensed local partners into one back office. You tell us where — or let our advisor tell you. We handle the formation, the address, the filings and the accounting. One dashboard. One invoice.",
+    "cta": {
+      "primary": "Start my company",
+      "secondary": "Meet the team"
+    }
+  },
+  "story": {
+    "eyebrow": "Why we built it",
+    "heading": "Picking the wrong jurisdiction is a six-figure mistake — we got tired of watching founders make it.",
+    "sub": "The “right” answer depends on your investors, customers, bank and tax exposure — and the wrong one can stall a round or cost years to unwind. The advice was scattered across four advisors who each sold what they had. So we built the opposite.",
+    "cards": {
+      "fit": {
+        "title": "The fit, not the margin",
+        "body": "Our advisor ranks all 79 jurisdictions for your situation. We get paid the same wherever you land — so the recommendation is the one that’s actually right for you."
+      },
+      "dashboard": {
+        "title": "One dashboard, one invoice",
+        "body": "Every renewal, filing and bookkeeping deadline is handled by licensed local partners and surfaced in one place. No chasing registries in languages you don’t speak."
+      },
+      "licensed": {
+        "title": "Licensed, insured, accountable",
+        "body": "Work is delivered by regulated corporate-service providers and accountants in each jurisdiction — professional-indemnity insured, not a forum thread and a prayer."
+      }
+    }
+  },
+  "stats": {
+    "jurisdictions": "jurisdictions covered",
+    "companies": "companies incorporated",
+    "speed": "average to incorporate",
+    "partners": "licensed local partners"
+  },
+  "team": {
+    "eyebrow": "The humans (and one who isn’t)",
+    "heading": "The people who keep your company in good standing.",
+    "sub": "Credentials first, personality second — but we’d be lying if we said the second part didn’t matter.",
+    "maya": {
+      "name": "Maya Chen",
+      "role": "Co-founder & CEO",
+      "bio": "Eight years structuring cross-border holdings at a Big Four firm before deciding the spreadsheets had won. Started CorpSec so founders stop emailing four advisors to answer one question.",
+      "fun": "Can recite the corporate tax rate of any country you shout at her. Please don’t test this at parties."
+    },
+    "daniel": {
+      "name": "Daniel Okonkwo",
+      "role": "Co-founder & Head of Legal",
+      "bio": "Qualified solicitor who has filed in 14 jurisdictions and read more articles of association than is medically advisable. Keeps our jurisdiction data honest and current.",
+      "fun": "Firmly believes a boring cap table is a beautiful cap table."
+    },
+    "sofia": {
+      "name": "Sofia Marchetti",
+      "role": "Head of Partnerships",
+      "bio": "Vets and manages the 30+ licensed local providers behind every filing — so you never have to cold-email a registry in a language you don’t speak.",
+      "fun": "Maintains a personal vendetta against vague invoices."
+    },
+    "arjun": {
+      "name": "Arjun Patel",
+      "role": "Head of Product & Engineering",
+      "bio": "Built the dashboard that turns 30+ partners and a wall of deadlines into one calendar and one invoice. Spends his day removing steps from the flow.",
+      "fun": "Measures success in deadlines you never had to remember."
+    },
+    "lena": {
+      "name": "Lena Brandt",
+      "role": "Head of Operations",
+      "bio": "Keeps 500+ companies in good standing across every time zone. If a filing is due next month, Lena already knows — and so will you.",
+      "fun": "Runs on flat whites and a colour-coded calendar she refuses to explain."
+    },
+    "gabriella": {
+      "name": "Gabriella",
+      "role": "Incorporation Advisor",
+      "bio": "Not a person — our advisor. Eight questions, two minutes, a ranked shortlist with the reasoning spelled out. Recommends the fit, not the margin.",
+      "fun": "Doesn’t sleep, doesn’t upsell, and has strong, unsolicited opinions about Delaware.",
+      "link": "Ask Gabriella"
+    }
+  },
+  "cta": {
+    "line": {
+      "before": "Ready when you are.",
+      "pill": "Start my company",
+      "after": "or talk to a real human first."
+    },
+    "sub": "Formation, address, accounting — in 48h on average.",
+    "link": "Contact the team →",
+    "stats": {
+      "jurisdictions": "jurisdictions",
+      "speed": "avg. to incorporate",
+      "companies": "companies"
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "eyebrow": "Track record",
+  "headline": {
+    "lead": "Founders who got it right.",
+    "rest": "500+ companies incorporated across 79 jurisdictions — here's what the right structure actually changed."
+  },
+  "sub": "The jurisdictions, savings and timelines founders landed on after running the recommender.",
+  "feature": {
+    "metric": "8×",
+    "caption": "faster to a fully-banked entity",
+    "quote": "\"We were stuck between Delaware, Singapore and Estonia for six weeks. CorpSec ran the numbers in two minutes — we incorporated and opened banking the same week.\"",
+    "name": "Marcus Chen",
+    "role": "Co-founder & CTO · Vaultly · Estonia"
+  },
+  "wide": {
+    "metric": "79",
+    "caption": "jurisdictions, one dashboard, one invoice",
+    "quote": "\"From entity selection to banking and accounting, every detail was handled by licensed local partners. We launched in three countries without ever leaving the dashboard.\"",
+    "name": "Sarah Lindqvist",
+    "role": "COO · Northwind Labs · Singapore"
+  },
+  "cycle1": {
+    "slide1": {
+      "quote": "\"Two entities, two countries, one dashboard. I stopped chasing filing deadlines across three providers.\"",
+      "name": "Tom Becker",
+      "role": "CEO · PulseCore · United Kingdom"
+    },
+    "slide2": {
+      "quote": "\"They flagged Singapore for our Asian customer base and banking. Set up in two days — banking the same week.\"",
+      "name": "Aisha Latif",
+      "role": "Founder · Mirego · Singapore"
+    },
+    "slide3": {
+      "quote": "\"The recommender saved us $12k versus the quote from local counsel — and it took two minutes.\"",
+      "name": "Diego Moreno",
+      "role": "Founder · Cobalt · Delaware"
+    }
+  },
+  "cycle2": {
+    "slide1": {
+      "quote": "\"CorpSec nailed our holding structure with a fast turnaround and real attention to the tax detail. The final setup felt bank-grade.\"",
+      "name": "Hannah Okonkwo",
+      "role": "CFO · Lumen · United Arab Emirates"
+    },
+    "slide2": {
+      "quote": "\"One account manager, one invoice, three jurisdictions. Renewals just happen now — I never think about them.\"",
+      "name": "Daniel Roth",
+      "role": "CEO · Ember & Co · Germany"
+    },
+    "slide3": {
+      "quote": "\"We needed a modern structure set up at startup speed. CorpSec delivered — incorporated and compliant in under a week.\"",
+      "name": "Priya Nair",
+      "role": "Founder · Northstar · Ireland"
+    }
+  },
+  "foot": {
+    "clients": "1,500+ founders trust CorpSec with their entities",
+    "ratingBasis": "Based on 1.5k reviews",
+    "viewAll": "View all reviews"
+  }
+}
