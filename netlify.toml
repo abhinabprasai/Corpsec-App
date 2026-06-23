@@ -1,0 +1,12 @@
+# Netlify build + SPA routing config for the CorpSec React app (Vite).
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Single-page-app fallback: serve index.html for every path so React Router
+# (and the legacy *.html → clean-route redirects) handle routing client-side.
+# Without this, deep links / refreshes / old .html URLs hit Netlify's 404.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
