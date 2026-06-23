@@ -5,6 +5,7 @@ export default function Nav() {
         <a className="wordmark" href="#top" aria-label="CorpSec home">Corp<span>/</span>Sec</a>
         <nav className="nav-links" aria-label="Primary">
           <a href="jurisdictions.html">Jurisdictions</a>
+          <a href="compare.html">Compare</a>
           <a href="about.html">About</a>
           <a href="contact.html">Contact</a>
         </nav>
@@ -19,6 +20,7 @@ export default function Nav() {
       </div>
       <div className="nav-drawer" id="drawer">
         <a href="jurisdictions.html">Jurisdictions</a>
+        <a href="compare.html">Compare</a>
         <a href="#pricing">Pricing</a>
         <a href="#how">How it works</a>
         <a href="about.html">About</a>

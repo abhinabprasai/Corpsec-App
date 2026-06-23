@@ -5,6 +5,7 @@ import { useIncorporation } from "@/components/incorporation/IncorporationProvid
 
 const LINKS = [
   { to: "/jurisdictions", label: "Jurisdictions" },
+  { to: "/compare", label: "Compare" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ]
