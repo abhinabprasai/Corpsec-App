@@ -1,0 +1,136 @@
+/* ============================================================
+   Premium interaction effects — layered on top of legacy.css.
+   Loaded AFTER legacy.css in main.tsx so these rules win on
+   equal specificity without editing the verbatim original CSS.
+   ============================================================ */
+
+/* ---- Huly.io-style button hover -------------------------------------------
+   The legacy `.btn::before` is a cursor-following radial *fill* glow. Huly's
+   signature is a gradient *border* that lights up brightest nearest the cursor.
+   We re-point `::before` to a masked 1.5px border ring fed by the same
+   --mx/--my the interactions.js pointer-glow already sets on hover, and add a
+   soft lift + a gentle ambient ring at rest for that premium, "alive" feel. */
+.btn::before {
+  z-index: 1;                 /* above the fill, only the 1.5px edge shows */
+  inset: 0;
+  padding: 1.5px;
+  background: radial-gradient(130px 130px at var(--mx, 50%) var(--my, 50%),
+    var(--laser), transparent 68%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+}
+.btn {
+  transition: background-color .2s var(--ease-soft), color .2s var(--ease-soft),
+    border-color .2s var(--ease-soft), box-shadow .28s var(--ease-soft),
+    transform .28s var(--spring);
+}
+.btn:hover { transform: translateY(-1.5px); }
+.btn:active { transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover { transform: none; }
+}
+
+/* ---- Branded full-screen preloader (lusion.co-inspired) -------------------
+   Dark space-zone gradient, the CorpSec wordmark in Mona Sans, a thin progress
+   line + monospace counter, then a curtain-wipe reveal. */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(125% 90% at 50% 8%, #0e1d44 0%, #070f28 42%, #04070f 100%);
+  transition: transform 1s cubic-bezier(.76, 0, .24, 1);
+  will-change: transform;
+}
+.preloader.is-done { transform: translateY(-100%); }
+.preloader[hidden] { display: none; }
+
+.preloader__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+  transition: opacity .5s var(--ease-soft), transform .6s var(--ease-soft);
+}
+.preloader.is-done .preloader__inner { opacity: 0; transform: translateY(-14px); }
+
+.preloader__word {
+  font-family: var(--font);
+  font-weight: 800;
+  font-size: clamp(40px, 7vw, 86px);
+  letter-spacing: -.035em;
+  line-height: 1;
+  color: #f4f8ff;
+  display: flex;
+  align-items: baseline;
+}
+.preloader__word span { color: var(--brand-400); margin: 0 .04em; }
+/* subtle reveal of the wordmark on enter */
+.preloader__word { animation: plWord .9s var(--ease-soft) both; }
+@keyframes plWord { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+.preloader__bar {
+  width: min(300px, 64vw);
+  height: 2px;
+  background: rgba(255, 255, 255, .12);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.preloader__bar i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--brand-400), var(--brand-300));
+  border-radius: 2px;
+  transition: width .25s var(--ease-soft);
+}
+.preloader__meta {
+  display: flex;
+  justify-content: space-between;
+  width: min(300px, 64vw);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #7e93b3;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader { transition: opacity .25s ease; }
+  .preloader.is-done { transform: none; opacity: 0; pointer-events: none; }
+  .preloader__word { animation: none; }
+}
+
+/* ---- Edge "margin" rails — light sections only -----------------------------
+   The original rails were global (body::before/::after, fixed full-height), so
+   they crossed dark bands too. Remove the global rails and draw them PER LIGHT
+   SECTION instead — a single ::after sized to the container's max-width box with
+   left/right borders = the two rails, spanning only that section's height. Dark
+   bands (.band-dark/.band-primary and the non-.section .hero/.juris2/.footer)
+   get none. Desktop-only: the rails live in the outer margin that exists above
+   the container width, so below 1280px they'd hug the edge — hidden there. */
+body::before,
+body::after { content: none !important; }
+
+@media (min-width: 1280px) {
+  .statband { position: relative; }
+  .section:not(.band-dark):not(.band-primary)::after,
+  .statband::after,
+  .page-hero::after,
+  .hub-hero::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(50% - var(--maxw) / 2);
+    right: calc(50% - var(--maxw) / 2);
+    border-left: 1px solid var(--n100);
+    border-right: 1px solid var(--n100);
+    pointer-events: none;
+    z-index: 0;
+  }
+}

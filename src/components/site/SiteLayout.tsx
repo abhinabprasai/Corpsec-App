@@ -1,0 +1,50 @@
+import { useEffect } from "react"
+import { Outlet, useLocation } from "react-router-dom"
+import { GabriellaProvider } from "@/components/gabriella/GabriellaProvider"
+import Nav from "@/components/site/Nav"
+import Footer from "@/components/site/Footer"
+import { useSiteEffects } from "@/lib/useSiteEffects"
+
+/** Reveal-on-scroll for `.reveal` elements (native React replacement for the
+ *  vanilla interactions.js observer). Re-runs per route. */
+function useReveal(key: string) {
+  useEffect(() => {
+    const els = Array.from(document.querySelectorAll<HTMLElement>(".reveal"))
+    if (!els.length) return
+    const reduce = window.matchMedia?.("(prefers-reduced-motion:reduce)").matches
+    if (reduce || !("IntersectionObserver" in window)) {
+      els.forEach((e) => e.classList.add("in"))
+      return
+    }
+    const io = new IntersectionObserver(
+      (ents) => ents.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target) }
+      }),
+      { threshold: 0.12, rootMargin: "-40px" }
+    )
+    els.forEach((e) => io.observe(e))
+    const t = window.setTimeout(() => {
+      document.querySelectorAll(".reveal:not(.in)").forEach((e) => e.classList.add("in"))
+    }, 1600)
+    return () => { io.disconnect(); window.clearTimeout(t) }
+  }, [key])
+}
+
+export default function SiteLayout() {
+  const { pathname } = useLocation()
+  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  useReveal(pathname)
+  // particle grain, card tilt, button laser glow, edge-rail fades — parity with the vanilla site
+  useSiteEffects(pathname)
+
+  return (
+    <GabriellaProvider>
+      <a className="skip-link" href="#content">Skip to content</a>
+      <Nav />
+      <main id="content" tabIndex={-1}>
+        <Outlet />
+      </main>
+      <Footer />
+    </GabriellaProvider>
+  )
+}

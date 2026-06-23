@@ -1,0 +1,159 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ============================================================
+   CorpSec — design tokens ported verbatim from the vanilla site.
+   Exact hex values preserved → zero rendering drift. Tailwind v4
+   utilities (bg-background, text-foreground, bg-primary, rounded-lg…)
+   are wired to these via the @theme inline block below.
+   ============================================================ */
+
+/* ---------- Mona Sans (variable, Fontsource CDN) ---------- */
+@font-face{
+  font-family:'Mona Sans';
+  font-style:normal;
+  font-display:swap;
+  font-weight:200 900;
+  src:url(https://cdn.jsdelivr.net/fontsource/fonts/mona-sans:vf@latest/latin-wght-normal.woff2) format('woff2-variations');
+}
+
+:root{
+  /* global subtle cursor parallax + tilt (set from scene loop) */
+  --parX:0px; --parY:0px; --tiltX:0deg; --tiltY:0deg;
+  /* brand — Stripe indigo/violet */
+  --brand-25:#f5f5ff; --brand-50:#e8e9ff; --brand-100:#d6d9fc; --brand-200:#b9b9f9;
+  --brand-300:#9a9afe; --brand-400:#7f7dfc; --brand-500:#665efd;
+  --brand:#533afd; --brand-700:#4032c8; --brand-800:#2e2b8c; --brand-900:#1c1e54;
+  /* neutrals — Stripe slate */
+  --n0:#ffffff; --n25:#f8fafd; --n50:#e5edf5; --n100:#d4dee9; --n200:#bac8da;
+  --n300:#95a4ba; --n400:#7d8ba4; --n500:#64748d; --n600:#50617a; --n700:#3c4f69;
+  --n800:#273951; --n900:#1a2c44; --n950:#11273e; --n990:#061b31;
+  /* accents (from Stripe palette) */
+  --cyan:#5b9bff; --cyan-soft:#c1ecf9; --green:#00b261; --green-soft:#7fd6a9;
+  --gold:#ffce6e; --magenta:#f44bcc;
+
+  /* semantic */
+  --ink:var(--foreground); --ink-soft:var(--n600); --ink-sub:var(--n500); --ink-quiet:var(--n400);
+  --bg:var(--background); --bg-sub:var(--muted); --border:var(--n50); --border-mid:var(--n100);
+  --primary:var(--brand); --primary-deep:var(--brand-700); --primary-tint:var(--brand-50);
+  --night:var(--n990); --night-2:var(--n950);
+
+  /* shadcn/ui token layer — semantic vocabulary mapped 1:1 onto the palette */
+  --background:var(--n0);
+  --foreground:var(--n990);
+  --card:var(--n0); --card-foreground:var(--n990);
+  --popover:var(--n0); --popover-foreground:var(--n990);
+  --primary-foreground:var(--n0);
+  --secondary:var(--n50); --secondary-foreground:var(--n700);
+  --muted:var(--n25); --muted-foreground:var(--n500);
+  --accent:var(--brand-50); --accent-foreground:var(--brand-700);
+  --destructive:#c0353a; --destructive-foreground:var(--n0);
+  --input:var(--n100);
+  --ring:var(--brand);
+
+  --font:'Mona Sans',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,sans-serif;
+  --font-mono:ui-monospace,'SF Mono','Roboto Mono',Menlo,Consolas,monospace;
+
+  /* radius — single knob drives the scale */
+  --radius:10px;
+  --r-xs:calc(var(--radius) - 6px); --r-sm:calc(var(--radius) - 4px); --r-md:var(--radius); --r-lg:calc(var(--radius) + 6px); --r-xl:calc(var(--radius) + 14px); --r-pill:999px;
+
+  /* shadows — blue-tinted, soft (Stripe) */
+  --sh-xs:0 1px 4px rgba(0,59,137,.05),0 2px 10px rgba(0,55,112,.06);
+  --sh-sm:0 2px 8px rgba(0,59,137,.05),0 5px 14px rgba(0,55,112,.08);
+  --sh-md:0 4px 10px rgba(0,59,137,.03),0 8px 24px rgba(0,55,112,.10);
+  --sh-lg:0 5px 20px -2px rgba(0,59,137,.05),0 16px 42px -4px rgba(0,55,112,.12);
+  --sh-xl:0 10px 60px -18px rgba(0,59,137,.08),0 24px 80px -16px rgba(0,55,112,.16);
+  --focus:0 0 0 4px rgba(83,58,253,.22);
+
+  --maxw:1200px;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --grad:linear-gradient(120deg,var(--brand-400),var(--brand) 55%,var(--brand-700));
+
+  /* Apple-style liquid glass + spring motion */
+  --spring:cubic-bezier(.34,1.42,.52,1);
+  --spring-bounce:cubic-bezier(.5,1.8,.4,.9);
+  --ease-soft:cubic-bezier(.22,1,.36,1);
+  --glass-blur:saturate(220%) blur(28px);
+  --glass-hi:inset 0 1px 0 rgba(255,255,255,.6),inset 0 -1px 1px rgba(255,255,255,.08);
+  --glass-dark:rgba(18,28,46,.55);
+  --glass-light:rgba(255,255,255,.84);
+
+  /* "space zone" palette (hero/globe/jurisdictions) — dark theme default */
+  --space-grad:radial-gradient(125% 90% at 50% 8%,#0e1d44 0%,#070f28 42%,#04070f 100%);
+  --space-ink:#e8eef9; --space-ink-strong:#f4f8ff; --space-ink-soft:#b1c2d9; --space-ink-quiet:#7e93b3;
+  --space-glass-bg:rgba(255,255,255,.06); --space-glass-bg-hover:rgba(255,255,255,.1);
+  --space-glass-border:rgba(255,255,255,.12); --space-glass-border-hover:rgba(140,170,255,.4);
+  --space-card-grad:linear-gradient(150deg,rgba(255,255,255,.1),rgba(255,255,255,.03));
+  --space-divider:rgba(255,255,255,.08);
+  --space-stars-op:.7;
+  --space-wordmark:#fff; --space-burger:#fff;
+}
+
+/* light theme: blue-tinted recoloring of the space zone only */
+[data-theme="light"]{
+  --space-grad:radial-gradient(125% 90% at 50% 8%,#dde8fb 0%,#eef3fb 42%,#f7faff 100%);
+  --space-ink:#1d2c44; --space-ink-strong:#0c1830; --space-ink-soft:#46597a; --space-ink-quiet:#54678c;
+  --space-glass-bg:rgba(30,60,140,.045); --space-glass-bg-hover:rgba(30,60,140,.08);
+  --space-glass-border:rgba(30,60,140,.12); --space-glass-border-hover:rgba(83,58,253,.35);
+  --space-card-grad:linear-gradient(150deg,rgba(60,100,200,.08),rgba(60,100,200,.02));
+  --space-divider:rgba(20,40,90,.08);
+  --space-stars-op:.3;
+  --space-wordmark:#16233a; --space-burger:#16233a;
+}
+
+/* ---------- Tailwind theme mapping (utilities → tokens) ---------- */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-brand: var(--brand);
+  --color-brand-50: var(--brand-50);
+  --color-brand-700: var(--brand-700);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-sub: var(--ink-sub);
+  --color-ink-quiet: var(--ink-quiet);
+
+  --font-sans: var(--font);
+  --font-mono: var(--font-mono);
+
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-xl: var(--r-xl);
+}
+
+/* ---------- base ---------- */
+@layer base {
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:var(--font);
+    color:var(--ink);
+    background:var(--bg);
+    font-weight:400;
+    font-size:17px;
+    line-height:1.55;
+    letter-spacing:-.011em;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+  :focus-visible{outline:2px solid var(--ring);outline-offset:2px;border-radius:6px}
+}
