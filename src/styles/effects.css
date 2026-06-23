@@ -156,9 +156,7 @@ body::after { content: none !important; }
 .lang-switch__caret { opacity: .55; transition: transform .2s var(--ease-soft); }
 .lang-switch__btn[aria-expanded="true"] .lang-switch__caret { transform: rotate(180deg); }
 .lang-switch__menu {
-  position: absolute;
-  top: calc(100% + 10px);
-  right: 0;
+  /* position/top/right set via inline style as position:fixed from the portal */
   min-width: 168px;
   margin: 0;
   padding: 6px;
