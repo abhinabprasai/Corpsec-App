@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import { Link, NavLink } from "react-router-dom"
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle } from "@/components/ui/sheet"
-import { useGabriella } from "@/components/gabriella/GabriellaProvider"
+import { useIncorporation } from "@/components/incorporation/IncorporationProvider"
 
 const LINKS = [
   { to: "/jurisdictions", label: "Jurisdictions" },
@@ -27,7 +27,7 @@ const DRAWER_LINKS = [
  * real shadcn Sheet styled to match the legacy `.nav-drawer` glass sheet.
  */
 export default function Nav() {
-  const { open } = useGabriella()
+  const { open } = useIncorporation()
   const headerRef = useRef<HTMLElement>(null)
 
   // glass-on-scroll (y>24) + collapse-on-scroll-down / expand-on-scroll-up,
@@ -59,9 +59,12 @@ export default function Nav() {
   return (
     <header className="nav" id="nav" ref={headerRef}>
       <div className="nav-inner">
-        <Link className="wordmark" to="/" aria-label="CorpSec home">
+        {/* full-load nav to home: the homepage runs the vanilla module bridge,
+            which only wires the DOM on a fresh document load — a client-side
+            <Link> would remount Home without re-initializing globe/dashboard/etc. */}
+        <a className="wordmark" href="/" aria-label="CorpSec home">
           Corp<span>/</span>Sec
-        </Link>
+        </a>
         <nav className="nav-links" aria-label="Primary">
           {LINKS.map((l) => (
             <NavLink key={l.to} to={l.to}>{l.label}</NavLink>

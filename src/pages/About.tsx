@@ -1,9 +1,11 @@
 import { useEffect } from "react"
 import { Link } from "react-router-dom"
 import { useGabriella } from "@/components/gabriella/GabriellaProvider"
+import { useIncorporation } from "@/components/incorporation/IncorporationProvider"
 
 export default function About() {
-  const { open } = useGabriella()
+  const { open: openGabriella } = useGabriella()
+  const { open: openIncorporation } = useIncorporation()
 
   useEffect(() => {
     document.body.className = "jx-page about-page"
@@ -21,7 +23,7 @@ export default function About() {
           <h1 className="page-hero__title">We made “where should I incorporate?” a two-minute question.</h1>
           <p className="page-hero__sub">CorpSec turns 79 jurisdictions and 30+ licensed local partners into one back office. You tell us where — or let our advisor tell you. We handle the formation, the address, the filings and the accounting. One dashboard. One invoice.</p>
           <div className="page-hero__cta">
-            <button type="button" onClick={() => open()} className="btn btn-primary btn-lg" data-slot="button" data-variant="default" data-size="lg">Start my company</button>
+            <button type="button" onClick={() => openIncorporation()} className="btn btn-primary btn-lg" data-slot="button" data-variant="default" data-size="lg">Start my company</button>
             <a className="btn btn-ghost btn-lg" href="#team" data-slot="button" data-variant="outline" data-size="lg">Meet the team</a>
           </div>
         </div>
@@ -151,7 +153,7 @@ export default function About() {
                 <span className="team-card__role">Incorporation Advisor</span>
                 <p className="team-card__bio">Not a person — our advisor. Eight questions, two minutes, a ranked shortlist with the reasoning spelled out. Recommends the fit, not the margin.</p>
                 <p className="team-card__fun">Doesn’t sleep, doesn’t upsell, and has strong, unsolicited opinions about Delaware.</p>
-                <button type="button" onClick={() => open()} className="team-card__link" data-cta="gabriella">Ask Gabriella <span aria-hidden="true">→</span></button>
+                <button type="button" onClick={() => openGabriella()} className="team-card__link" data-cta="gabriella">Ask Gabriella <span aria-hidden="true">→</span></button>
               </div>
             </article>
 
@@ -162,7 +164,7 @@ export default function About() {
       {/* ===== CTA ===== */}
       <section className="jx-cta2"><div className="container">
         <div className="jx-cta2__wrap reveal">
-          <h2 className="jx-cta2__line">Ready when you are. <button type="button" onClick={() => open()} className="jx-cta2__pill" data-cta="incorp">Start my company <span aria-hidden="true">→</span></button> or talk to a real human first.</h2>
+          <h2 className="jx-cta2__line">Ready when you are. <button type="button" onClick={() => openIncorporation()} className="jx-cta2__pill" data-cta="incorp">Start my company <span aria-hidden="true">→</span></button> or talk to a real human first.</h2>
           <p className="jx-cta2__sub">Formation, address, accounting — in 48h on average. <Link className="jx-cta2__link" to="/contact">Contact the team →</Link></p>
           <div className="jx-cta2__stats"><div><b>79</b><span>jurisdictions</span></div><div><b>48h</b><span>avg. to incorporate</span></div><div><b>500+</b><span>companies</span></div></div>
         </div>

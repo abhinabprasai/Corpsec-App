@@ -1,11 +1,36 @@
-import { useEffect, useMemo, useState, type CSSProperties } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
-import { JX_DATA, JX_BY_SLUG } from "@/data/jurisdictions"
+import { JX_DATA, JX_BY_SLUG, type Jurisdiction } from "@/data/jurisdictions"
 import { JURISDICTIONS_ALL } from "@/data/allJurisdictions"
 import { useGabriella } from "@/components/gabriella/GabriellaProvider"
 import { Input } from "@/components/ui/input"
 
 const flag = (iso: string) => `https://flagcdn.com/w40/${iso.toLowerCase()}.png`
+
+interface LabelValue {
+  label: string
+  value: string
+}
+
+/** metric(): read a memo/fiscal value by label regex — mirrors hub.js metric(). */
+function metric(j: Jurisdiction, re: RegExp): string {
+  const memo = (j.memo as LabelValue[] | undefined) || []
+  const m = memo.filter((x) => re.test(x.label))[0]
+  if (m) return m.value
+  const fiscal = (j.fiscal as LabelValue[] | undefined) || []
+  const f = fiscal.filter((x) => re.test(x.label))[0]
+  return f ? f.value : "—"
+}
+
+/** Long corporate-tax sentences → tidy bullet list (mirrors hub.js taxBullets). */
+function taxBullets(val: string): string[] | null {
+  const parts = String(val)
+    .split(/;\s*/)
+    .map((s) => s.trim())
+    .filter(Boolean)
+  if (parts.length < 2) return null
+  return parts
+}
 
 /** Mirrors the vanilla slugify so flagship rows resolve to their JX_BY_SLUG key. */
 function slugify(name: string): string {
@@ -145,6 +170,88 @@ export default function Jurisdictions() {
         </div>
       </section>
 
+      {/* ===== POPULAR (rich bento cards) ===== */}
+      <section className="section hub-pop" id="popular">
+        <div className="container">
+          <div className="section-head bento-head reveal">
+            <span className="eyebrow">Most chosen</span>
+            <h2 className="bento-headline">
+              <span className="lead">Where founders actually go.</span>{" "}
+              <span className="rest">
+                The jurisdictions we cover in depth — tax, setup and all-in cost up front.
+              </span>
+            </h2>
+          </div>
+          <div className="hub-pop__grid" id="jxPopular">
+            {JX_DATA.map((j) => {
+              const tax = metric(j, /corp/i)
+              const setup = metric(j, /setup|active|timing/i)
+              const bundle = j.bundle as { priceLabel?: string } | undefined
+              const price = (bundle && bundle.priceLabel) || "—"
+              const tags = ((j.bestForTags as string[] | undefined) || []).slice(0, 2)
+              const taxBul = taxBullets(tax)
+              return (
+                <Link
+                  key={j.slug}
+                  className="bento-card hub-card reveal"
+                  data-slot="card"
+                  to={`/jurisdiction/${j.slug}`}
+                >
+                  <div className="bento-card__border" />
+                  <div className="bento-card__border-glow" />
+                  <div className="bento-card__inner">
+                    <div className="hub-card__top">
+                      <span className="jx-flag-chip">
+                        <img src={flag(j.iso)} alt="" width={34} height={26} />
+                      </span>
+                      <div className="hub-card__id">
+                        <b>{j.name}</b>
+                        <small>{j.region || ""}</small>
+                      </div>
+                    </div>
+                    <dl className="hub-card__metrics">
+                      {taxBul ? (
+                        <div className="hub-card__metric--stack">
+                          <dt>Corp tax</dt>
+                          <ul className="jx-taxbul">
+                            {taxBul.map((p, i) => (
+                              <li key={i}>{p}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : (
+                        <div>
+                          <dt>Corp tax</dt>
+                          <dd>{tax}</dd>
+                        </div>
+                      )}
+                      <div className="hub-card__metric--stack">
+                        <dt>Setup</dt>
+                        <dd>{setup}</dd>
+                      </div>
+                      <div className="hub-card__metric--stack">
+                        <dt>From</dt>
+                        <dd>{price}</dd>
+                      </div>
+                    </dl>
+                    <div className="hub-card__tags">
+                      {tags.map((t) => (
+                        <span key={t} className="hub-card__tag">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                    <span className="hub-card__go">
+                      Explore {j.name} <span aria-hidden="true">→</span>
+                    </span>
+                  </div>
+                </Link>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* ===== ALL BY REGION ===== */}
       <section className="section band-tint hub-all" id="all">
         <div className="container">
@@ -176,62 +283,39 @@ export default function Jurisdictions() {
                   {regionName} <span className="hub-region__n">{list.length}</span>
                 </h3>
                 <div className="hub-region__grid">
-                  {list.map((j) =>
-                    j.rich ? (
-                      <Link
-                        key={j.slug + j.name}
-                        className="hub-mini"
-                        to={`/jurisdiction/${j.slug}`}
-                      >
-                        <span className="jx-flag-chip jx-flag-chip--sm">
-                          <img
-                            src={flag(j.iso)}
-                            alt=""
-                            width={24}
-                            height={18}
-                            loading="lazy"
-                          />
-                        </span>
-                        <span className="hub-mini__name">
-                          {j.name}{" "}
-                          <span
-                            className="hub-mini__dot"
-                            title="In-depth guide"
-                            aria-hidden="true"
-                          />
-                        </span>
-                        <span className="hub-mini__go" aria-hidden="true">
-                          →
-                        </span>
-                      </Link>
-                    ) : (
-                      <button
-                        key={j.slug + j.name}
-                        type="button"
-                        className="hub-mini"
-                        style={{ textAlign: "left" } as CSSProperties}
-                        onClick={() =>
-                          open(
-                            `I'm considering incorporating in ${j.name} (${j.region}). Is it a good fit for me?`,
-                          )
-                        }
-                      >
-                        <span className="jx-flag-chip jx-flag-chip--sm">
-                          <img
-                            src={flag(j.iso)}
-                            alt=""
-                            width={24}
-                            height={18}
-                            loading="lazy"
-                          />
-                        </span>
-                        <span className="hub-mini__name">{j.name}</span>
-                        <span className="hub-mini__go" aria-hidden="true">
-                          →
-                        </span>
-                      </button>
-                    ),
-                  )}
+                  {list.map((j) => (
+                    <Link
+                      key={j.slug + j.name}
+                      className="hub-mini"
+                      to={`/jurisdiction/${j.slug}`}
+                    >
+                      <span className="jx-flag-chip jx-flag-chip--sm">
+                        <img
+                          src={flag(j.iso)}
+                          alt=""
+                          width={24}
+                          height={18}
+                          loading="lazy"
+                        />
+                      </span>
+                      <span className="hub-mini__name">
+                        {j.name}
+                        {j.rich && (
+                          <>
+                            {" "}
+                            <span
+                              className="hub-mini__dot"
+                              title="In-depth guide"
+                              aria-hidden="true"
+                            />
+                          </>
+                        )}
+                      </span>
+                      <span className="hub-mini__go" aria-hidden="true">
+                        →
+                      </span>
+                    </Link>
+                  ))}
                 </div>
               </div>
             ))}
@@ -249,6 +333,95 @@ export default function Jurisdictions() {
               </button>
             </p>
           )}
+        </div>
+      </section>
+
+      {/* ===== SERVICES (merged) ===== */}
+      <section className="section hub-svc" id="services">
+        <div className="container">
+          <div className="section-head reveal">
+            <span className="eyebrow">What we handle — in every jurisdiction</span>
+            <h2>Incorporation is step one. We run the rest.</h2>
+            <p className="sub">
+              Every service below is delivered locally, in the jurisdiction you choose — as a full
+              bundle or à la carte on any country page.
+            </p>
+          </div>
+          <div className="hub-svc__grid reveal">
+            <article className="bento-card hub-svccard" data-slot="card">
+              <div className="bento-card__border" />
+              <div className="bento-card__border-glow" />
+              <div className="bento-card__inner">
+                <div className="hub-svccard__ic">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M4 7h16v13H4z" />
+                    <path d="M9 7V4h6v3" />
+                    <path d="m8.5 13 2.2 2.2L16 10.4" />
+                  </svg>
+                </div>
+                <h3>Form</h3>
+                <p>
+                  Incorporation, registered agent, share issuance, director appointments — filed
+                  with the local registry.
+                </p>
+              </div>
+            </article>
+            <article className="bento-card hub-svccard" data-slot="card">
+              <div className="bento-card__border" />
+              <div className="bento-card__border-glow" />
+              <div className="bento-card__inner">
+                <div className="hub-svccard__ic">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M12 2.5 4.5 5.5v5c0 4.7 3.2 8.4 7.5 10 4.3-1.6 7.5-5.3 7.5-10v-5L12 2.5Z" />
+                    <path d="m9 12 2 2 4-4" />
+                  </svg>
+                </div>
+                <h3>Operate</h3>
+                <p>
+                  Registered address, corporate secretary, annual returns, KYC and good-standing —
+                  kept current, every year.
+                </p>
+              </div>
+            </article>
+            <article className="bento-card hub-svccard" data-slot="card">
+              <div className="bento-card__border" />
+              <div className="bento-card__border-glow" />
+              <div className="bento-card__inner">
+                <div className="hub-svccard__ic">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M5 3h14a1 1 0 0 1 1 1v17l-3-2-2 2-3-2-3 2-2-2-3 2V4a1 1 0 0 1 1-1Z" />
+                    <path d="M8.5 8h7M8.5 12h7M8.5 16h4" />
+                  </svg>
+                </div>
+                <h3>Run</h3>
+                <p>
+                  Bookkeeping, tax filing, payroll, VAT/GST and banking introductions — certified
+                  accountants in your jurisdiction.
+                </p>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
 

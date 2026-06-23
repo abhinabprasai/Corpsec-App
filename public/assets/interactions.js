@@ -259,7 +259,7 @@
     initGlow: initGlow,
     initTilt: initTilt,
     initParallax: initParallax,
-    refresh: function (root) { initTilt(root); initReveal(); }
+    refresh: function (root) { initTilt(root); initReveal(); initCounters(); }
   };
 
   /* ── rolling headline (#heroRoll): cycles the highlighted phrase ──────────

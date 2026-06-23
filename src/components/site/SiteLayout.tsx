@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { Outlet, useLocation } from "react-router-dom"
 import { GabriellaProvider } from "@/components/gabriella/GabriellaProvider"
+import { IncorporationProvider } from "@/components/incorporation/IncorporationProvider"
 import Nav from "@/components/site/Nav"
 import Footer from "@/components/site/Footer"
 import { useSiteEffects } from "@/lib/useSiteEffects"
@@ -39,12 +40,14 @@ export default function SiteLayout() {
 
   return (
     <GabriellaProvider>
-      <a className="skip-link" href="#content">Skip to content</a>
-      <Nav />
-      <main id="content" tabIndex={-1}>
-        <Outlet />
-      </main>
-      <Footer />
+      <IncorporationProvider>
+        <a className="skip-link" href="#content">Skip to content</a>
+        <Nav />
+        <main id="content" tabIndex={-1}>
+          <Outlet />
+        </main>
+        <Footer />
+      </IncorporationProvider>
     </GabriellaProvider>
   )
 }

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
 import { useForm, Controller } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
@@ -143,7 +142,7 @@ export default function Contact() {
   const errorCount = Object.keys(errors).length
 
   return (
-    <main id="contact" className="contact-main" tabIndex={-1}>
+    <div id="contact" className="contact-main">
       <style>{SCOPED_CSS}</style>
 
       {/* ===== HERO ===== */}
@@ -477,7 +476,7 @@ export default function Contact() {
                   </form>
                 </>
               ) : (
-                <div className="cf-success" tabIndex={-1}>
+                <div className="cf-success" tabIndex={-1} ref={(el) => el?.focus()}>
                   <span className="cf-success__ic" aria-hidden="true">
                     <svg
                       viewBox="0 0 24 24"
@@ -496,14 +495,14 @@ export default function Contact() {
                     business day. Usually sooner.
                   </p>
                   <div className="cf-success__cta">
-                    <Link
+                    <a
                       className="btn btn-ghost"
-                      to="/"
+                      href="/"
                       data-slot="button"
                       data-variant="outline"
                     >
                       Back to home
-                    </Link>
+                    </a>
                     <button
                       type="button"
                       className="btn btn-primary"
@@ -569,6 +568,6 @@ export default function Contact() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   )
 }

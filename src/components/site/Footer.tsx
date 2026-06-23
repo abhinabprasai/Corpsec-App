@@ -24,7 +24,7 @@ export default function Footer() {
       {/* top: brand + newsletter */}
       <div className="container foot-top">
         <div className="foot-brand">
-          <Link className="wordmark on-dark" to="/">Corp<span>/</span>Sec</Link>
+          <a className="wordmark on-dark" href="/">Corp<span>/</span>Sec</a>
           <p>Your company, anywhere it matters.</p>
           <span className="foot-brand__trust">500+ companies incorporated across 79 jurisdictions.</span>
           <button className="foot-gab" type="button" onClick={() => open()}>

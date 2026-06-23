@@ -2,6 +2,7 @@ import { useEffect, useState, type CSSProperties } from "react"
 import { useParams, Link } from "react-router-dom"
 import { useGabriella } from "@/components/gabriella/GabriellaProvider"
 import { JX_BY_SLUG, type Jurisdiction } from "@/data/jurisdictions"
+import { JURISDICTIONS_ALL } from "@/data/allJurisdictions"
 
 /* ── Shapes for the rich fields that live under Jurisdiction's `[k:string]: unknown`
    index signature. Read off the data object at runtime; typed locally for safety. */
@@ -20,6 +21,40 @@ const pad = (n: number) => (n < 10 ? `0${n}` : `${n}`)
 const firstNum = (s: string) => {
   const m = String(s).replace(/,/g, "").match(/(\d{2,})/)
   return m ? +m[1] : 0
+}
+
+/** Mirrors the slugify in Jurisdictions.tsx so a directory name resolves to the
+   same slug used for routing (split on "," / "(", first segment, dashed). */
+function slugify(name: string): string {
+  return name
+    .split(/[,(]/)[0]
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+}
+
+/** Shape for a known-but-not-yet-rich jurisdiction looked up from JURISDICTIONS_ALL. */
+type KnownJx = { name: string; iso: string; region: string }
+
+/** Resolve a slug to a directory entry (name/iso/region) when it isn't a rich one. */
+function findKnown(slug: string): KnownJx | undefined {
+  const row = JURISDICTIONS_ALL.find(([name]) => slugify(name) === slug)
+  return row ? { name: row[0], iso: row[1], region: row[2] } : undefined
+}
+
+/** Set the description meta tag, creating it if absent; returns the previous value
+   (or null) so the caller can restore it on unmount. */
+function setMetaDescription(val: string): string | null {
+  let m = document.querySelector('meta[name="description"]')
+  if (!m) {
+    m = document.createElement("meta")
+    m.setAttribute("name", "description")
+    document.head.appendChild(m)
+  }
+  const prev = m.getAttribute("content")
+  m.setAttribute("content", val)
+  return prev
 }
 
 /* Pull a headline metric from memo[] (then fiscal[]) by label regex. */
@@ -152,19 +187,88 @@ export default function JurisdictionDetail() {
   const { slug } = useParams<{ slug: string }>()
   const { open } = useGabriella()
   const d = slug ? JX_BY_SLUG[slug] : undefined
+  // Not rich, but a known directory entry → branded "soon" landing.
+  const known = !d && slug ? findKnown(slug) : undefined
 
   useEffect(() => {
     document.body.className = "jx-page"
+
+    // SEO: title + description, restored on unmount.
+    const prevTitle = document.title
+    let prevDesc: string | null = null
+    if (d) {
+      const metaTitle = d.metaTitle as string | undefined
+      const metaDescription = d.metaDescription as string | undefined
+      if (metaTitle) document.title = metaTitle
+      if (metaDescription) prevDesc = setMetaDescription(metaDescription)
+    } else if (known) {
+      document.title = `Incorporate in ${known.name} — CorpSec`
+      prevDesc = setMetaDescription(
+        `Incorporate in ${known.name} with CorpSec — a licensed local partner coordinates company formation, registered address and accounting. Talk to a specialist about tax, banking and timeline today.`,
+      )
+    }
+
     return () => {
       document.body.className = ""
+      document.title = prevTitle
+      if (prevDesc !== null) setMetaDescription(prevDesc)
     }
-  }, [])
+  }, [d, known])
 
   // Detail tabs (Fiscal / Legal) — real React state, replacing the vanilla wireTabs.
   const [tab, setTab] = useState<"fiscal" | "legal">("fiscal")
   // À-la-carte selection — replaces the vanilla cart wiring.
   const [picked, setPicked] = useState<Record<string, number>>({})
 
+  // Known jurisdiction whose in-depth guide isn't written yet → branded landing.
+  if (!d && known) {
+    return (
+      <section className="section jx-empty">
+        <div className="container center">
+          <Link
+            className="jx-back"
+            to="/jurisdictions"
+            style={{ justifyContent: "center", marginBottom: "18px" } as CSSProperties}
+          >
+            <span aria-hidden="true">←</span> All jurisdictions
+          </Link>
+          {known.iso && (
+            <span
+              className="jx-flag-chip jx-flag-chip--xl"
+              style={{ margin: "0 auto 18px", display: "inline-flex" } as CSSProperties}
+            >
+              <img src={flag(known.iso)} alt={`${known.name} flag`} width={52} height={39} />
+            </span>
+          )}
+          <span className="eyebrow">{known.region || "Jurisdiction"}</span>
+          <h1 className="display" style={{ fontSize: "clamp(28px,5vw,44px)" }}>
+            Incorporate in {known.name}.
+          </h1>
+          <p className="sub" style={{ maxWidth: "54ch", margin: "14px auto 26px" }}>
+            We coordinate incorporation, registered address and accounting in {known.name} through a
+            licensed local partner. The full in-depth guide is in progress — a specialist can walk you
+            through tax, banking and timeline today.
+          </p>
+          <div className="hero-cta center-cta" style={{ justifyContent: "center" }}>
+            <button
+              type="button"
+              className="btn btn-primary"
+              data-slot="button"
+              data-variant="default"
+              onClick={() => open(`I'd like to talk to a specialist about incorporating in ${known.name}.`)}
+            >
+              Talk to a {known.name} specialist
+            </button>
+            <Link className="btn btn-ghost" to="/jurisdictions" data-slot="button" data-variant="outline">
+              Browse all 79
+            </Link>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  // Truly-unknown slug → generic fallback.
   if (!d) {
     return (
       <section className="section jx-empty">
