@@ -4,6 +4,14 @@
    equal specificity without editing the verbatim original CSS.
    ============================================================ */
 
+/* ---- Lenis smooth scroll ---------------------------------------------------
+   Lenis owns scroll smoothing (JS). The legacy `html{scroll-behavior:smooth}`
+   would fight it (native CSS smooth + JS smooth = jank), and lenis@1.3 no longer
+   ships the scroll-behavior reset itself — so disable native smooth whenever
+   Lenis is mounted (html.lenis). Under reduced-motion Lenis isn't mounted, so the
+   legacy smooth behavior is preserved. */
+html.lenis { scroll-behavior: auto !important; }
+
 /* ---- Huly.io-style button hover -------------------------------------------
    The legacy `.btn::before` is a cursor-following radial *fill* glow. Huly's
    signature is a gradient *border* that lights up brightest nearest the cursor.

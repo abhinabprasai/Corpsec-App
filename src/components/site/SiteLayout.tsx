@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { Outlet, useLocation } from "react-router-dom"
+import { useLenis } from "lenis/react"
 import { GabriellaProvider } from "@/components/gabriella/GabriellaProvider"
 import { IncorporationProvider } from "@/components/incorporation/IncorporationProvider"
 import Nav from "@/components/site/Nav"
@@ -33,7 +34,12 @@ function useReveal(key: string) {
 
 export default function SiteLayout() {
   const { pathname } = useLocation()
-  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  const lenis = useLenis()
+  // jump to top on route change (instant — Lenis-aware so it doesn't fight the smooth scroll)
+  useEffect(() => {
+    if (lenis) lenis.scrollTo(0, { immediate: true })
+    else window.scrollTo(0, 0)
+  }, [pathname, lenis])
   useReveal(pathname)
   // particle grain, card tilt, button laser glow, edge-rail fades — parity with the vanilla site
   useSiteEffects(pathname)
